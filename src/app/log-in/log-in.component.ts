@@ -7,7 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./log-in.component.css']
 })
 export class LogInComponent implements OnInit {
-  Titulo: string = "Inicio de Sesión";
+  Titulo: string = "Log in";
   loginForm!: FormGroup;
 
   constructor(private readonly fb: FormBuilder){}

@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LogInComponent } from './log-in/log-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PassResetComponent } from './pass-reset/pass-reset.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PassResetComponent } from './pass-reset/pass-reset.component';
     NavbarComponent,
     PageNotFoundComponent,
     LogInComponent,
-    PassResetComponent
+    PassResetComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
