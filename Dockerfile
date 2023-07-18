@@ -11,6 +11,7 @@ RUN npm install -g @angular/cli@13
 COPY package*.json ./
 RUN npm ci
 
+# Expose the app in the port 4200
 EXPOSE 4200
 
 COPY . .
