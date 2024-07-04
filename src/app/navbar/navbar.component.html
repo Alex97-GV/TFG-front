@@ -1,35 +1,74 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <!-- Navbar brand -->
-  <a class="navbar-brand px-2" routerLink="/home">
-    Home
-  </a>
+  <div class="container">
+    <!-- Navbar brand -->
+    <a class="navbar-brand" routerLink="/home">
+      Home
+    </a>
+    <!-- Toggle button -->
+    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarButtonsExample"
+      aria-controls="navbarButtonsExample" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <!-- Toggle button -->
-  <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarButtonsExample"
-    aria-controls="navbarButtonsExample" aria-expanded="false" aria-label="Toggle navigation">
-    <i class="fas fa-bars"></i>
-  </button>
+    <!-- Buscador -->
+    <!-- <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form> -->
 
-  <!-- Collapsible wrapper -->
-  <div class="collapse navbar-collapse" id="navbarButtonsExample">
-    <!-- Left links -->
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-    </ul>
-    <!-- Left links -->
 
-    <div class="d-flex align-items-center">
-      <button type="button" class="btn btn-primary px-3 me-2" routerLink="/login">
-        Login
-      </button>
-      <button type="button" class="btn btn-primary me-3" routerLink="/signup">
-        Sign up
-      </button>
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarButtonsExample">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link3</a>
+        </li>
+      </ul>
+
+      <!-- right links -->
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <!-- ngIf sesion = false-->
+        <li class="nav-item">
+          <button type="button" class="btn btn-primary px-3 me-2" routerLink="/login">
+            Login
+          </button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="btn btn-primary me-3" routerLink="/signup">
+            Sign up
+          </button>
+        </li>
+
+
+        <!-- ngIf sesion = true -->
+        <li class="nav-item dropdown">
+          <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Yo
+            </a>
+
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/perfil">Ver perfil</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Ajustes y privacidad</a></li>
+              <li><a class="dropdown-item" href="#">Ayuda</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
     </div>
+    <!-- Collapsible wrapper -->
   </div>
-  <!-- Collapsible wrapper -->
 </nav>
 <!-- Navbar -->

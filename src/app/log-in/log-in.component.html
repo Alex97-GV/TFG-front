@@ -1,84 +1,49 @@
-<div class="container h-100 mt-5">
 
-    <h1 class="mb-5 text-uppercase text-center">{{Titulo}}</h1> <!-- Titulo de la vista -->
-    <div class="row">
-        <div class="col-3"></div>
-        <div class="col-6">
-            <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-                <div class="mb-3">
-                    <h5>
-                        <label for="email" class="form-label">Correo</label>
-                    </h5>
-                    <input type="email" class="form-control" id="email" aria-describedby="ayudaEmail"
-                        placeholder="ejemplo@email.com" formControlName="email">
-                    <div id="ayudaEmail" class="form-text mb-3">Tus datos no serán compartidos.</div>
-                </div>
-                <div class="mb-5">
-                    <h5>
-                        <label for="password" class="form-label">Contraseña</label>
-                    </h5>
-                    <input type="password" class="form-control" id="password" placeholder="Introducir contraseña..."
-                        aria-describedby="ayudaPass" formControlName="password">
-                    <div id="ayudaPass" class="form-text">La contraseña debe tener al menos 8 caracteres</div>
-                </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="remindme" formControlName="remindme">
-                    <label class="form-check-label" for="remindme">Recordarme</label>
-                </div>
-                <div class="row mt-5">
+<section class="vh-100" style="background-color:hsl(0, 0%, 87%);">
+    <div class="container d-flex justify-content-center align-items-center py-5">
+        <div class="card shadow p-3 mb-5 rounded" style="width: 50rem; border-radius: 1rem;">
+            <div class="card-body">
+                <h1 class="mb-5 text-uppercase text-center">{{Titulo}}</h1> <!-- Titulo de la vista -->
+                <div class="row">
+                    <div class="col-3"></div>
                     <div class="col-6">
-                        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Siguiente</button>
+                        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+                            <div class="mb-3">
+                                <h5>
+                                    <label for="email" class="form-label text-primary">Correo</label>
+                                </h5>
+                                <input type="email" class="form-control" id="email" aria-describedby="ayudaEmail"
+                                    placeholder="ejemplo@email.com" formControlName="email">
+                                <div id="ayudaEmail" class="form-text mb-3">Tus datos no serán compartidos.</div>
+                            </div>
+                            <div class="mb-3">
+                                <h5>
+                                    <label for="password" class="form-label text-primary">Contraseña</label>
+                                </h5>
+                                <input type="password" class="form-control" id="password" placeholder="Introducir contraseña..."
+                                    aria-describedby="ayudaPass" formControlName="password">
+                                <div id="ayudaPass" class="form-text">La contraseña debe tener al menos 8 caracteres</div>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="remindme" formControlName="remindme">
+                                <label class="form-check-label" for="remindme">Recordarme</label>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Siguiente</button>
+                                </div>
+                                <div class="col-6 d-flex flex-row-reverse">
+                                    <button class="btn btn-light" routerLink="/pass-reset">¿Olvidaste tu contraseña?</button>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <p>¿No tienes cuenta? Registrate <a id="signupLink" routerLink="/signup">aquí</a></p>
+                            </div>
+                        </form>
                     </div>
-                    <div class="col-6 d-flex flex-row-reverse">
-                        <button class="btn btn-light" routerLink="/pass-reset">¿Olvidaste tu contraseña?</button>
-                    </div>
+                    <div class="col-3"></div>
                 </div>
-            </form>
-        </div>
-        <div class="col-3"></div>
-    </div>
-</div>
-
-
-<!-- <section class="vh-100" style="background-color: #eee;">
-    <div class="container mt-5">
-        <h1 class="mb-5 h1 fw-bold text-center">{{Titulo}}</h1> <!-- Titulo de la vista
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6">
-                <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-                    <div class="mb-3">
-                        <h5>
-                            <label for="email" class="form-label">Correo</label>
-                        </h5>
-                        <input type="email" class="form-control" id="email" aria-describedby="ayudaEmail"
-                            placeholder="ejemplo@email.com" formControlName="email">
-                        <div id="ayudaEmail" class="form-text mb-3">Tus datos no serán compartidos.</div>
-                    </div>
-                    <div class="mb-5">
-                        <h5>
-                            <label for="password" class="form-label">Contraseña</label>
-                        </h5>
-                        <input type="password" class="form-control" id="password" placeholder="Introducir contraseña..."
-                            aria-describedby="ayudaPass" formControlName="password">
-                        <div id="ayudaPass" class="form-text">La contraseña debe tener al menos 8 caracteres</div>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="remindme" formControlName="remindme">
-                        <label class="form-check-label" for="remindme">Recordarme</label>
-                    </div>
-                    <div class="row mt-5">
-                        <div class="col-6">
-                            <button type="submit" class="btn btn-primary"
-                                [disabled]="loginForm.invalid">Siguiente</button>
-                        </div>
-                        <div class="col-6 d-flex flex-row-reverse">
-                            <button class="btn btn-light" routerLink="/pass-reset">¿Olvidaste tu contraseña?</button>
-                        </div>
-                    </div>
-                </form>
             </div>
-            <div class="col-3"></div>
         </div>
     </div>
-</section> -->
+</section>

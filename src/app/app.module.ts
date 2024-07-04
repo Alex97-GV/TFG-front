@@ -10,6 +10,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PassResetComponent } from './pass-reset/pass-reset.component';
 import { SignupComponent } from './signup/signup.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SignupComponent } from './signup/signup.component';
     PageNotFoundComponent,
     LogInComponent,
     PassResetComponent,
-    SignupComponent
+    SignupComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
