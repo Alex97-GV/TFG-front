@@ -11,6 +11,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PassResetComponent } from './pass-reset/pass-reset.component';
 import { SignupComponent } from './signup/signup.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ToUserMapperService } from './mappers/to-user.mapper';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -21,14 +24,15 @@ import { PerfilComponent } from './perfil/perfil.component';
     LogInComponent,
     PassResetComponent,
     SignupComponent,
-    PerfilComponent
+    PerfilComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
+    AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ToUserMapperService, UserService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -5,13 +5,13 @@
             <div class="row">
                 <div class="col-3"></div>
                 <div class="col-6">
-                    <form (ngSubmit)="onSubmit()" [formGroup]="signupForm">
+                    <form (ngSubmit)="onSubmit()" [formGroup]="form">
                         <div class="mb-3">
                             <h5>
                                 <label for="Nombre" class="form-label text-primary">Nombre</label>
                             </h5>
                             <input type="text" class="form-control" id="Nombre" aria-describedby="ayudaNombre"
-                                placeholder="Nombre y Apellido" formControlName="nombre">
+                                placeholder="Nombre y Apellido" formControlName="user">
                             <div id="ayudaNombre" class="form-text mb-3">Introduce al menos un nombre y un apellido.
                             </div>
                         </div>
@@ -20,7 +20,7 @@
                                 <label for="correo" class="form-label text-primary">Correo</label>
                             </h5>
                             <input type="email" class="form-control" id="correo" aria-describedby="ayudaCorreo"
-                                placeholder="ejemplo@email.com" formControlName="correo">
+                                placeholder="ejemplo@email.com" formControlName="mail">
                             <div id="ayudaCorreo" class="form-text mb-3">Tus datos no serán compartidos.</div>
                         </div>
                         <div class="mb-3">
@@ -29,7 +29,9 @@
                             </h5>
                             <input type="password" class="form-control" id="pass" aria-describedby="ayudaPass"
                                 placeholder="Introducir contraseña..." formControlName="pass">
-                            <div id="ayudaPass" class="form-text mb-3">La contraseña debe tener al menos 8 caracteres.
+                            <div id="ayudaPass" class="form-text text-danger mb-3" *ngIf="validPass == false">La
+                                contraseña debe tener al menos 8
+                                caracteres.
                             </div>
                         </div>
                         <div class="mb-4">
@@ -37,8 +39,11 @@
                                 <label for="repPass" class="form-label text-primary">Repetir contraseña</label>
                             </h5>
                             <input type="password" class="form-control" id="repPass" aria-describedby="ayudarRepPass"
-                                placeholder="Repetir contraseña..." formControlName="repPass" (blur)="checkRepPass()">
-                            <div id="ayudarRepPass" class="form-text mb-3">La contraseña debe coincidir con la
+                                placeholder="Repetir contraseña..." formControlName="repPass">
+                            <div id="ayudarRepPass" class="form-text text-danger mb-3" *ngIf="samePass == false">La
+                                contraseña
+                                debe
+                                coincidir con la
                                 anteriormente introducida.</div>
                         </div>
                         <div class="mb-3 form-check">
@@ -50,7 +55,7 @@
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary btn-lg"
-                                [disabled]="signupForm.invalid">Registrarse</button>
+                                [disabled]="form.invalid">Registrarse</button>
                         </div>
                         <div>
                             <p class="text-center text-muted mt-5 mb-0">¿Ya tienes una cuenta? <a routerLink="/login"
