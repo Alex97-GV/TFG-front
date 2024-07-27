@@ -1,4 +1,3 @@
-
 <section class="vh-100" style="background-color:hsl(0, 0%, 87%);">
     <div class="container d-flex justify-content-center align-items-center py-5">
         <div class="card shadow p-3 mb-5 rounded" style="width: 50rem; border-radius: 1rem;">
@@ -7,7 +6,7 @@
                 <div class="row">
                     <div class="col-3"></div>
                     <div class="col-6">
-                        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+                        <form (ngSubmit)="onSubmit()" [formGroup]="form">
                             <div class="mb-3">
                                 <h5>
                                     <label for="email" class="form-label text-primary">Correo</label>
@@ -20,24 +19,25 @@
                                 <h5>
                                     <label for="password" class="form-label text-primary">Contraseña</label>
                                 </h5>
-                                <input type="password" class="form-control" id="password" placeholder="Introducir contraseña..."
-                                    aria-describedby="ayudaPass" formControlName="password">
-                                <div id="ayudaPass" class="form-text">La contraseña debe tener al menos 8 caracteres</div>
-                            </div>
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="remindme" formControlName="remindme">
-                                <label class="form-check-label" for="remindme">Recordarme</label>
-                            </div>
-                            <div class="row mt-5">
-                                <div class="col-6">
-                                    <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Siguiente</button>
-                                </div>
-                                <div class="col-6 d-flex flex-row-reverse">
-                                    <button class="btn btn-light" routerLink="/pass-reset">¿Olvidaste tu contraseña?</button>
+                                <input type="password" class="form-control" id="password"
+                                    placeholder="Introducir contraseña..." aria-describedby="ayudaPass"
+                                    formControlName="password">
+                                <div id="ayudaPass" class="form-text">La contraseña debe tener al menos 8 caracteres
                                 </div>
                             </div>
                             <div class="row mt-5">
-                                <p>¿No tienes cuenta? Registrate <a id="signupLink" routerLink="/signup">aquí</a></p>
+                                <div class="col-4">
+                                    <button type="submit" class="btn btn-primary"
+                                        [disabled]="form.invalid">Siguiente</button>
+                                </div>
+                                <div class="col d-flex flex-row-reverse text-center">
+                                    <p>¿No tienes cuenta? Registrate <a id="signupLink" routerLink="/signup">aquí</a>
+                                    </p>
+                                    <!-- <button class="btn btn-light" routerLink="/pass-reset">¿Olvidaste tu
+                                        contraseña?</button> -->
+                                </div>
+                            </div>
+                            <div class="row mt-5">
                             </div>
                         </form>
                     </div>

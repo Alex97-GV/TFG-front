@@ -11,12 +11,6 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Buscador -->
-    <!-- <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form> -->
-
 
     <!-- Collapsible wrapper -->
     <div class="collapse navbar-collapse" id="navbarButtonsExample">
@@ -33,20 +27,14 @@
         </li>
       </ul>
 
+      <form (ngSubmit)="onSubmit()" class="mx-5 input-group" [formGroup]="form">
+        <input class="form-control me-2" type="search" placeholder="Buscar en la app" aria-label="Search"
+          formControlName="key">
+        <button class="btn btn-primary" type="submit">Buscar</button>
+      </form>
+
       <!-- right links -->
       <ul class="navbar-nav mb-2 mb-lg-0">
-        <!-- ngIf sesion = false-->
-        <li class="nav-item">
-          <button type="button" class="btn btn-primary px-3 me-2" routerLink="/login">
-            Login
-          </button>
-        </li>
-        <li class="nav-item">
-          <button type="button" class="btn btn-primary me-3" routerLink="/signup">
-            Sign up
-          </button>
-        </li>
-
 
         <!-- ngIf sesion = true -->
         <li class="nav-item dropdown">
@@ -58,11 +46,15 @@
 
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" routerLink="/perfil">Ver perfil</a></li>
-              <li><hr class="dropdown-divider"></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
               <li><a class="dropdown-item" href="#">Ajustes y privacidad</a></li>
               <li><a class="dropdown-item" href="#">Ayuda</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" (click)="logOut()">Cerrar sesión</a></li>
             </ul>
           </div>
         </li>

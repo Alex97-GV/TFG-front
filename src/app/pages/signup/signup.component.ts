@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject, filter, takeUntil, tap } from 'rxjs';
-import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { Subject, filter, takeUntil } from 'rxjs';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -34,15 +34,11 @@ export class SignupComponent implements OnInit, OnDestroy {
       mail: ['', Validators.required],
       pass: ['', [Validators.required, Validators.minLength(8)]],
       repPass: ['', [Validators.required]],
-      agree: [false, Validators.required],
+      agree: [null, Validators.required],
     });
   }
 
   setSubscriptions(): void {
-    this.form.valueChanges.subscribe((val) => {
-      debugger;
-    });
-
     this.form
       .get('pass')
       ?.valueChanges.pipe(
@@ -61,8 +57,15 @@ export class SignupComponent implements OnInit, OnDestroy {
         filter((value) => !!value),
         takeUntil(this.componentDestroyed$)
       )
-      .subscribe((value) => {
+      .subscribe(() => {
         setTimeout(() => this.checkRepPass(), 1000);
+      });
+
+    this.form
+      .get('agree')
+      ?.valueChanges.pipe(takeUntil(this.componentDestroyed$))
+      .subscribe((val) => {
+        if (!val) this.form.get('agree')?.setValue(null, { emitEvent: false });
       });
   }
 
@@ -85,8 +88,9 @@ export class SignupComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     if (this.form.valid) {
       this.userService.signUp(this.form.value).subscribe({
-        next: () => {
+        next: (res) => {
           //guardar usuario en memoria para la navegación
+          sessionStorage.setItem('user', JSON.stringify(res));
           debugger;
           this.router.navigate(['/home']);
         },
@@ -95,6 +99,12 @@ export class SignupComponent implements OnInit, OnDestroy {
         },
       });
     }
+  }
+
+  checkDisable(): boolean {
+    return (
+      this.form.invalid || this.samePass == false || this.validPass == false
+    );
   }
 
   ngOnDestroy(): void {

@@ -3,17 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LogInComponent } from './log-in/log-in.component';
+import { HomeComponent } from './pages/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { LogInComponent } from './pages/log-in/log-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PassResetComponent } from './pass-reset/pass-reset.component';
-import { SignupComponent } from './signup/signup.component';
-import { PerfilComponent } from './perfil/perfil.component';
+import { PassResetComponent } from './pages/pass-reset/pass-reset.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToUserMapperService } from './mappers/to-user.mapper';
 import { UserService } from './services/user.service';
+import { ToDataMapperService } from './mappers/to-data.mapper';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { UserService } from './services/user.service';
     PassResetComponent,
     SignupComponent,
     PerfilComponent,
+    SearchPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,7 @@ import { UserService } from './services/user.service';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [ToUserMapperService, UserService],
+  providers: [ToUserMapperService, ToDataMapperService, UserService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
