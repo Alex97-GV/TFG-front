@@ -21,7 +21,12 @@
                             </h5>
                             <input type="email" class="form-control" id="correo" aria-describedby="ayudaCorreo"
                                 placeholder="ejemplo@email.com" formControlName="mail">
-                            <div id="ayudaCorreo" class="form-text mb-3">Tus datos no serán compartidos.</div>
+                            <div class="form-text">Tus datos no serán compartidos.</div>
+                            <div id="ayudaCorreo" class="form-text text-danger my-2"
+                                *ngIf="form.controls?.['mail']?.errors?.['email'] && form.controls?.['mail']?.touched">
+                                Formato de
+                                correo no válido
+                            </div>
                         </div>
                         <div class="mb-3">
                             <h5>
@@ -29,7 +34,8 @@
                             </h5>
                             <input type="password" class="form-control" id="pass" aria-describedby="ayudaPass"
                                 placeholder="Introducir contraseña..." formControlName="pass">
-                            <div id="ayudaPass" class="form-text text-danger mb-3" *ngIf="validPass == false">La
+                            <div id="ayudaPass" class="form-text text-danger mb-3"
+                                *ngIf="form.controls?.['pass']?.errors && form.controls?.['pass']?.touched">La
                                 contraseña debe tener al menos 8
                                 caracteres.
                             </div>
@@ -40,7 +46,8 @@
                             </h5>
                             <input type="password" class="form-control" id="repPass" aria-describedby="ayudarRepPass"
                                 placeholder="Repetir contraseña..." formControlName="repPass">
-                            <div id="ayudarRepPass" class="form-text text-danger mb-3" *ngIf="samePass == false">La
+                            <div id="ayudarRepPass" class="form-text text-danger mb-3"
+                                *ngIf="form.errors?.['mismatch'] && form.controls?.['repPass']?.touched">La
                                 contraseña
                                 debe
                                 coincidir con la
@@ -55,7 +62,7 @@
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary btn-lg"
-                                [disabled]="checkDisable()">Registrarse</button>
+                                [disabled]="form.invalid">Registrarse</button>
                         </div>
                         <div>
                             <p class="text-center text-muted mt-5 mb-0">¿Ya tienes una cuenta? <a routerLink="/login"

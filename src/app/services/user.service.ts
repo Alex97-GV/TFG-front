@@ -16,22 +16,22 @@ export class UserService {
     private router: Router
   ) {}
 
-  private readonly url = '127.0.0.1:5000';
+  private readonly url = 'urlBase';
 
   logIn(data: any): Observable<User> {
     let params = { email: '', password: '' };
     if (data.email) params.email = data.email;
     if (data.password) params.password = data.password;
 
-    // return of(new User({ id: 1, name: 'Alex', mail: 'a@a.com' }));
-    return this.baseApiService
-      .get<UserDto>(`${this.url}/api/login`, params)
-      .pipe(
-        map((user) => {
-          // debugger;
-          return this.toUserMapperService.transform(user);
-        })
-      );
+    return of(new User({ id: 1, name: 'Alex', mail: 'a@a.com' }));
+    // return this.baseApiService
+    //   .get<UserDto>(`${this.url}/api/login`, params)
+    //   .pipe(
+    //     map((user) => {
+    //       // debugger;
+    //       return this.toUserMapperService.transform(user);
+    //     })
+    //   );
   }
 
   logout(): void {

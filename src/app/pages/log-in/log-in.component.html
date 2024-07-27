@@ -13,7 +13,12 @@
                                 </h5>
                                 <input type="email" class="form-control" id="email" aria-describedby="ayudaEmail"
                                     placeholder="ejemplo@email.com" formControlName="email">
-                                <div id="ayudaEmail" class="form-text mb-3">Tus datos no serán compartidos.</div>
+                                <div class="form-text">Tus datos no serán compartidos.</div>
+                                <div id="ayudaCorreo" class="form-text text-danger my-2"
+                                    *ngIf="form.controls?.['email']?.errors?.['email'] && form.controls?.['email']?.touched">
+                                    Formato de
+                                    correo no válido
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <h5>
@@ -33,8 +38,6 @@
                                 <div class="col d-flex flex-row-reverse text-center">
                                     <p>¿No tienes cuenta? Registrate <a id="signupLink" routerLink="/signup">aquí</a>
                                     </p>
-                                    <!-- <button class="btn btn-light" routerLink="/pass-reset">¿Olvidaste tu
-                                        contraseña?</button> -->
                                 </div>
                             </div>
                             <div class="row mt-5">
