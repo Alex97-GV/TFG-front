@@ -1,1 +1,29 @@
-<p>search-page works!</p>
+<div class="container">
+    <h4 class="my-5">Resultados para <strong>{{key | uppercase }}</strong></h4>
+    <table class="table align-middle mb-0 bg-white">
+        <tbody>
+            <ng-container *ngFor="let item of data$ | async">
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="{{item.urlPicture}}" style="width: 45px; height: 45px;" class="rounded-circle">
+                            <div class="ms-3">
+                                <p class="fw-bold mb-1">{{item.name | uppercase}}</p>
+                                <p class="text-muted mb-0">{{item.affiliation}}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="fw-bold mb-1">
+                            Interests
+                        </p>
+                        <p class="text-muted">
+                            {{item.interests.join(', ')}}
+                        </p>
+                    </td>
+                </tr>
+            </ng-container>
+
+        </tbody>
+    </table>
+</div>
