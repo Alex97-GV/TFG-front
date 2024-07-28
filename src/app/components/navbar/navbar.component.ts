@@ -38,15 +38,16 @@ export class NavbarComponent implements OnInit {
   onSubmit(): void {
     debugger;
     if (this.form.valid) {
-      this.dataSvc.search(this.form.value).subscribe({
-        next: (res) => {
-          debugger;
-          this.router.navigate([`/search/${this.form.get('key')}`]);
-        },
-        error: (error) => {
-          //notificar al usuario con el mensaje recibido del back
-        },
-      });
+      this.dataSvc.pruebaApi('coffee');
+      // this.dataSvc.search(this.form.value).subscribe({
+      //   next: (res) => {
+      //     debugger;
+      //     this.router.navigate([`/search/${this.form.get('key')}`]);
+      //   },
+      //   error: (error) => {
+      //     //notificar al usuario con el mensaje recibido del back
+      //   },
+      // });
     }
   }
 }

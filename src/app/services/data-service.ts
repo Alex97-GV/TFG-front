@@ -38,4 +38,22 @@ export class DataService {
     //   .get<DataDto>(`${this.url}`, params)
     //   .pipe(map((data) => this.toDataMapperService.transform(data)));
   }
+
+  pruebaApi(key: string) {
+    const params = {
+      engine: 'google_scholar',
+      q: '',
+      hl: 'es',
+      api_key:
+        'd9f6757f8c03b67dce2a73f3ab5109697e4c795b6ff63dac5acfad099960a4b1',
+    };
+
+    if (key) params.q = key;
+
+    return this.baseApiSvc
+      .get<any>('https://serpapi.com/search.json', params)
+      .subscribe((res) => {
+        debugger;
+      });
+  }
 }
