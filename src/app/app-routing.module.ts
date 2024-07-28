@@ -15,7 +15,10 @@ const routes: Routes = [
   { path: 'pass-reset', component: PassResetComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'perfil', component: PerfilComponent },
-  { path: 'search', component: SearchPageComponent },
+  {
+    path: 'search/:key',
+    children: [{ path: '', component: SearchPageComponent }],
+  },
   { path: '**', component: PageNotFoundComponent },
 ];
 
