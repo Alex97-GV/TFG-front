@@ -1,0 +1,47 @@
+<div class="main-container py-5">
+  <div class="container">
+    <div class="cards-container shadow">
+      <h1 class="text-uppercase text-center p-3">{{ titulo }}</h1>
+      <div class="cards-table">
+        <ng-container *ngFor="let item of options; index as i">
+          <div class="card shadow">
+            <div id="{{ i }}" class="carousel slide" data-bs-interval="false">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      {{ item.mainCategory }}
+                    </h5>
+                    <p class="card-text">
+                      {{ getSubcategoriesTitles(i).join(", ") }}
+                    </p>
+                    <button
+                      class="btn btn-primary"
+                      type="button"
+                      [attr.data-bs-target]="'#' + i" data-bs-slide="next"
+                    >
+                      Seleccionar
+                    </button>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      {{ item.mainCategory }}
+                    </h5>
+                    <ng-container *ngFor="let sub of item.subcategories">
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" (change)="addRemoveInterest(sub.keyword)"/>
+                        <label class="form-check-label">{{ sub.title }}</label>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

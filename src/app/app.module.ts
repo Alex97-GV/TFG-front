@@ -16,6 +16,7 @@ import { ToUserMapperService } from './mappers/to-user.mapper';
 import { UserService } from './services/user.service';
 import { ToDataMapperService } from './mappers/to-data.mapper';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { InterestPageComponent } from './pages/interest-page/interest-page.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
     SignupComponent,
     PerfilComponent,
     SearchPageComponent,
+    InterestPageComponent,
   ],
   imports: [
     BrowserModule,
