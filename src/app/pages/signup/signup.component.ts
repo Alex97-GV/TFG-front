@@ -56,7 +56,7 @@ export class SignupComponent implements OnInit {
           //guardar usuario en memoria para la navegación
           sessionStorage.setItem('user', JSON.stringify(res));
           debugger;
-          this.router.navigate(['/home']);
+          this.router.navigate(['/interests']);
         },
         error: (error) => {
           //notificar al usuario con el mensaje recibido por el back
