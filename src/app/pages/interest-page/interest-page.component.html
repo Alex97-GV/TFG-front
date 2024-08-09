@@ -1,7 +1,8 @@
-<div class="main-container py-5">
+<div class="main-container py-5" [formGroup]="form">
   <div class="container">
     <div class="cards-container shadow">
       <h1 class="text-uppercase text-center p-3">{{ titulo }}</h1>
+      <h5 class="text-muted text-uppercase text-center py-1">{{subtitulo}}</h5>
       <div class="cards-table">
         <ng-container *ngFor="let item of options; index as i">
           <div class="card shadow">
@@ -31,7 +32,7 @@
                     </h5>
                     <ng-container *ngFor="let sub of item.subcategories">
                       <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" (change)="addRemoveInterest(sub.keyword)"/>
+                        <input class="form-check-input" type="checkbox" formControlName="included" (change)="addRemoveInterest(sub.keyword)"/>
                         <label class="form-check-label">{{ sub.title }}</label>
                       </div>
                     </ng-container>

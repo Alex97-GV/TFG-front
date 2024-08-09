@@ -10,8 +10,9 @@ import { Router } from '@angular/router';
 export class InterestPageComponent implements OnInit {
   titulo: string = 'Selecciona tus Intereses';
   subtitulo!: string;
-  maxInterest = 5;
+  MAXINTERESTS = 5;
   form!: FormGroup;
+  interestsList: string[] = [];
 
   options = [
     {
@@ -156,10 +157,6 @@ export class InterestPageComponent implements OnInit {
     },
   ];
 
-  get interests() {
-    return this.form.get('interests') as FormArray;
-  }
-
   constructor(private readonly fb: FormBuilder, private router: Router) {}
 
   getSubcategoriesTitles(index: number) {
@@ -172,22 +169,26 @@ export class InterestPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subtitulo = `Intereses por seleccinonar ${this.maxInterest}`;
+    this.subtitulo = `Intereses por seleccinonar ${this.MAXINTERESTS}`;
     this.initForm();
+
   }
 
   initForm() {
     this.form = this.fb.group({
-      interests: this.fb.array([]),
+      included: false,
     });
   }
 
   addRemoveInterest(keyword: string) {
-    const aux = this.fb.control({ interest: keyword });
+    const index = this.interestsList.findIndex((val) => val == keyword);
     debugger;
-    if (!this.interests.controls.find((val) => val.value !== keyword)) {
-      debugger;
-      this.interests.push(aux);
-    }
+
+    if (this.form.get('included')?.value == true && index < 0)
+      this.interestsList.push(keyword);
+    else this.interestsList.splice(index, 1);
+
+    this.subtitulo = `Intereses por seleccinonar ${this.MAXINTERESTS - this.interestsList.length}`;
+
   }
 }
