@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,11 +14,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./interest-page.component.css'],
 })
 export class InterestPageComponent implements OnInit {
+  @ViewChildren('switch') switches!: QueryList<ElementRef<HTMLInputElement>>;
   titulo: string = 'Selecciona tus Intereses';
-  subtitulo!: string;
   MAXINTERESTS = 5;
   form!: FormGroup;
   interestsList: string[] = [];
+  remainingInt!: number;
 
   options = [
     {
@@ -157,7 +164,7 @@ export class InterestPageComponent implements OnInit {
     },
   ];
 
-  constructor(private readonly fb: FormBuilder, private router: Router) {}
+  constructor(private router: Router) {}
 
   getSubcategoriesTitles(index: number) {
     return (
@@ -169,26 +176,26 @@ export class InterestPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subtitulo = `Intereses por seleccinonar ${this.MAXINTERESTS}`;
-    this.initForm();
-
+    this.remainingInt = this.MAXINTERESTS - this.interestsList.length;
   }
 
-  initForm() {
-    this.form = this.fb.group({
-      included: false,
-    });
+  onChange(event: any) {
+    const checkedItems = this.switches.filter((sw) => sw.nativeElement.checked);
+    this.interestsList = checkedItems.map((x) => x.nativeElement.defaultValue);
+
+    const uncheckedItems = this.switches.filter(
+      (sw) => !sw.nativeElement.checked
+    );
+    uncheckedItems.map(
+      (sw) =>
+        (sw.nativeElement.disabled =
+          this.getDisabled())
+    );
+
+    this.remainingInt = this.MAXINTERESTS - this.interestsList.length;
   }
 
-  addRemoveInterest(keyword: string) {
-    const index = this.interestsList.findIndex((val) => val == keyword);
-    debugger;
-
-    if (this.form.get('included')?.value == true && index < 0)
-      this.interestsList.push(keyword);
-    else this.interestsList.splice(index, 1);
-
-    this.subtitulo = `Intereses por seleccinonar ${this.MAXINTERESTS - this.interestsList.length}`;
-
+  getDisabled(): boolean {
+    return this.interestsList.length >= this.MAXINTERESTS; 
   }
 }
