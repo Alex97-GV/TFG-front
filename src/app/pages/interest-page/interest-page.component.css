@@ -3,9 +3,9 @@
   background-color: hsl(0, 0%, 87%);
 }
 
-.cards-container{
-    background-color: white;
-    border-radius: 1rem;
+.cards-container {
+  background-color: white;
+  border-radius: 1rem;
 }
 
 .content {
@@ -13,19 +13,17 @@
 }
 
 .cards-table {
-    display: grid;
-    grid-template-columns: 30% 30% 30%;
-    row-gap: 1rem;
-    column-gap: 2rem;
-    padding: 1rem;
-    justify-content: center;
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  row-gap: 1rem;
+  column-gap: 2rem;
+  padding: 1rem;
+  justify-content: center;
 }
 
 .card-footer {
   padding: 1rem 0 1rem 0;
   width: 100%;
-  /* background-color: aqua; */
   display: grid;
-  grid-template-columns: auto auto;
-  /* justify-content: center; */
+  justify-content: center;
 }

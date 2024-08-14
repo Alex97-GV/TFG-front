@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseApiService } from './base-api.service';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable, of, takeUntil } from 'rxjs';
 import { Data } from '../models/data.model';
 import { ToDataMapperService } from '../mappers/to-data.mapper';
 
@@ -56,5 +56,17 @@ export class DataService {
     // return this.baseApiSvc
     //   .get<DataDto>(`${this.url}`, params)
     //   .pipe(map((data) => this.toDataMapperService.transform(data)));
+  }
+
+  saveInterests(interestsList: string[]): Observable<any> {
+    const body = {
+      interests: interestsList,
+    };
+
+    return of({ save: true });
+
+    // return this.baseApiSvc
+    //   .post<any>(`${this.url}`, body)
+    //   .pipe(map((res) => this.toResponseInterestsMapperService.transform(res)));
   }
 }
