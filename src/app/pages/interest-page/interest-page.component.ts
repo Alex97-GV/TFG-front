@@ -1,25 +1,30 @@
 import {
   Component,
   ElementRef,
+  OnDestroy,
   OnInit,
   QueryList,
   ViewChildren,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { DataService } from 'src/app/services/data-service';
 
 @Component({
   selector: 'app-interest-page',
   templateUrl: './interest-page.component.html',
   styleUrls: ['./interest-page.component.css'],
 })
-export class InterestPageComponent implements OnInit {
+export class InterestPageComponent implements OnInit, OnDestroy {
   @ViewChildren('switch') switches!: QueryList<ElementRef<HTMLInputElement>>;
   titulo: string = 'Selecciona tus Intereses';
   MAXINTERESTS = 5;
   form!: FormGroup;
   interestsList: string[] = [];
   remainingInt!: number;
+
+  componentDestroyed$ = new Subject<void>();
 
   options = [
     {
@@ -164,7 +169,7 @@ export class InterestPageComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private dataSvc: DataService) {}
 
   getSubcategoriesTitles(index: number) {
     return (
@@ -187,15 +192,34 @@ export class InterestPageComponent implements OnInit {
       (sw) => !sw.nativeElement.checked
     );
     uncheckedItems.map(
-      (sw) =>
-        (sw.nativeElement.disabled =
-          this.getDisabled())
+      (sw) => (sw.nativeElement.disabled = this.getDisabledSwitches())
     );
 
     this.remainingInt = this.MAXINTERESTS - this.interestsList.length;
   }
 
-  getDisabled(): boolean {
-    return this.interestsList.length >= this.MAXINTERESTS; 
+  saveInterests() {
+    this.dataSvc
+      .saveInterests(this.interestsList)
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe({
+        next: (res) => {
+          //save Interests in sessionStorage
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {},
+      });
+  }
+
+  getDisabledSwitches(): boolean {
+    return this.interestsList.length >= this.MAXINTERESTS;
+  }
+
+  getDisabledSave(): boolean {
+    return this.interestsList.length >= 1;
+  }
+
+  ngOnDestroy(): void {
+    this.componentDestroyed$.next();
   }
 }
