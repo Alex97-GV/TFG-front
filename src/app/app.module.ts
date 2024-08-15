@@ -17,6 +17,8 @@ import { UserService } from './services/user.service';
 import { ToDataMapperService } from './mappers/to-data.mapper';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { InterestPageComponent } from './pages/interest-page/interest-page.component';
+import { AuthorPageComponent } from './pages/author-page/author-page.component';
+import { ToAuthorDataMapperService } from './mappers/to-author-data.mapper';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { InterestPageComponent } from './pages/interest-page/interest-page.compo
     PerfilComponent,
     SearchPageComponent,
     InterestPageComponent,
+    AuthorPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,7 @@ import { InterestPageComponent } from './pages/interest-page/interest-page.compo
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [ToUserMapperService, ToDataMapperService, UserService],
+  providers: [ToUserMapperService, ToDataMapperService, UserService, ToAuthorDataMapperService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

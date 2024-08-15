@@ -8,6 +8,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { InterestPageComponent } from './pages/interest-page/interest-page.component';
+import { AuthorPageComponent } from './pages/author-page/author-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LogInComponent },
@@ -17,6 +18,10 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'interests', component: InterestPageComponent },
   { path: 'profile', component: PerfilComponent },
+  {
+    path: 'author/:id',
+    children: [{ path: '', component: AuthorPageComponent }],
+  },
   {
     path: 'search/:key',
     children: [{ path: '', component: SearchPageComponent }],

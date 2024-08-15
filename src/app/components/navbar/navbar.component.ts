@@ -35,6 +35,11 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  goToAuthor() {
+    const authorId = 'SSDFRGHA';
+    this.router.navigate([`/author/${authorId}`])
+  }
+
   onSubmit(): void {
     if (this.form.valid) {
       //en caso de que haya filtros, incluir en la url los parámetros
