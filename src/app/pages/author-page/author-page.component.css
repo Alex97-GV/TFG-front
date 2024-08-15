@@ -1,0 +1,45 @@
+.main-container {
+    height: 100vh;
+    background-color: hsl(0, 0%, 87%);
+}
+
+.profile-container {
+    background-color: red;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.banner {
+    margin: 1rem 0 1rem 0;
+    background-color: white;
+    height: 30%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 60% 40%;
+}
+
+.picture-and-name {
+    background-color: aqua;
+    display: grid;
+    grid-template-rows: auto 15%;
+    justify-content: center;
+    >img {
+        border-radius: 50%;
+    }
+}
+
+.social {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    >div {
+        display: grid;
+        grid-template-rows: auto auto;
+        justify-content: center;
+        >span {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
