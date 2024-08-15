@@ -4,7 +4,7 @@ export interface AuthorDataDto {
   interests: {
     title: string;
     keyword: string;
-  };
+  }[];
   picture: string;
   articles: {
     total_number_articles: number;

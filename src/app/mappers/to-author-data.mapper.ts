@@ -12,10 +12,10 @@ export class ToAuthorDataMapperService extends MapperService<
     return new AuthorData({
       name: entity.name,
       affiliations: entity.affiliations,
-      interests: {
-        title: entity.interests.title,
-        keyword: entity.interests.keyword,
-      },
+      interests: entity.interests.map((int) => ({
+        title: int.title,
+        keyword: int.keyword,
+      })),
       picture: entity.picture,
       articles: {
         totalNumberArticles: entity.articles.total_number_articles,

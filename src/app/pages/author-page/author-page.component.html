@@ -2,27 +2,28 @@
 <div class="main-container">
   <div class="container">
     <div class="profile-container">
-      <div class="banner">
+      <div class="banner shadow rounded">
         <div class="picture-and-name p-1">
           <!-- img -->
-          <img
-            src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=BGjf6tgAAAAJ&citpid=3"
-          />
+          <div class="picture">
+            <img src="https://scholar.googleusercontent.com/citations?view_op=view_photo&user=JtmmReIAAAAJ&citpid=12" />
+          </div>
           <span>ALEX GÓMEZ</span>
         </div>
-        <div class="social">
-          <div>
-            <span>679</span>
-            <span>Tweets</span>
+
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-data-tab" data-bs-toggle="tab" data-bs-target="#nav-data"
+              type="button" role="tab" aria-controls="nav-data" aria-selected="true">Data</button>
+            <button class="nav-link" id="nav-articles-tab" data-bs-toggle="tab" data-bs-target="#nav-articles"
+              type="button" role="tab" aria-controls="nav-articles" aria-selected="false">Articles</button>
           </div>
-          <div class="border-start border-end">
-            <span>575</span>
-            <span>Followers</span>
-          </div>
-          <div>
-            <span>23</span>
-            <span>Posts</span>
-          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-data" role="tabpanel" aria-labelledby="nav-data-tab">Aquí van
+            los datos</div>
+          <div class="tab-pane fade" id="nav-articles" role="tabpanel" aria-labelledby="nav-articles-tab">Aquí van los
+            artículos</div>
         </div>
       </div>
     </div>

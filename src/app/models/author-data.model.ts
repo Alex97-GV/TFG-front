@@ -4,7 +4,7 @@ export class AuthorData {
   public interests!: {
     title: string;
     keyword: string;
-  };
+  }[];
   public picture!: string;
   public articles!: {
     totalNumberArticles: number;
