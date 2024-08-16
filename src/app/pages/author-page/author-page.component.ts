@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as Highcharts from 'highcharts';
+import { HighchartsChartComponent } from 'highcharts-angular';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { AuthorData } from 'src/app/models/author-data.model';
 import { DataService } from 'src/app/services/data-service';

@@ -19,6 +19,8 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { InterestPageComponent } from './pages/interest-page/interest-page.component';
 import { AuthorPageComponent } from './pages/author-page/author-page.component';
 import { ToAuthorDataMapperService } from './mappers/to-author-data.mapper';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { ChartsModule } from './charts/charts.module';
 
 @NgModule({
   declarations: [
@@ -39,8 +41,15 @@ import { ToAuthorDataMapperService } from './mappers/to-author-data.mapper';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HighchartsChartModule,
+    ChartsModule,
   ],
-  providers: [ToUserMapperService, ToDataMapperService, UserService, ToAuthorDataMapperService],
+  providers: [
+    ToUserMapperService,
+    ToDataMapperService,
+    UserService,
+    ToAuthorDataMapperService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
