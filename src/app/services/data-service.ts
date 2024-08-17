@@ -3,6 +3,9 @@ import { BaseApiService } from './base-api.service';
 import { map, Observable, of, takeUntil } from 'rxjs';
 import { Data } from '../models/data.model';
 import { ToDataMapperService } from '../mappers/to-data.mapper';
+import { AuthorDataDto } from '../models/author-data-dto.interface';
+import { AuthorData } from '../models/author-data.model';
+import { ToAuthorDataMapperService } from '../mappers/to-author-data.mapper';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +13,8 @@ import { ToDataMapperService } from '../mappers/to-data.mapper';
 export class DataService {
   constructor(
     private baseApiSvc: BaseApiService,
-    private toDataMapperService: ToDataMapperService
+    private toDataMapperService: ToDataMapperService,
+    private toAuthorDataMapperService: ToAuthorDataMapperService
   ) {}
 
   search(data: any): Observable<Data[]> {
@@ -68,5 +72,20 @@ export class DataService {
     // return this.baseApiSvc
     //   .post<any>(`${this.url}`, body)
     //   .pipe(map((res) => this.toResponseInterestsMapperService.transform(res)));
+  }
+
+  getAuthor(id: string): Observable<AuthorData> {
+    const params = {
+      author_id: id,
+    };
+
+    return this.baseApiSvc
+      .get<AuthorDataDto>(`http://127.0.0.1:5000/api/search_author_id`, params)
+      .pipe(
+        map((res) => {
+          debugger;
+          return this.toAuthorDataMapperService.transform(res);
+        })
+      );
   }
 }

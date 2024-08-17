@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   form!: FormGroup;
   data$!: Observable<Data>;
+  user: string = 'Unknown';
 
   constructor(
     private readonly fb: FormBuilder,
@@ -21,6 +22,8 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const userInfo = JSON.parse(sessionStorage.getItem('user') ?? '');
+    this.user = userInfo.name;
     this.initForm();
   }
 
@@ -33,6 +36,11 @@ export class NavbarComponent implements OnInit {
   logOut(): void {
     sessionStorage.clear();
     this.router.navigate(['/login']);
+  }
+
+  goToAuthor() {
+    const authorId = 'SSDFRGHA';
+    this.router.navigate([`/author/${authorId}`])
   }
 
   onSubmit(): void {

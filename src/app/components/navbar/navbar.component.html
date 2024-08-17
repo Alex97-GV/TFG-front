@@ -1,66 +1,87 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
-    <!-- Navbar brand -->
-    <a class="navbar-brand" routerLink="/home">
-      Home
-    </a>
-    <!-- Toggle button -->
-    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarButtonsExample"
-      aria-controls="navbarButtonsExample" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-
-    <!-- Collapsible wrapper -->
-    <div class="collapse navbar-collapse" id="navbarButtonsExample">
-      <!-- Left links -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link2</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link3</a>
-        </li>
-      </ul>
-
-      <form (ngSubmit)="onSubmit()" class="mx-5 input-group" [formGroup]="form">
-        <input class="form-control me-2" type="search" placeholder="Buscar en la app" aria-label="Search"
-          formControlName="key">
-        <button class="btn btn-primary" type="submit">Buscar</button>
-      </form>
-
-      <!-- right links -->
-      <ul class="navbar-nav mb-2 mb-lg-0">
-
-        <!-- ngIf sesion = true -->
-        <li class="nav-item dropdown">
-          <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              Yo
-            </a>
-
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" routerLink="/profile">Ver perfil</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Ajustes y privacidad</a></li>
-              <li><a class="dropdown-item" href="#">Ayuda</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" (click)="logOut()">Cerrar sesión</a></li>
-            </ul>
-          </div>
-        </li>
-      </ul>
+<div class="main-container default-theme">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #16697A;">
+    <div class="container">
+      <!-- Navbar brand -->
+      <a class="navbar-brand" routerLink="/home"> Home </a>
+      <!-- Toggle button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#navbarButtonsExample"
+        aria-controls="navbarButtonsExample"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- Collapsible wrapper -->
+      <div class="collapse navbar-collapse" id="navbarButtonsExample">
+        <!-- Left links -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link text-decoration-none" (click)="goToAuthor()">Author</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Link2</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Link3</a>
+          </li>
+        </ul>
+  
+        <form (ngSubmit)="onSubmit()" class="mx-5 input-group" [formGroup]="form">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search..."
+            aria-label="Search"
+            formControlName="key"
+          />
+          <button class="btn btn-search" type="submit">Search</button>
+        </form>
+  
+        <!-- right links -->
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <!-- ngIf sesion = true -->
+          <li class="nav-item dropdown">
+            <div class="dropdown">
+              <a
+                class="btn btn-profile dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {{user}}
+              </a>
+  
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" routerLink="/profile">Ver perfil</a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Ajustes y privacidad</a>
+                </li>
+                <li><a class="dropdown-item" href="#">Ayuda</a></li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <a class="dropdown-item" (click)="logOut()">Cerrar sesión</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- Collapsible wrapper -->
     </div>
-    <!-- Collapsible wrapper -->
-  </div>
-</nav>
-<!-- Navbar -->
+  </nav>
+  <!-- Navbar -->
+</div>

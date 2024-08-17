@@ -1,0 +1,86 @@
+<!-- <p>Author ID es:{{id}}</p> -->
+<div class="main-container">
+  <div class="container">
+    <div class="profile-container">
+      <div class="banner-container shadow rounded">
+        <h3 class="banner-title m-0">
+          <div class="icon-title rounded"></div>
+          <span style="color: #16697a"> AUTHOR </span>
+        </h3>
+        <div class="picture-and-details">
+          <div class="picture-and-name shadow rounded">
+            <div class="picture">
+              <img
+                src="https://scholar.googleusercontent.com/citations?view_op=view_photo&user=JtmmReIAAAAJ&citpid=12"
+              />
+            </div>
+            <div class="name-and-affiliation">
+              <h4 class="m-0 py-3 text-uppercase">Antonio Barba-Juan</h4>
+              <div class="affiliation">
+                <span class="fw-bold">Role</span>
+                <span class="fw-bolder">Head of UX Design</span>
+              </div>
+            </div>
+          </div>
+          <div class="articles shadow rounded">
+            <span class="fw-bold span-articles">Total Articles</span>
+            <span class="fw-bolder display-4">21</span>
+          </div>
+          <div class="citations shadow rounded">
+            <span class="fw-bold span-citations">Total Citations</span>
+            <span class="fw-bolder display-4">2783</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner-tabs-container shadow rounded">
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button
+              class="nav-link active"
+              id="nav-data-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-data"
+              type="button"
+              role="tab"
+              aria-controls="nav-data"
+              aria-selected="true"
+            >
+              Data
+            </button>
+            <button
+              class="nav-link"
+              id="nav-articles-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-articles"
+              type="button"
+              role="tab"
+              aria-controls="nav-articles"
+              aria-selected="false"
+            >
+              Articles
+            </button>
+          </div>
+        </nav>
+        <div class="tab-content p-3" id="nav-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="nav-data"
+            role="tabpanel"
+            aria-labelledby="nav-data-tab"
+          >
+            <line-chart></line-chart>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="nav-articles"
+            role="tabpanel"
+            aria-labelledby="nav-articles-tab"
+          >
+            Aquí van los artículos
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
