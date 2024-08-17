@@ -1,32 +1,37 @@
-<table class="table table-hover align-middle mb-0">
-    <thead>
+<ng-container *ngif="data.length > 0; else error">
+  <table class="table table-hover align-middle mb-0">
+      <thead>
+          <tr>
+              <th></th>
+          </tr>
+      </thead>
+    <tbody>
+      <ng-container *ngFor="let item of data">
         <tr>
-            <th></th>
-        </tr>
-    </thead>
-  <tbody>
-    <ng-container *ngFor="let item of data">
-      <tr>
-        <td>
-          <div class="d-flex align-items-center">
-            <img
-              src="{{ item?.urlPicture }}"
-              style="width: 45px; height: 45px"
-              class="rounded-circle"
-            />
-            <div class="ms-3">
-              <p class="fw-bold mb-1">{{ item?.name | uppercase }}</p>
-              <p class="text-muted mb-0">{{ item?.affiliation }}</p>
+          <td>
+            <div class="d-flex align-items-center">
+              <img
+                src="{{ item?.urlPicture }}"
+                style="width: 45px; height: 45px"
+                class="rounded-circle"
+              />
+              <div class="ms-3">
+                <p class="fw-bold mb-1">{{ item?.name | uppercase }}</p>
+                <p class="text-muted mb-0">{{ item?.affiliation }}</p>
+              </div>
             </div>
-          </div>
-        </td>
-        <td>
-          <p class="fw-bold mb-1">Interests</p>
-          <p class="text-muted">
-            {{ item.interests.join(", ") }}
-          </p>
-        </td>
-      </tr>
-    </ng-container>
-  </tbody>
-</table>
+          </td>
+          <td>
+            <p class="fw-bold mb-1">Interests</p>
+            <p class="text-muted">
+              {{ item.interests.join(", ") }}
+            </p>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</ng-container>
+<ng-template #error>
+  <h3 class="py-3">No hay artículos disponibles</h3>
+</ng-template>

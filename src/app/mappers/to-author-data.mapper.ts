@@ -21,6 +21,7 @@ export class ToAuthorDataMapperService extends MapperService<
         totalNumberArticles: entity.articles.total_number_articles,
         notAvailable: entity.articles.not_available,
         available: entity.articles.available,
+        data: entity.articles.data,
       },
       citedBy: {
         table: {

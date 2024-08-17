@@ -33,4 +33,8 @@ export class AuthorPageComponent implements OnInit {
         .pipe(takeUntil(this.componentDestroyed$));
     }
   }
+
+  searchInterest(interest: string) {
+    //buscar interes clickado
+  }
 }

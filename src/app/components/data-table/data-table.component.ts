@@ -1,13 +1,17 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-data-table',
+  selector: 'data-table',
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.css']
 })
-export class DataTableComponent {
+export class DataTableComponent implements OnInit{
   @Input() data!: any;
   @Input() title!: string;
 
   constructor(){}
+
+  ngOnInit(): void {
+    debugger;
+  }
 }

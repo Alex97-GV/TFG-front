@@ -35,8 +35,7 @@
 .picture-and-details {
   margin: 0 0 1rem 0;
   display: grid;
-  grid-template-columns: 45% 25% 25%;
-  column-gap: 1rem;
+  grid-template-columns: 45% auto auto auto;
 
   .picture-and-name {
     background-color: #ede7e3;
@@ -54,11 +53,10 @@
       justify-content: center;
     }
 
-    .name-and-affiliation {
-      .affiliation {
-        display: grid;
-        grid-template-rows: auto auto;
-      }
+    .name-affiliation-and-interests {
+      display: grid;
+      grid-template-rows: auto auto auto;
+      row-gap: 1rem;
     }
   }
 
@@ -87,6 +85,32 @@
     }
     .span-citations-num {
       font-size: 3rem;
+    }
+  }
+
+  .interests {
+    background-color: #EBD1BD;
+    display: grid;
+    grid-template-rows: auto auto;
+    padding: 1rem;
+    margin: 1rem;
+    .interests-title{
+      font-size: 1.3rem;
+    }
+    .list-of-interests {
+      display: grid;
+      grid-template-columns: auto;
+      column-gap: 1rem;
+
+      .span-interest {
+        width: 100%;
+        color: black;
+        font-weight: 450;
+        padding-left: 3%;
+      }
+      .span-interest:hover{
+        background-color: #D1BEAE;
+      }
     }
   }
 }
