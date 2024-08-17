@@ -21,6 +21,7 @@ import { AuthorPageComponent } from './pages/author-page/author-page.component';
 import { ToAuthorDataMapperService } from './mappers/to-author-data.mapper';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ChartsModule } from './charts/charts.module';
+import { DataTableComponent } from './components/data-table/data-table.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ChartsModule } from './charts/charts.module';
     SearchPageComponent,
     InterestPageComponent,
     AuthorPageComponent,
+    DataTableComponent,
   ],
   imports: [
     BrowserModule,

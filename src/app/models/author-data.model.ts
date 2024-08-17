@@ -1,11 +1,11 @@
 export class AuthorData {
   public name!: string;
+  public picture!: string;
   public affiliations!: string;
   public interests!: {
     title: string;
     keyword: string;
   }[];
-  public picture!: string;
   public articles!: {
     totalNumberArticles: number;
     notAvailable: number;
