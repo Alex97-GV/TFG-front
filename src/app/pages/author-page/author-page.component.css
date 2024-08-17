@@ -41,7 +41,7 @@
   .picture-and-name {
     background-color: #ede7e3;
     display: grid;
-    grid-template-columns: 30% auto;
+    grid-template-columns: 35% auto;
     padding: 1rem;
     margin: 1rem;
     .picture {
@@ -65,24 +65,28 @@
   .articles {
     background-color: #82c0cc;
     display: grid;
-    grid-template-rows: 25% auto;
-    row-gap: 1rem;
+    grid-template-rows: 40% auto;
     padding: 1rem;
     margin: 1rem;
     .span-articles {
       font-size: 1.3rem;
+    }
+    .span-articles-num {
+      font-size: 3rem;
     }
   }
 
   .citations {
     background-color: #ffa62b;
     display: grid;
-    grid-template-rows: 25% auto;
-    row-gap: 1rem;
+    grid-template-rows: 40% auto;
     padding: 1rem;
     margin: 1rem;
     .span-citations {
       font-size: 1.3rem;
+    }
+    .span-citations-num {
+      font-size: 3rem;
     }
   }
 }
@@ -92,8 +96,7 @@
   margin: 1rem 0 1rem 0;
   padding: 1rem;
   .nav-tabs {
-    --bs-nav-tabs-border-width: none;
-    --bs-nav-tabs-border-color: none;
+    --bs-nav-tabs-border-color: #ffa62b;
     --bs-nav-tabs-border-radius: var(--bs-border-radius);
     --bs-nav-tabs-link-hover-border-color: var(--bs-secondary-bg)
       var(--bs-secondary-bg) var(--bs-border-color);
@@ -105,6 +108,7 @@
       var(--bs-nav-tabs-border-color);
       .nav-link {
         color: black;
+        border: #ffa62b;
       }
   }
 }
