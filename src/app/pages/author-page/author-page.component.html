@@ -1,5 +1,5 @@
 <!-- <p>Author ID es:{{id}}</p> -->
-<div class="main-container">
+<div class="main-container" *ngIf="data$ | async as response">
   <div class="container">
     <div class="profile-container">
       <div class="banner-container shadow rounded">
@@ -10,25 +10,44 @@
         <div class="picture-and-details">
           <div class="picture-and-name shadow rounded">
             <div class="picture">
-              <img
-                src="https://scholar.googleusercontent.com/citations?view_op=view_photo&user=JtmmReIAAAAJ&citpid=12"
-              />
+              <img src="{{ response.picture }}" />
             </div>
-            <div class="name-and-affiliation">
-              <h4 class="m-0 py-3 text-uppercase">Antonio Barba-Juan</h4>
-              <div class="affiliation">
-                <span class="fw-bold">Role</span>
-                <span class="fw-bolder">Head of UX Design</span>
-              </div>
+            <div class="name-affiliation-and-interests">
+              <h4 class="m-0 text-uppercase">{{ response.name }}</h4>
+              <span class="text-muted fw-bolder">{{
+                response.affiliations
+              }}</span>
             </div>
+          </div>
+          <div
+            class="interests shadow rounded"
+            *ngIf="response.interests.length > 0"
+          >
+          <div class="interests-title">
+            <span class="fw-bold span-interests-title">Interests</span>
+          </div>
+          <div class="list-of-interests">
+            <ng-container *ngFor="let int of response.interests">
+              <span
+                role="button"
+                class="span-interest rounded"
+                (click)="searchInterest(int.keyword)"
+                >{{ int.title | titlecase }}</span
+              >
+            </ng-container>
+          </div>
           </div>
           <div class="articles shadow rounded">
             <span class="fw-bold span-articles">Total Articles</span>
-            <span class="fw-bolder span-articles-num">21</span>
+            <span class="fw-bolder span-articles-num">{{
+              response.articles.totalNumberArticles
+            }}</span>
           </div>
           <div class="citations shadow rounded">
-            <span class="fw-bold span-citations">Total Citations</span>
-            <span class="fw-bolder span-citations-num">2783</span>
+            <span class="fw-bold span-citations">Avg. Citations</span>
+            <span class="fw-bolder span-citations-num">{{
+              response.citedBy.average
+            }}</span>
           </div>
         </div>
       </div>
@@ -66,7 +85,7 @@
             </button>
           </div>
         </nav>
-        <div class="tab-content p-3" id="nav-tabContent">
+        <div class="tab-content px-3 pb-3" id="nav-tabContent">
           <div
             class="tab-pane fade show active"
             id="nav-data"
@@ -81,7 +100,7 @@
             role="tabpanel"
             aria-labelledby="nav-articles-tab"
           >
-            Aquí van los artículos
+            <data-table *ngIf="dataTableConfiguration?.data" [configuration]="dataTableConfiguration"></data-table>
           </div>
         </div>
       </div>

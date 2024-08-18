@@ -10,6 +10,7 @@ export class AuthorData {
     totalNumberArticles: number;
     notAvailable: number;
     available: number;
+    data: any[];
   };
   public citedBy!: {
     table: {

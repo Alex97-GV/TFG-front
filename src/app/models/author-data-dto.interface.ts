@@ -10,6 +10,7 @@ export interface AuthorDataDto {
     total_number_articles: number;
     not_available: number;
     available: number;
+    data: any[];
   };
   cited_by: {
     table: {
