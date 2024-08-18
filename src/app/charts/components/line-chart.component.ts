@@ -16,11 +16,14 @@ import {
   HighchartsChartModule,
 } from 'highcharts-angular';
 import { BaseChart } from '../base-chart.class';
+import { LineChartConfiguration } from '../configurations/line-chart-configurations';
+import { ChartColors } from '../const/colors';
 
 @Component({
   selector: 'line-chart',
   template: `<highcharts-chart
     #chart
+    *ngIf="configuration"
     [Highcharts]="Highcharts"
     [options]="chartOptions"
   ></highcharts-chart>`,
@@ -37,12 +40,12 @@ export class LineChartComponent
   @ViewChild(HighchartsChartComponent)
   chart!: HighchartsChartComponent;
 
-  @Input() actionsButtonsTop = 0;
+  @Input() configuration!: LineChartConfiguration | undefined;
   @Input() htmlTitle = '';
+  @Input() actionsButtonsTop = 0;
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions: Highcharts.Options = {};
   unitsSet!: string[];
-  //   configuration!: LineChartConfiguration;
 
   constructor(public override elm: ElementRef, public cd: ChangeDetectorRef) {
     super(elm);
@@ -53,96 +56,16 @@ export class LineChartComponent
   }
 
   createChart() {
+    debugger;
     const self = this;
 
     Highcharts.setOptions({
-      chart: {
-        type: 'line',
-      },
-
-      title: {
-        text: 'U.S Solar Employment Growth',
-        align: 'left',
-      },
-
-      subtitle: {
-        text: 'By Job Category. Source: <a href="https://irecusa.org/programs/solar-jobs-census/" target="_blank">IREC</a>.',
-        align: 'left',
-      },
-
-      legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle',
-      },
-
-      yAxis: {
-        title: {
-          text: 'Number of Employees',
-        },
-      },
-      xAxis: {
-        accessibility: {
-          rangeDescription: 'Range: 2010 to 2022',
-        },
-      },
-
+      scrollbar: { enabled: false },
       plotOptions: {
         series: {
-          label: {
-            connectorAllowed: false,
-          },
-          pointStart: 2010,
+          showInNavigator: true,
         },
       },
-      series: [
-        {
-          name: 'Installation & Developers',
-          data: [
-            43934, 48656, 65165, 81827, 112143, 142383, 171533, 165174, 155157,
-            161454, 154610, 168960, 171558,
-          ],
-        },
-        {
-          name: 'Manufacturing',
-          data: [
-            24916, 37941, 29742, 29851, 32490, 30282, 38121, 36885, 33726,
-            34243, 31050, 33099, 33473,
-          ],
-        },
-        {
-          name: 'Sales & Distribution',
-          data: [
-            11744, 30000, 16005, 19771, 20185, 24377, 32147, 30912, 29243,
-            29213, 25663, 28978, 30618,
-          ],
-        },
-        {
-          name: 'Operations & Maintenance',
-          data: [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            11164,
-            11218,
-            10077,
-            12530,
-            16585,
-          ],
-        },
-        {
-          name: 'Other',
-          data: [
-            21908, 5548, 8105, 11248, 8989, 11816, 18274, 17300, 13053, 11906,
-            10073, 11471, 11648,
-          ],
-        },
-      ] as Highcharts.SeriesOptionsType[],
       responsive: {
         rules: [
           {
@@ -161,62 +84,121 @@ export class LineChartComponent
       },
     });
 
-    // Highcharts.setOptions({
-    //   scrollbar: { enabled: false },
-    //   plotOptions: {
-    //     series: {
-    //       showInNavigator: true,
-    //     },
-    //   },
-    // });
+    this.chartOptions = {
+      chart: {
+        events: {
+          render: () => this.setActionsButtonPosition(),
+        },
+        height: this.height ?? 400,
+        plotBorderWidth: 1,
+        animation: false,
+        zooming: {
+          type: 'x',
+        },
+      },
+      data: (this.configuration as LineChartConfiguration).data,
+      title: {
+        text: this.htmlTitle
+          ? this.htmlTitle
+          : `<h3 class="m-0 px-3">${this.configuration?.title}</h3>`,
+        align: 'left',
+        useHTML: true,
+        floating: false,
+      },
+      xAxis: this.configuration?.xAxis?.map((xAxis, index) => {
+        if (index == 0) {
+          return {
+            ...xAxis,
+            type: 'datetime',
+            tickAmount: 10,
+            labels: {
+              rotation: xAxis.categories ? 0 : -30,
+              style: {
+                color: '#63676B',
+              },
+            },
+            gridLineWidth: xAxis.categories ? 0 : 1,
+            visible: true,
+          };
+        } else {
+          return {
+            ...xAxis,
+            type: 'datetime',
+            visible: false,
+          };
+        }
+      }) as Highcharts.XAxisOptions[],
+      plotOptions: {
+        series: {
+          borderWidth: 1,
+          stickyTracking: false,
+          allowPointSelect: true,
+        },
+        line: {
+          visible: true,
+          marker: {
+            radius: 3,
+          },
+        },
+      },
+      yAxis: this.unitsSet.map((unit, index) => ({
+        labels: {
+          format: `{text} ${unit ? unit : ''}`,
+          style: {
+            color: '#63676B',
+          },
+        },
+        title: {
+          text: this.configuration?.yAxis[0].label
+            ? `${this.configuration?.yAxis[0].label} (${this.configuration.series[0].unit})`
+            : '',
+        },
+        grid: {
+          borderWidth: 1,
+        },
 
-    // this.chartOptions = {
-    //   chart: {
-    //     height: this.height ?? 400,
-    //     plotBorderWidth: 1,
-    //     animation: false,
-    //     zooming: {
-    //       type: 'x',
-    //     },
-    //   },
-    //   //   data: (this.configuration as LineChartConfiguration).data,
-    //   title: {
-    //     text: this.htmlTitle,
-    //     //   ? this.htmlTitle
-    //     //   : `<h3 class="m-0 px-3">${this.configuration?.title}</h3>`,
-    //     align: 'left',
-    //     useHTML: true,
-    //     floating: false,
-    //   },
-    //   plotOptions: {
-    //     series: {
-    //         borderWidth: 1,
-    //       stickyTracking: false,
-    //       allowPointSelect: true,
-    //     },
-    //     line: {
-    //         visible: true,
-    //         marker: {
-    //             radius: 3
-    //         }
-    //     },
-    //   },
-    //   legend: {
-    //     align: 'left',
-    //     x:57,
-    //     maxHeight: 100,
-    //   },
-    //   series: ([
-    //     {
-    //         type: 'line',
-    //         stickyTracking: false,
-    //         color: 'yellow',
-    //         showInLegend: true,
-    //         // name: serie.name,
-
-    //     }
-    //   ]) as Highcharts.SeriesOptionsType[]
-    // };
+        lineWidth: 1,
+        gridLineWidth: 1,
+        tickWidth: 1,
+        opposite: index % 2 != 0,
+        showLastLabel: false,
+        stickyTracking: false,
+      })),
+      tooltip: {
+        headerFormat: this.configuration?.xAxis[0]?.categories
+          ? `{point.key}:00<br>`
+          : `{point.key}<br>`,
+        // shared: this.isTooltipShared,
+      },
+      legend: {
+        align: 'left',
+        x: 57,
+        maxHeight: 100,
+      },
+      series: this.configuration?.series.map((serie, index) => ({
+        ...serie,
+        type: 'line',
+        stickyTracking: false,
+        snap: 0,
+        xAxis:
+          this.configuration?.xAxis && this.configuration?.xAxis?.length > 1
+            ? index
+            : 0,
+        color: serie.color
+          ? serie.color
+          : this.configuration?.colors?.length
+          ? this.configuration.colors[index]
+          : ChartColors.default,
+        showInLegend: true,
+        name: serie.name,
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+          // valueDecimals: 2,
+          // valueSuffix: ` ${serie.unit}`,
+        },
+        yAxis: this.unitsSet.findIndex((unit) => unit == serie.unit),
+      })) as Highcharts.SeriesOptionsType[],
+    };
   }
 
   setActionsButtonPosition(): void {

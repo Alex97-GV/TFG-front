@@ -3,6 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import * as Highcharts from 'highcharts';
 import { HighchartsChartComponent } from 'highcharts-angular';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
+import {
+  Serie,
+  XAxis,
+  YAxis,
+} from 'src/app/charts/configurations/base-chart-configuration';
+import { LineChartConfiguration } from 'src/app/charts/configurations/line-chart-configurations';
 import { AuthorData } from 'src/app/models/author-data.model';
 import {
   Column,
@@ -18,6 +24,7 @@ import { DataService } from 'src/app/services/data-service';
 export class AuthorPageComponent implements OnInit, OnDestroy {
   id = '';
   data$!: Observable<AuthorData>;
+  lineChartConfig!: LineChartConfiguration;
   dataTableConfiguration = new TableConfiguration<AuthorData>({
     data: [],
     // nestedTables: [
@@ -26,7 +33,12 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
     //     columns: [
     //       new Column({
     //         name: 'author',
-    //         title: 'Author',
+    //         title: '',
+    //       }),
+    //       new Column({
+    //         name: 'citedBy',
+    //         title: '',
+    //         align:'center'
     //       }),
     //     ],
     //   }),
@@ -74,9 +86,40 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
         tap((res) => {
           debugger;
           this.dataTableConfiguration.data = res.articles.data;
+          this.lineChartConfig = this.getLineChartConfiguration(
+            res.citedBy.graph
+          );
         })
       );
     }
+  }
+
+  getLineChartConfiguration(data: any) {
+    return new LineChartConfiguration({
+      title: 'Citations Evolution',
+      // xAxis: [
+      //   new XAxis({
+      //     min: data[0].year,
+      //     max: data[data.length - 1].year,
+      //   }),
+      // ],
+      // yAxis: [
+      //   new YAxis({
+      //     min: (data.map((cit:any) => cit.citations)).reduce((a: number,b: number) => Math.min(a, b)),
+      //     max: data.map((cit:any) => cit.citations).reduce((a: number,b: number) => Math.max(a, b)),
+      //   })
+      // ],
+      legend: {
+        align: 'left',
+        x: 57,
+      },
+      series: data.map((cit: any) => {
+        return new Serie({
+          name: cit.year,
+          data: cit.citations,
+        });
+      }),
+    });
   }
 
   searchInterest(interest: string) {
