@@ -110,6 +110,7 @@
       }
       .span-interest:hover{
         background-color: #D1BEAE;
+        color: white;
       }
     }
   }
