@@ -3,6 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import * as Highcharts from 'highcharts';
 import { HighchartsChartComponent } from 'highcharts-angular';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
+import {
+  Serie,
+  XAxis,
+  YAxis,
+} from 'src/app/charts/configurations/base-chart-configuration';
+import { LineChartConfiguration } from 'src/app/charts/configurations/line-chart-configurations';
+import { ChartColors } from 'src/app/charts/const/colors';
 import { AuthorData } from 'src/app/models/author-data.model';
 import {
   Column,
@@ -18,6 +25,7 @@ import { DataService } from 'src/app/services/data-service';
 export class AuthorPageComponent implements OnInit, OnDestroy {
   id = '';
   data$!: Observable<AuthorData>;
+  lineChartConfig!: LineChartConfiguration;
   dataTableConfiguration = new TableConfiguration<AuthorData>({
     data: [],
     // nestedTables: [
@@ -26,7 +34,12 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
     //     columns: [
     //       new Column({
     //         name: 'author',
-    //         title: 'Author',
+    //         title: '',
+    //       }),
+    //       new Column({
+    //         name: 'citedBy',
+    //         title: '',
+    //         align:'center'
     //       }),
     //     ],
     //   }),
@@ -74,9 +87,42 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
         tap((res) => {
           debugger;
           this.dataTableConfiguration.data = res.articles.data;
+          this.lineChartConfig = this.getLineChartConfiguration(
+            res.citedBy.graph
+          );
         })
       );
     }
+  }
+
+  getLineChartConfiguration(data: any) {
+    return new LineChartConfiguration({
+      title: 'Citations Evolution',
+      subtitle: {
+        text: 'Source: Google Scholar',
+        align: 'left',
+        x: 20,
+      },
+      xAxis: [
+        new XAxis({
+          min: data[0].year,
+          max: data[data.length - 1].year,
+        }),
+      ],
+      yAxis: [
+        new YAxis({
+          label: 'Nº Citations',
+        }),
+      ],
+      colors: ChartColors.line,
+      series: [
+        new Serie({
+          name: 'Cited By',
+          data: data.map((cit: any) => [cit.year, cit.citations]),
+          unit: 'citations',
+        }),
+      ],
+    });
   }
 
   searchInterest(interest: string) {
