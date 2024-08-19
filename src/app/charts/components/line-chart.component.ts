@@ -27,9 +27,9 @@ import { ChartColors } from '../const/colors';
     [Highcharts]="Highcharts"
     [options]="chartOptions"
   ></highcharts-chart>`,
-  styleUrls: ['./line-chart.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./line-chart.component.css'],
   standalone: true,
   imports: [HighchartsChartModule, CommonModule],
 })
@@ -42,7 +42,7 @@ export class LineChartComponent
 
   @Input() configuration!: LineChartConfiguration | undefined;
   @Input() htmlTitle = '';
-  @Input() actionsButtonsTop = 0;
+  @Input() isTooltipShared = false;
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions: Highcharts.Options = {};
   unitsSet!: string[];
@@ -85,18 +85,6 @@ export class LineChartComponent
     });
 
     this.chartOptions = {
-      chart: {
-        events: {
-          render: () => this.setActionsButtonPosition(),
-        },
-        height: this.height ?? 400,
-        plotBorderWidth: 1,
-        animation: false,
-        zooming: {
-          type: 'x',
-        },
-      },
-      data: (this.configuration as LineChartConfiguration).data,
       title: {
         text: this.htmlTitle
           ? this.htmlTitle
@@ -105,12 +93,21 @@ export class LineChartComponent
         useHTML: true,
         floating: false,
       },
+      subtitle: this.configuration?.subtitle,
+      chart: {
+        height: this.height ?? 400,
+        plotBorderWidth: 1,
+        animation: false,
+        zooming: {
+          type: 'x',
+        },
+      },
+      data: (this.configuration as LineChartConfiguration).data,
       xAxis: this.configuration?.xAxis?.map((xAxis, index) => {
         if (index == 0) {
           return {
             ...xAxis,
-            type: 'datetime',
-            tickAmount: 10,
+            endOnTick: true,
             labels: {
               rotation: xAxis.categories ? 0 : -30,
               style: {
@@ -123,7 +120,6 @@ export class LineChartComponent
         } else {
           return {
             ...xAxis,
-            type: 'datetime',
             visible: false,
           };
         }
@@ -141,34 +137,38 @@ export class LineChartComponent
           },
         },
       },
-      yAxis: this.unitsSet.map((unit, index) => ({
-        labels: {
-          format: `{text} ${unit ? unit : ''}`,
-          style: {
-            color: '#63676B',
-          },
-        },
-        title: {
-          text: this.configuration?.yAxis[0].label
-            ? `${this.configuration?.yAxis[0].label} (${this.configuration.series[0].unit})`
-            : '',
-        },
-        grid: {
-          borderWidth: 1,
-        },
+      yAxis: this.configuration?.yAxis.map((yAxis, index) => {
+        if (index == 0) {
+          return {
+            title: {
+              text: yAxis.label
+                ? `${yAxis.label}`
+                : '',
+            },
+            grid: {
+              borderWidth: 1,
+            },
 
-        lineWidth: 1,
-        gridLineWidth: 1,
-        tickWidth: 1,
-        opposite: index % 2 != 0,
-        showLastLabel: false,
-        stickyTracking: false,
-      })),
+            lineWidth: 1,
+            gridLineWidth: 1,
+            tickWidth: 1,
+            opposite: index % 2 != 0,
+            showLastLabel: false,
+            stickyTracking: false,
+          };
+        }
+        else {
+          return {
+            ...yAxis,
+            visible: false,
+          };
+        }
+      }),
       tooltip: {
         headerFormat: this.configuration?.xAxis[0]?.categories
           ? `{point.key}:00<br>`
           : `{point.key}<br>`,
-        // shared: this.isTooltipShared,
+        shared: this.isTooltipShared,
       },
       legend: {
         align: 'left',
@@ -193,23 +193,9 @@ export class LineChartComponent
         name: serie.name,
         tooltip: {
           pointFormat: '{series.name}: <b>{point.y}</b><br/>',
-          // valueDecimals: 2,
-          // valueSuffix: ` ${serie.unit}`,
+          valueSuffix: ` ${serie.unit}`,
         },
-        yAxis: this.unitsSet.findIndex((unit) => unit == serie.unit),
       })) as Highcharts.SeriesOptionsType[],
     };
-  }
-
-  setActionsButtonPosition(): void {
-    const button: any = this.elm.nativeElement.querySelector(
-      '.highcharts-contextbutton'
-    );
-    button.setAttribute(
-      'transform',
-      `translate(${button.getAttribute('transform').match(/\d+/)[0]},${
-        this.actionsButtonsTop
-      })`
-    );
   }
 }

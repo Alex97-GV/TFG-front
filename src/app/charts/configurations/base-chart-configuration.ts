@@ -1,4 +1,5 @@
-import { ChartColors } from "../const/colors";
+import { SubtitleOptions } from 'highcharts';
+import { ChartColors } from '../const/colors';
 
 export abstract class CharBaseConfiguration<T> {
   constructor(item?: Partial<CharBaseConfiguration<T>>) {
@@ -10,11 +11,11 @@ export abstract class CharBaseConfiguration<T> {
   }
 
   public title = '';
+  public subtitle?: SubtitleOptions;
   public xAxis: XAxis[] = [new XAxis()];
   public yAxis: YAxis[] = [new YAxis()];
   public series: Serie<T>[] = [];
   public colors: string[] = ChartColors.line;
-
 }
 
 export class YAxis {
@@ -41,19 +42,19 @@ export class XAxis extends YAxis {
 }
 
 export class Serie<T> {
-    constructor(item?: Partial<Serie<T>>) {
-      if (!item) return;
-      Object.assign(this, item);
-    }
-  
-    public name = '';
-    public data: T | undefined = undefined;
-    public colsize?: number;
-    public unit?: string;
-    public tooltip?: any;
-    public yAxis?: number;
-    public zIndex?: number;
-    public baseSeries?: number;
-    public type?: string;
-    public color?: string;
+  constructor(item?: Partial<Serie<T>>) {
+    if (!item) return;
+    Object.assign(this, item);
   }
+
+  public name = '';
+  public data: T | undefined = undefined;
+  public colsize?: number;
+  public unit?: string;
+  public tooltip?: any;
+  public yAxis?: number;
+  public zIndex?: number;
+  public baseSeries?: number;
+  public type?: string;
+  public color?: string;
+}

@@ -9,6 +9,7 @@ import {
   YAxis,
 } from 'src/app/charts/configurations/base-chart-configuration';
 import { LineChartConfiguration } from 'src/app/charts/configurations/line-chart-configurations';
+import { ChartColors } from 'src/app/charts/const/colors';
 import { AuthorData } from 'src/app/models/author-data.model';
 import {
   Column,
@@ -97,28 +98,30 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
   getLineChartConfiguration(data: any) {
     return new LineChartConfiguration({
       title: 'Citations Evolution',
-      // xAxis: [
-      //   new XAxis({
-      //     min: data[0].year,
-      //     max: data[data.length - 1].year,
-      //   }),
-      // ],
-      // yAxis: [
-      //   new YAxis({
-      //     min: (data.map((cit:any) => cit.citations)).reduce((a: number,b: number) => Math.min(a, b)),
-      //     max: data.map((cit:any) => cit.citations).reduce((a: number,b: number) => Math.max(a, b)),
-      //   })
-      // ],
-      legend: {
+      subtitle: {
+        text: 'Source: Google Scholar',
         align: 'left',
-        x: 57,
+        x: 20,
       },
-      series: data.map((cit: any) => {
-        return new Serie({
-          name: cit.year,
-          data: cit.citations,
-        });
-      }),
+      xAxis: [
+        new XAxis({
+          min: data[0].year,
+          max: data[data.length - 1].year,
+        }),
+      ],
+      yAxis: [
+        new YAxis({
+          label: 'Nº Citations',
+        }),
+      ],
+      colors: ChartColors.line,
+      series: [
+        new Serie({
+          name: 'Cited By',
+          data: data.map((cit: any) => [cit.year, cit.citations]),
+          unit: 'citations',
+        }),
+      ],
     });
   }
 
