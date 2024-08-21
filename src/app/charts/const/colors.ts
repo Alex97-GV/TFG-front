@@ -40,6 +40,18 @@ export const ChartColors = {
       '#a32970',
       '#ff9c11',
     ],
+    donut: [
+      '#ff9c11',
+      '#d94926',
+      '#a32970',
+      '#7a1f36',
+      '#006dcc',
+      '#194cb2',
+      '#267a1f',
+      '#c69739',
+      '#b2b24c',
+      '#60959f',
+    ],
     baseLine: {
       baseLine: ['#026dca', '#ff9c11'],
       area: '#66b8ff',

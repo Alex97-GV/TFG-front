@@ -6,12 +6,12 @@ export interface AuthorDataDto {
     keyword: string;
   }[];
   picture: string;
-  articles: {
+  article_info: {
     total_number_articles: number;
     not_available: number;
     available: number;
-    data: any[];
   };
+  articles: any[];
   cited_by: {
     table: {
       citations: number;

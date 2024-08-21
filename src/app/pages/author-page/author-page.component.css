@@ -144,4 +144,10 @@
         border: #ffa62b;
       }
   }
+
+  .data-panel {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    column-gap: 5%;
+  }
 }

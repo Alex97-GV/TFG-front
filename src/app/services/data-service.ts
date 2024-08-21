@@ -100,87 +100,88 @@ export class DataService {
             keyword: 'ceramics',
           },
         ],
-        articles: {
+        articleInfo: {
           totalNumberArticles: 21,
           notAvailable: 3,
           available: 18,
-          data: [
-            // {
-            //   name: 'Mike Robb',
-            //   author_id: 'kq0NYnMAAAAJ',
-            //   affiliations: 'Chemistry Department Imperial College',
-            //   cited_by: 226948,
-            //   interests: [
-            //     'Computational chemistry',
-            //     'Theoretical Chemistry',
-            //     'conical intersections',
-            //     'non adiabatic dynamics',
-            //   ],
-            //   picture:
-            //     'https://scholar.google.com/citations/images/avatar_scholar_56.png',
-            // },
-            {
-              title:
-                'Materias primas para la fabricación de soportes de baldosas cerámicas',
-              link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:hC7cP41nSMkC',
-              authors: 'A Barba',
-              cited_by: 401,
-              year: '2002',
-            },
-            {
-              title:
-                'Ceramic wastes as alternative raw materials for Portland cement clinker production',
-              link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:L8Ckcad2t8MC',
-              authors:
-                'F Puertas, I García-Díaz, A Barba, MF Gazulla, M Palacios, MP Gómez, ...',
-              cited_by: 306,
-              year: '2008',
-            },
-            {
-              title:
-                'Alkaline activation of metakaolin–fly ash mixtures: Obtain of Zeoceramics and Zeocements',
-              link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:7PzlFSSx8tAC',
-              authors:
-                'A Fernández-Jiménez, M Monzó, M Vicent, A Barba, A Palomo',
-              cited_by: 260,
-              year: '2008',
-            },
-            {
-              title:
-                'Characterization of silica–water nanofluids dispersed with an ultrasound probe: A study of their physical properties and stability',
-              link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:p2g8aNsByqUC',
-              authors: 'R Mondragon, JE Julia, A Barba, JC Jarque',
-              cited_by: 171,
-              year: '2012',
-            },
-            {
-              title:
-                'Ceramic wastes as raw materials in Portland cement clinker fabrication: characterization and alkaline activation',
-              link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:maZDTaKrznsC',
-              authors:
-                'F Puertas, A Barba, MF Gazulla, MP Gómez, M Palacios, ...',
-              cited_by: 114,
-              year: '2006',
-            },
-            {
-              title:
-                'Geopolymeric binders with different fine fillers—Phase transformations at high temperatures',
-              link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:mB3voiENLucC',
-              authors:
-                'A Buchwald, M Vicent, R Kriegel, C Kaps, M Monzó, A Barba',
-              cited_by: 94,
-              year: '2009',
-            },
-            {
-              title:
-                'Effect of sodium addition on the preparation of hydroxyapatites and biphasic ceramics',
-              link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:IWHjjKOFINEC',
-              authors: 'S Kannan, JMG Ventura, AF Lemos, A Barba, JMF Ferreira',
-              cited_by: 90,
-              year: '2008',
-            },
-          ],
         },
+        articles: [
+          // {
+          //   name: 'Mike Robb',
+          //   author_id: 'kq0NYnMAAAAJ',
+          //   affiliations: 'Chemistry Department Imperial College',
+          //   cited_by: 226948,
+          //   interests: [
+          //     'Computational chemistry',
+          //     'Theoretical Chemistry',
+          //     'conical intersections',
+          //     'non adiabatic dynamics',
+          //   ],
+          //   picture:
+          //     'https://scholar.google.com/citations/images/avatar_scholar_56.png',
+          // },
+          {
+            title:
+              'Materias primas para la fabricación de soportes de baldosas cerámicas',
+            link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:hC7cP41nSMkC',
+            authors: 'A Barba',
+            cited_by: 401,
+            year: '2002',
+          },
+          {
+            title:
+              'Ceramic wastes as alternative raw materials for Portland cement clinker production',
+            link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:L8Ckcad2t8MC',
+            authors:
+              'F Puertas, I García-Díaz, A Barba, MF Gazulla, M Palacios, MP Gómez, ...',
+            cited_by: 306,
+            year: '2008',
+          },
+          {
+            title:
+              'Alkaline activation of metakaolin–fly ash mixtures: Obtain of Zeoceramics and Zeocements',
+            link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:7PzlFSSx8tAC',
+            authors:
+              'A Fernández-Jiménez, M Monzó, M Vicent, A Barba, A Palomo',
+            cited_by: 260,
+            year: '2008',
+          },
+          {
+            title:
+              'Characterization of silica–water nanofluids dispersed with an ultrasound probe: A study of their physical properties and stability',
+            link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:p2g8aNsByqUC',
+            authors: 'R Mondragon, JE Julia, A Barba, JC Jarque',
+            cited_by: 171,
+            year: '2012',
+          },
+          {
+            title:
+              'Ceramic wastes as raw materials in Portland cement clinker fabrication: characterization and alkaline activation',
+            link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:maZDTaKrznsC',
+            authors:
+              'F Puertas, A Barba, MF Gazulla, MP Gómez, M Palacios, ...',
+            cited_by: 114,
+            year: '2006',
+          },
+          {
+            title:
+              'Geopolymeric binders with different fine fillers—Phase transformations at high temperatures',
+            link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:mB3voiENLucC',
+            authors:
+              'A Buchwald, M Vicent, R Kriegel, C Kaps, M Monzó, A Barba',
+            cited_by: 94,
+            year: '2009',
+          },
+          {
+            title:
+              'Effect of sodium addition on the preparation of hydroxyapatites and biphasic ceramics',
+            link: 'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=JtmmReIAAAAJ&citation_for_view=JtmmReIAAAAJ:IWHjjKOFINEC',
+            authors: 'S Kannan, JMG Ventura, AF Lemos, A Barba, JMF Ferreira',
+            cited_by: 90,
+            year: '2008',
+          },
+        ],
+
         citedBy: {
           table: {
             citations: 2786,

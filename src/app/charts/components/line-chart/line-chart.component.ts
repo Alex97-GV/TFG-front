@@ -15,9 +15,9 @@ import {
   HighchartsChartComponent,
   HighchartsChartModule,
 } from 'highcharts-angular';
-import { BaseChart } from '../base-chart.class';
-import { LineChartConfiguration } from '../configurations/line-chart-configurations';
-import { ChartColors } from '../const/colors';
+import { BaseChart } from '../../base-chart.class';
+import { LineChartConfiguration } from '../../configurations/line-chart-configurations';
+import { ChartColors } from '../../const/colors';
 
 @Component({
   selector: 'line-chart',
