@@ -6,12 +6,12 @@ export class AuthorData {
     title: string;
     keyword: string;
   }[];
-  public articles!: {
+  public articleInfo!: {
     totalNumberArticles: number;
     notAvailable: number;
     available: number;
-    data: any[];
   };
+  public articles!: any[];
   public citedBy!: {
     table: {
       citations: number;

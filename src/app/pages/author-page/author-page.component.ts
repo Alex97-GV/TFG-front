@@ -1,7 +1,5 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as Highcharts from 'highcharts';
-import { HighchartsChartComponent } from 'highcharts-angular';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import {
   Serie,
@@ -9,6 +7,7 @@ import {
   YAxis,
 } from 'src/app/charts/configurations/base-chart-configuration';
 import { LineChartConfiguration } from 'src/app/charts/configurations/line-chart-configurations';
+import { SemiDonutConfiguration } from 'src/app/charts/configurations/semi-donut.configuration';
 import { ChartColors } from 'src/app/charts/const/colors';
 import { AuthorData } from 'src/app/models/author-data.model';
 import {
@@ -26,24 +25,9 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
   id = '';
   data$!: Observable<AuthorData>;
   lineChartConfig!: LineChartConfiguration;
+  semiDonutConfig!: SemiDonutConfiguration;
   dataTableConfiguration = new TableConfiguration<AuthorData>({
     data: [],
-    // nestedTables: [
-    //   new TableConfiguration<any>({
-    //     data: [],
-    //     columns: [
-    //       new Column({
-    //         name: 'author',
-    //         title: '',
-    //       }),
-    //       new Column({
-    //         name: 'citedBy',
-    //         title: '',
-    //         align:'center'
-    //       }),
-    //     ],
-    //   }),
-    // ],
     columns: [
       new Column({
         name: 'title',
@@ -86,9 +70,12 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
         takeUntil(this.componentDestroyed$),
         tap((res) => {
           debugger;
-          this.dataTableConfiguration.data = res.articles.data;
+          this.dataTableConfiguration.data = res.articles;
           this.lineChartConfig = this.getLineChartConfiguration(
             res.citedBy.graph
+          );
+          this.semiDonutConfig = this.getSemiDonutConfiguration(
+            res.articleInfo
           );
         })
       );
@@ -121,6 +108,56 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
           data: data.map((cit: any) => [cit.year, cit.citations]),
           unit: 'citations',
         }),
+      ],
+    });
+  }
+
+  getSemiDonutConfiguration(data: any) {
+    debugger;
+    return new SemiDonutConfiguration({
+      title: {
+        text: `${data.totalNumberArticles}`,
+        align: 'center',
+        verticalAlign: 'middle',
+        y: 100,
+        style: {
+          fontWeight: '600',
+          fontSize: '60px',
+        },
+      },
+      subtitle: {
+        text: 'Total Articles',
+        align: 'center',
+        verticalAlign: 'middle',
+        y: 120,
+        style: {
+          fontWeight: '600',
+          fontSize: '20px',
+        },
+      },
+      mainValue: data.totalNumberArticles,
+      unit: 'articles',
+      series: [
+        {
+          name: 'Available',
+          value: data.available,
+          tootipProperties: [
+            {
+              name: 'Articles',
+              value: data.available,
+            },
+          ],
+        },
+        {
+          name: 'Not Available',
+          value: data.notAvailable,
+          tootipProperties: [
+            {
+              name: 'Articles',
+              value: data.notAvailable,
+            },
+          ],
+        },
       ],
     });
   }

@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
   }
 
   goToAuthor() {
-    const authorId = 'SSDFRGHA';
+    const authorId = 'EicYvbwAAAAJ';
     this.router.navigate([`/author/${authorId}`])
   }
 

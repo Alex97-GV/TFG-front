@@ -17,12 +17,12 @@ export class ToAuthorDataMapperService extends MapperService<
         keyword: int.keyword,
       })),
       picture: entity.picture,
-      articles: {
-        totalNumberArticles: entity.articles.total_number_articles,
-        notAvailable: entity.articles.not_available,
-        available: entity.articles.available,
-        data: entity.articles.data,
+      articleInfo: {
+        totalNumberArticles: entity.article_info.total_number_articles,
+        notAvailable: entity.article_info.not_available,
+        available: entity.article_info.available,
       },
+      articles: entity.articles,
       citedBy: {
         table: {
           citations: entity.cited_by.table.citations,

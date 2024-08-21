@@ -23,24 +23,24 @@
             class="interests shadow rounded"
             *ngIf="response.interests.length > 0"
           >
-          <div class="interests-title">
-            <span class="fw-bold span-interests-title">Interests</span>
-          </div>
-          <div class="list-of-interests">
-            <ng-container *ngFor="let int of response.interests">
-              <span
-                role="button"
-                class="span-interest rounded"
-                (click)="searchInterest(int.keyword)"
-                >{{ int.title | titlecase }}</span
-              >
-            </ng-container>
-          </div>
+            <div class="interests-title">
+              <span class="fw-bold span-interests-title">Interests</span>
+            </div>
+            <div class="list-of-interests">
+              <ng-container *ngFor="let int of response.interests">
+                <span
+                  role="button"
+                  class="span-interest rounded"
+                  (click)="searchInterest(int.keyword)"
+                  >{{ int.title | titlecase }}</span
+                >
+              </ng-container>
+            </div>
           </div>
           <div class="articles shadow rounded">
             <span class="fw-bold span-articles">Total Articles</span>
             <span class="fw-bolder span-articles-num">{{
-              response.articles.totalNumberArticles
+              response.articleInfo.totalNumberArticles
             }}</span>
           </div>
           <div class="citations shadow rounded">
@@ -92,7 +92,16 @@
             role="tabpanel"
             aria-labelledby="nav-data-tab"
           >
-            <line-chart *ngIf="lineChartConfig" [configuration]="lineChartConfig"></line-chart>
+            <div class="data-panel">
+              <line-chart
+                *ngIf="lineChartConfig"
+                [configuration]="lineChartConfig"
+              ></line-chart>
+              <semi-donut-chart
+                *ngIf="semiDonutConfig.series.length"
+                [data]="semiDonutConfig"
+              ></semi-donut-chart>
+            </div>
           </div>
           <div
             class="tab-pane fade"
@@ -100,7 +109,10 @@
             role="tabpanel"
             aria-labelledby="nav-articles-tab"
           >
-            <data-table *ngIf="dataTableConfiguration?.data" [configuration]="dataTableConfiguration"></data-table>
+            <data-table
+              *ngIf="dataTableConfiguration?.data"
+              [configuration]="dataTableConfiguration"
+            ></data-table>
           </div>
         </div>
       </div>
