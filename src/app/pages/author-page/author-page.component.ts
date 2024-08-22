@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import {
   Serie,
@@ -40,7 +40,7 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
       }),
       new Column({
         name: 'citedBy',
-        title: 'Cyted By',
+        title: 'Cited By',
         width: '6rem',
         align: 'center',
       }),
@@ -57,6 +57,7 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private dataSvc: DataService
   ) {
     this.activatedRoute.paramMap
@@ -69,7 +70,6 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
       this.data$ = this.dataSvc.getAuthor(this.id).pipe(
         takeUntil(this.componentDestroyed$),
         tap((res) => {
-          debugger;
           this.dataTableConfiguration.data = res.articles;
           this.lineChartConfig = this.getLineChartConfiguration(
             res.citedBy.graph
@@ -113,7 +113,6 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
   }
 
   getSemiDonutConfiguration(data: any) {
-    debugger;
     return new SemiDonutConfiguration({
       title: {
         text: `${data.totalNumberArticles}`,
@@ -164,6 +163,7 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
 
   searchInterest(interest: string) {
     //buscar interes clickado
+    // this.router.navigate([`search/interest/${interest}`]);
   }
 
   ngOnDestroy(): void {

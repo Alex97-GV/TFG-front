@@ -97,10 +97,13 @@
                 *ngIf="lineChartConfig"
                 [configuration]="lineChartConfig"
               ></line-chart>
-              <semi-donut-chart
-                *ngIf="semiDonutConfig.series.length"
-                [data]="semiDonutConfig"
-              ></semi-donut-chart>
+              <div>
+                <h3 class="m-0 semi-donut-title">Articles Information</h3>
+                <semi-donut-chart
+                  *ngIf="semiDonutConfig.series.length"
+                  [data]="semiDonutConfig"
+                ></semi-donut-chart>
+              </div>
             </div>
           </div>
           <div

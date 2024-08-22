@@ -1,87 +1,80 @@
 <div class="main-container default-theme">
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #16697A;">
+  <nav
+    class="navbar navbar-expand-lg navbar-light"
+    style="background-color: #16697a"
+  >
     <div class="container">
-      <!-- Navbar brand -->
-      <a class="navbar-brand" routerLink="/home"> Home </a>
-      <!-- Toggle button -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-mdb-toggle="collapse"
-        data-mdb-target="#navbarButtonsExample"
-        aria-controls="navbarButtonsExample"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-      <!-- Collapsible wrapper -->
-      <div class="collapse navbar-collapse" id="navbarButtonsExample">
-        <!-- Left links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item active">
-            <a class="nav-link text-decoration-none" (click)="goToAuthor()">Author</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link">Link2</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link">Link3</a>
-          </li>
-        </ul>
-  
-        <form (ngSubmit)="onSubmit()" class="mx-5 input-group" [formGroup]="form">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search..."
-            aria-label="Search"
-            formControlName="key"
-          />
-          <button class="btn btn-search" type="submit">Search</button>
+      <div class="navbar-items-container">
+        <div class="navbar-custom-items">
+          <a class="navbar-brand" role="button">WeCollaborate</a>
+        </div>
+        <div class="navbar-custom-items">
+          <a
+            class="nav-link text-decoration-none"
+            role="button"
+            (click)="goToAuthor()"
+            >Author</a
+          >
+        </div>
+        <form class="navbar-custom-items" [formGroup]="form">
+          <div class="input-group custom-search">
+            <input type="text" class="form-control" placeholder="Search {{form.get('type')?.value}}..." formControlName="key"/>
+            <button type="button" class="btn btn-search border-end">
+              Search
+            </button>
+            <button
+              type="button"
+              class="btn btn-search dropdown-toggle dropdown-toggle-split"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <ng-container *ngFor="let type of searchTypes">
+                <li>
+                  <a class="dropdown-item" (click)="changeSearchType(type)">{{
+                    type
+                  }}</a>
+                </li>
+              </ng-container>
+            </ul>
+          </div>
         </form>
-  
-        <!-- right links -->
-        <ul class="navbar-nav mb-2 mb-lg-0">
-          <!-- ngIf sesion = true -->
-          <li class="nav-item dropdown">
-            <div class="dropdown">
-              <a
-                class="btn btn-profile dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {{user}}
-              </a>
-  
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" routerLink="/profile">Ver perfil</a>
-                </li>
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">Ajustes y privacidad</a>
-                </li>
-                <li><a class="dropdown-item" href="#">Ayuda</a></li>
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
-                <li>
-                  <a class="dropdown-item" (click)="logOut()">Cerrar sesión</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
+        <div class="navbar-custom-items">
+          <div class="dropdown">
+            <a
+              class="btn btn-profile dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ user }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a class="dropdown-item" routerLink="/profile">Ver perfil</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" role="button">Ajustes y privacidad</a>
+              </li>
+              <li><a class="dropdown-item" role="button">Ayuda</a></li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" role="button" (click)="logOut()"
+                  >Cerrar sesión</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <!-- Collapsible wrapper -->
     </div>
   </nav>
-  <!-- Navbar -->
 </div>

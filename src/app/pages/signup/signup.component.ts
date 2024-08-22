@@ -55,7 +55,6 @@ export class SignupComponent implements OnInit {
         next: (res) => {
           //guardar usuario en memoria para la navegación
           sessionStorage.setItem('user', JSON.stringify(res));
-          debugger;
           this.router.navigate(['/interests']);
         },
         error: (error) => {

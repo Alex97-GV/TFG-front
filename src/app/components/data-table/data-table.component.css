@@ -1,8 +1,22 @@
 a {
-    color: black;
-    text-decoration: none;
+  color: black;
+  text-decoration: none;
+  font-weight: 500;
+
 }
 
 a:hover {
-    color: #ffa62b !important;
+  color: #ffa62b !important;
+  font-weight: 500;
+}
+
+.table-header {
+  --bs-table-color: #fff;
+  --bs-table-bg: #16697a;
+  --bs-table-border-color: #4d5154;
+}
+
+.loading-block {
+  display: table-row;
+  height: 20rem;
 }

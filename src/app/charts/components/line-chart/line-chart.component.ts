@@ -56,7 +56,6 @@ export class LineChartComponent
   }
 
   createChart() {
-    debugger;
     const self = this;
 
     Highcharts.setOptions({

@@ -14,8 +14,11 @@ export class DataTableComponent implements OnInit, OnDestroy{
   constructor(){}
     
   ngOnInit(): void {
-    debugger;
     this.data = this.configuration.data ?? [];
+  }
+
+  goToLink(url: string) {
+    window.open(url, "_blank");
   }
 
   ngOnDestroy(): void {
