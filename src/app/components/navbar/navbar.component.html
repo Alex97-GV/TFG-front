@@ -6,7 +6,7 @@
     <div class="container">
       <div class="navbar-items-container">
         <div class="navbar-custom-items">
-          <a class="navbar-brand" role="button">WeCollaborate</a>
+          <a class="navbar-brand" routerLink="/home">WeCollaborate</a>
         </div>
         <div class="navbar-custom-items">
           <a
@@ -34,7 +34,7 @@
               <ng-container *ngFor="let type of searchTypes">
                 <li>
                   <a class="dropdown-item" (click)="changeSearchType(type)">{{
-                    type
+                    type | titlecase
                   }}</a>
                 </li>
               </ng-container>

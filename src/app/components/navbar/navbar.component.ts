@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
   form!: FormGroup;
   data$!: Observable<Data>;
   user: string = 'Unknown';
-  searchTypes = ['All', 'Author', 'Interests'];
+  searchTypes = ['all', 'author', 'interests'];
 
   constructor(
     private readonly fb: FormBuilder,
@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit {
   initForm(): void {
     this.form = this.fb.group({
       key: ['', Validators.required],
-      type: ['All', Validators.required]
+      type: ['all', Validators.required]
     });
   }
 

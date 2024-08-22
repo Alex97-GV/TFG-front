@@ -9,22 +9,55 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { InterestPageComponent } from './pages/interest-page/interest-page.component';
 import { AuthorPageComponent } from './pages/author-page/author-page.component';
+import { authorizeGuard } from './guards/authorize.guard';
 
 const routes: Routes = [
   { path: 'login', component: LogInComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'pass-reset', component: PassResetComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'interests', component: InterestPageComponent },
-  { path: 'profile', component: PerfilComponent },
+  {
+    path: 'home',
+    canActivate: [authorizeGuard],
+    component: HomeComponent,
+  },
+  {
+    path: 'pass-reset',
+    canActivate: [authorizeGuard],
+    component: PassResetComponent,
+  },
+  {
+    path: 'signup',
+    canActivate: [authorizeGuard],
+    component: SignupComponent,
+  },
+  {
+    path: 'interests',
+    canActivate: [authorizeGuard],
+    component: InterestPageComponent,
+  },
+  {
+    path: 'profile',
+    canActivate: [authorizeGuard],
+    component: PerfilComponent,
+  },
   {
     path: 'author/:id',
-    children: [{ path: '', component: AuthorPageComponent }],
+    children: [
+      {
+        path: '',
+        canActivate: [authorizeGuard],
+        component: AuthorPageComponent,
+      },
+    ],
   },
   {
     path: 'search/:key',
-    children: [{ path: '', component: SearchPageComponent }],
+    children: [
+      {
+        path: '',
+        canActivate: [authorizeGuard],
+        component: SearchPageComponent,
+      },
+    ],
   },
   { path: '**', component: PageNotFoundComponent },
 ];
