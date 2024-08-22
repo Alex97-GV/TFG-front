@@ -1,5 +1,5 @@
 export class User {
-  public id!: number;
+  public openToCollaborate!: boolean;
   public name!: string;
   public mail!: string;
 

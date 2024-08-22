@@ -17,6 +17,8 @@ export class DataService {
     private toAuthorDataMapperService: ToAuthorDataMapperService
   ) {}
 
+  private readonly urlBase = 'http://127.0.0.1:5000/api/';
+
   search(data: any): Observable<Data[]> {
     let params = {};
     if (data.key) params = { ...params, key: data.key };
@@ -80,7 +82,7 @@ export class DataService {
     };
 
     return this.baseApiSvc
-      .get<AuthorDataDto>(`http://127.0.0.1:5000/api/search_author_id`, params)
+      .get<AuthorDataDto>(`${this.urlBase}search_author_id`, params)
       .pipe(
         map((res) => {
           return this.toAuthorDataMapperService.transform(res);

@@ -5,6 +5,7 @@ import { ToUserMapperService } from '../mappers/to-user.mapper';
 import { UserDto } from '../models/user-dto.interface';
 import { User } from '../models/user.model';
 import { BaseApiService } from './base-api.service';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,33 +17,45 @@ export class UserService {
     private router: Router
   ) {}
 
-  private readonly url = 'urlBase';
+  private readonly urlBase = 'http://127.0.0.1:5000/api/';
 
   logIn(data: any): Observable<User> {
-    let params = { email: '', password: '' };
-    if (data.email) params.email = data.email;
-    if (data.password) params.password = data.password;
+    let params = {
+      email: data.email,
+      // password: this.hashPass(data.password),
+      password: data.password
+    };
 
-    return of(new User({ id: 1, name: 'Alex', mail: 'a@a.com' }));
-    // return this.baseApiService
-    //   .get<UserDto>(`${this.url}/api/login`, params)
-    //   .pipe(
-    //     map((user) => {
-    //       // debugger;
-    //       return this.toUserMapperService.transform(user);
-    //     })
-    //   );
-  }
-
-  logout(): void {
-    //resetear datos usuario guardado en app (sessionStorage o lo que usemos)
-    this.router.navigate(['/login']);
+    return this.baseApiService
+      .get<UserDto>(`${this.urlBase}login`, params)
+      .pipe(
+        map((user) => {
+          debugger;
+          return this.toUserMapperService.transform(user);
+        })
+      );
   }
 
   signUp(data: any): Observable<User> {
-    const params = {};
-    return of(new User({ id: 1, name: 'Alex', mail: 'a@a.com' }));
-    // const params = toUserDtoMapperService.transform(data);
-    // return this.baseApiService.post<User>(`${this.url}`, params);
+    const params = {
+      name: data.user,
+      email: data.mail,
+      password: this.hashPass(data.pass),
+      open_to_collaborate: data.openToCollaborate,
+      user_terms_acceptance: data.agree,
+    };
+    debugger;
+    return this.baseApiService
+      .post<UserDto>(`${this.urlBase}sign_up`, params)
+      .pipe(
+        map((user) => {
+          debugger;
+          return this.toUserMapperService.transform(user);
+        })
+      );
+  }
+  
+  hashPass(pass: string): string {
+    return bcrypt.hashSync(pass, bcrypt.genSaltSync());
   }
 }

@@ -1,5 +1,7 @@
 export interface UserDto {
-  id: number;
+  open_to_collaborate: boolean;
   name: string;
-  mail: string;
+  email: string;
+  password?: string;
+  user_terms_acceptance?: boolean;
 }
