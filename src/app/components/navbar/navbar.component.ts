@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
   form!: FormGroup;
   data$!: Observable<Data>;
   user: string = 'Unknown';
+  searchTypes = ['All', 'Author', 'Interests'];
 
   constructor(
     private readonly fb: FormBuilder,
@@ -30,6 +31,7 @@ export class NavbarComponent implements OnInit {
   initForm(): void {
     this.form = this.fb.group({
       key: ['', Validators.required],
+      type: ['All', Validators.required]
     });
   }
 
@@ -41,6 +43,11 @@ export class NavbarComponent implements OnInit {
   goToAuthor() {
     const authorId = 'EicYvbwAAAAJ';
     this.router.navigate([`/author/${authorId}`])
+  }
+
+  changeSearchType(type: string) {
+    this.form.get('type')?.setValue(type);
+
   }
 
   onSubmit(): void {

@@ -13,11 +13,7 @@ export interface AuthorDataDto {
   };
   articles: any[];
   cited_by: {
-    table: {
-      citations: number;
-      h_index: number;
-      i10_index: number;
-    };
+    total_citations: number;
     graph: {
       year: number;
       citations: number;

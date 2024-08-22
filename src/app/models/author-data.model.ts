@@ -13,11 +13,7 @@ export class AuthorData {
   };
   public articles!: any[];
   public citedBy!: {
-    table: {
-      citations: number;
-      hIndex: number;
-      i10Index: number;
-    };
+    totalCitations: number;
     graph: {
       year: number;
       citations: number;

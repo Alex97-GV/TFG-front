@@ -24,11 +24,7 @@ export class ToAuthorDataMapperService extends MapperService<
       },
       articles: entity.articles,
       citedBy: {
-        table: {
-          citations: entity.cited_by.table.citations,
-          hIndex: entity.cited_by.table.h_index,
-          i10Index: entity.cited_by.table.i10_index,
-        },
+        totalCitations: entity.cited_by.total_citations,
         graph: entity.cited_by.graph.map((gr) => {
           return {
             year: gr.year,
