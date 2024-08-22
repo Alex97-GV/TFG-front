@@ -11,9 +11,8 @@
         <div class="navbar-custom-items">
           <a
             class="nav-link text-decoration-none"
-            role="button"
-            (click)="goToAuthor()"
-            >Author</a
+            routerLink="/profile"
+            >Profile</a
           >
         </div>
         <form class="navbar-custom-items" [formGroup]="form">
@@ -54,7 +53,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li>
-                <a class="dropdown-item" routerLink="/profile">Ver perfil</a>
+                <a class="dropdown-item" routerLink="/perfil">Ver perfil</a>
               </li>
               <li>
                 <hr class="dropdown-divider" />

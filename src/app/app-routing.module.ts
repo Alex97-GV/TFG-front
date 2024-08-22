@@ -10,6 +10,7 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { InterestPageComponent } from './pages/interest-page/interest-page.component';
 import { AuthorPageComponent } from './pages/author-page/author-page.component';
 import { authorizeGuard } from './guards/authorize.guard';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   { path: 'login', component: LogInComponent },
@@ -34,9 +35,14 @@ const routes: Routes = [
     component: InterestPageComponent,
   },
   {
-    path: 'profile',
+    path: 'perfil',
     canActivate: [authorizeGuard],
     component: PerfilComponent,
+  },
+  {
+    path: 'profile',
+    canActivate: [authorizeGuard],
+    component: ProfileComponent,
   },
   {
     path: 'author/:id',
