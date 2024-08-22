@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DataService } from '../../services/data-service';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Data } from '../../models/data.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +17,6 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private dataSvc: DataService,
     private router: Router
   ) {}
 

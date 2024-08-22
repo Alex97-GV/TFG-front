@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -14,9 +14,11 @@ import { UserService } from '../../services/user.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
   Titulo: string = 'Sign up';
   form!: FormGroup;
+
+  private readonly componentDestroyed$ = new Subject<void>();
 
   constructor(
     private readonly fb: FormBuilder,
@@ -51,16 +53,23 @@ export class SignupComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.userService.signUp(this.form.value).subscribe({
-        next: (res) => {
-          //guardar usuario en memoria para la navegación
-          sessionStorage.setItem('user', JSON.stringify(res));
-          this.router.navigate(['/interests']);
-        },
-        error: (error) => {
-          //notificar al usuario con el mensaje recibido por el back
-        },
-      });
+      this.userService
+        .signUp(this.form.value)
+        .pipe(takeUntil(this.componentDestroyed$))
+        .subscribe({
+          next: (res) => {
+            //guardar usuario en memoria para la navegación
+            sessionStorage.setItem('user', JSON.stringify(res));
+            this.router.navigate(['/interests']);
+          },
+          error: (error) => {
+            //notificar al usuario con el mensaje recibido por el back
+          },
+        });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.componentDestroyed$.next();
   }
 }

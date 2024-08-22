@@ -38,7 +38,8 @@
   
   .navbar-items-container {
     display: grid;
-    grid-template-columns: 10% 10% auto 10%;
+    grid-template-columns: 10% 5% auto 10%;
+    column-gap: 1rem;
     width: 100%;
     min-width: 1000px;
     align-items: center;
@@ -46,9 +47,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      .custom-search {
-        max-width: 70rem;
-      }
     }
   }
 
