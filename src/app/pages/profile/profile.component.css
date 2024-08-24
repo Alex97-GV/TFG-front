@@ -45,6 +45,21 @@
       }
     }
   }
+  .profile-data {
+    display: grid;
+    grid-template-columns: auto;
+    column-gap: 2rem;
+    .personal-data-card{
+      background-color: white;
+      .edit-btn {
+        display: flex;
+        justify-content: end;
+        > button:hover {
+          background-color: #f8f9fa;
+        }
+      }
+    }
+  }
 }
 
 .socials-items {

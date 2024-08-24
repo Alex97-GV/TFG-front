@@ -9,16 +9,23 @@
           <a class="navbar-brand" routerLink="/home">WeCollaborate</a>
         </div>
         <div class="navbar-custom-items">
-          <a
-            class="nav-link text-decoration-none"
-            routerLink="/profile"
+          <a class="nav-link text-decoration-none" routerLink="/profile"
             >Profile</a
           >
         </div>
-        <form class="navbar-custom-items" [formGroup]="form">
+        <form
+          class="navbar-custom-items"
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()"
+        >
           <div class="input-group custom-search">
-            <input type="text" class="form-control" placeholder="Search {{form.get('type')?.value}}..." formControlName="key"/>
-            <button type="button" class="btn btn-search border-end">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search {{ form.get('type')?.value }}..."
+              formControlName="key"
+            />
+            <button type="submit" class="btn btn-search border-end">
               Search
             </button>
             <button
