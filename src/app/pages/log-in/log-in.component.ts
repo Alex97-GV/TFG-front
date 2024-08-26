@@ -43,6 +43,7 @@ export class LogInComponent implements OnInit, OnDestroy {
           },
           error: (error) => {
             //notificar sobre un problema y redireccionar
+            debugger;
           },
         });
     }
