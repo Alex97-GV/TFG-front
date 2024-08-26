@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, map, of } from 'rxjs';
+import * as bcrypt from 'bcryptjs';
+import { Observable, map } from 'rxjs';
 import { ToUserMapperService } from '../mappers/to-user.mapper';
 import { UserDto } from '../models/user-dto.interface';
 import { User } from '../models/user.model';
 import { BaseApiService } from './base-api.service';
-import * as bcrypt from 'bcryptjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +13,6 @@ export class UserService {
   constructor(
     private baseApiService: BaseApiService,
     private toUserMapperService: ToUserMapperService,
-    private router: Router
   ) {}
 
   private readonly urlBase = 'http://127.0.0.1:5000/api/';
@@ -22,8 +20,6 @@ export class UserService {
   logIn(data: any): Observable<User> {
     let params = {
       email: data.email,
-      // password: this.hashPass(data.password),
-      password: data.password
     };
 
     return this.baseApiService
@@ -31,7 +27,9 @@ export class UserService {
       .pipe(
         map((user) => {
           debugger;
-          return this.toUserMapperService.transform(user);
+          if (this.comparePassword(data.password, user.password))
+            return this.toUserMapperService.transform(user);
+          else throw new Error('Password does not match');
         })
       );
   }
@@ -41,7 +39,7 @@ export class UserService {
       name: data.user,
       email: data.mail,
       password: this.hashPass(data.pass),
-      open_to_collaborate: data.openToCollaborate,
+      open_to_collaborate: true, //modificar en un futuro
       user_terms_acceptance: data.agree,
     };
     debugger;
@@ -54,8 +52,12 @@ export class UserService {
         })
       );
   }
-  
+
   hashPass(pass: string): string {
     return bcrypt.hashSync(pass, bcrypt.genSaltSync());
+  }
+
+  comparePassword(passFromLogin: string, hashPass: string): boolean {
+    return bcrypt.compareSync(passFromLogin, hashPass);
   }
 }

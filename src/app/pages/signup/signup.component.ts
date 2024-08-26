@@ -58,7 +58,6 @@ export class SignupComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.componentDestroyed$))
         .subscribe({
           next: (res) => {
-            //guardar usuario en memoria para la navegación
             sessionStorage.setItem('user', JSON.stringify(res));
             this.router.navigate(['/interests']);
           },
