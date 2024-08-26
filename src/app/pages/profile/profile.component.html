@@ -1,45 +1,88 @@
 <div class="main-container">
   <div class="container">
-    <div class="columns-container">
-      <div class="profile-and-rrss">
-        <div class="profile-card rounded shadow">
-          <div class="profile-content text-center">
-            <img src="/assets/def-profile.png" />
-            <h5 class="my-3">Alex</h5>
-            <p class="text-muted mb-1">Programador</p>
-            <p class="text-muted mb-4">Madrid, España</p>
-            <div class="d-flex justify-content-center mb-2">
-              <button type="button" class="btn btn-outline-primary">
-                Editar perfil
-              </button>
+    <ng-container *ngIf="data$ | async as res; else error">
+      <form class="columns-container" [formGroup]="form">
+        <div class="profile-and-rrss">
+          <div class="profile-card rounded shadow">
+            <div class="profile-content text-center">
+              <img src="/assets/def-profile.png" />
+              <h5 class="my-3 name">{{res.name}}</h5>
+              <p class="text-muted my-3" >{{res.affiliation}}</p>
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-outline-primary">
+                  Edit
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="social-networks-card rounded shadow">
+            <div class="ssnn-content">
+              <div class="edit-btn">
+                <button type="button" class="btn" (click)="editarRS()">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+              </div>
+              <hr class="divider m-0" />
+              <ng-container *ngFor="let item of res.ssnn as socials; let i = index">
+                <a role="button" class="socials-items" (click)="goToLink(item.url)">{{ item.name }}</a>
+                <hr *ngIf="i != socials.length - 1" class="divider m-0" />
+              </ng-container>
             </div>
           </div>
         </div>
-        <div class="social-networks-card rounded shadow">
-          <div class="ssnn-content">
+        <div class="profile-data">
+          <div class="personal-data-card rounded shadow">
             <div class="edit-btn">
               <button type="button" class="btn" (click)="editarRS()">
                 <i class="bi bi-pencil-square"></i>
               </button>
             </div>
+  
             <hr class="divider m-0" />
-            <ng-container *ngFor="let item of socials; let i = index">
-              <a role="button" class="socials-items">{{ item }}</a>
-              <hr *ngIf="i != socials.length - 1" class="divider m-0" />
-            </ng-container>
+  
+            <div class="profile-data-container">
+              <div class="row-data">
+                <p>Full Name</p>
+                <input
+                  type="text"
+                  placeholder="e.g., Name & Surname"
+                  [readOnly]="profileFieldsEditable"
+                />
+              </div>
+              <hr class="divider m-0" />
+              <div class="row-data">
+                <p>Email</p>
+                <input
+                  type="text"
+                  placeholder="e.g., example@example.com"
+                  [readOnly]="profileFieldsEditable"
+                />
+              </div>
+              <hr class="divider m-0" />
+              <div class="row-data">
+                <p>Phone number</p>
+                <input
+                  type="text"
+                  placeholder="e.g., (+34) 612345678"
+                  [readOnly]="profileFieldsEditable"
+                />
+              </div>
+              <hr class="divider m-0" />
+              <div class="row-data">
+                <p>Affiliation</p>
+                <input
+                  type="text"
+                  placeholder="e.g., Developer, Madrid"
+                  [readOnly]="profileFieldsEditable"
+                />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="profile-data">
-        <div class="personal-data-card rounded shadow">
-          <div class="edit-btn">
-            <button type="button" class="btn" (click)="editarRS()">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-          </div>
-          <hr class="divider m-0" />
-        </div>
-      </div>
-    </div>
+      </form>
+    </ng-container>
+    <ng-template #error>
+      <h1 class="text-danger p-5 d-flex justify-content-center align-items-center">There was an error! Please try again later.</h1>
+    </ng-template>
   </div>
 </div>

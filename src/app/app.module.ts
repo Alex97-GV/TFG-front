@@ -23,6 +23,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { ChartsModule } from './charts/charts.module';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ToProfileDataMapperService } from './mappers/to-profile-data.mapper';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     ToDataMapperService,
     UserService,
     ToAuthorDataMapperService,
+    ToProfileDataMapperService,
   ],
   bootstrap: [AppComponent],
 })

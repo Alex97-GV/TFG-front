@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as bcrypt from 'bcryptjs';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { ToUserMapperService } from '../mappers/to-user.mapper';
 import { UserDto } from '../models/user-dto.interface';
 import { User } from '../models/user.model';
 import { BaseApiService } from './base-api.service';
+import { ProfileData } from '../models/profile-data.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ import { BaseApiService } from './base-api.service';
 export class UserService {
   constructor(
     private baseApiService: BaseApiService,
-    private toUserMapperService: ToUserMapperService,
+    private toUserMapperService: ToUserMapperService
   ) {}
 
   private readonly urlBase = 'http://127.0.0.1:5000/api/';
@@ -51,6 +52,62 @@ export class UserService {
           return this.toUserMapperService.transform(user);
         })
       );
+  }
+
+  getProfileData(email: string) {
+    const params = {
+      email: email,
+    };
+
+    return of(
+      new ProfileData({
+        name: 'Alex',
+        picture: null,
+        interests: [
+          {
+            keyword: 'particle_physics',
+            title: 'Particle Physics',
+          },
+          {
+            keyword: 'high_energy_physics',
+            title: 'High Energy Physics',
+          },
+          {
+            keyword: 'grid_computing',
+            title: 'Grid Computing',
+          },
+          {
+            keyword: 'computing_for_high_energy_physics',
+            title: 'Computing for High Energy Physics',
+          },
+        ],
+        email: 'alexmigo@ucm.es',
+        phone: '999999999',
+        affiliation: 'Full Professor, Universidad Complutense de Madrid (UCM)',
+        ssnn: [
+          {
+            name: 'Twitter',
+            url: 'https://www.google.es/',
+          },
+          {
+            name: 'Instagram',
+            url: 'https://www.google.es/',
+          },
+          {
+            name: 'Facebook',
+            url: 'https://www.google.es/',
+          },
+          {
+            name: 'Youtube',
+            url: 'https://www.google.es/',
+          },
+        ],
+        openToCollaborate: true,
+        id: null,
+      })
+    );
+
+    // return this.baseApiService.get<ProfileData>(`${this.urlBase}get_user_info`, params);
   }
 
   hashPass(pass: string): string {
