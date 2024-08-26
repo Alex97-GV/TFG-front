@@ -61,8 +61,8 @@ export class UserService {
 
     return of(
       new ProfileData({
-        name: 'Alex',
-        picture: null,
+        name: 'Lorena',
+        picture: 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp',
         interests: [
           {
             keyword: 'particle_physics',
@@ -81,7 +81,7 @@ export class UserService {
             title: 'Computing for High Energy Physics',
           },
         ],
-        email: 'alexmigo@ucm.es',
+        email: 'lor@ucm.es',
         phone: '999999999',
         affiliation: 'Full Professor, Universidad Complutense de Madrid (UCM)',
         ssnn: [

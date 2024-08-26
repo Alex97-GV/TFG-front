@@ -5,9 +5,17 @@
         <div class="profile-and-rrss">
           <div class="profile-card rounded shadow">
             <div class="profile-content text-center">
-              <img src="/assets/def-profile.png" />
-              <h5 class="my-3 name">{{res.name}}</h5>
-              <p class="text-muted my-3" >{{res.affiliation}}</p>
+              <div class="profile-picture">
+                <img
+                  src="{{
+                    form.get('picture')?.value != null
+                      ? form.get('picture')?.value
+                      : '/assets/def-profile.png'
+                  }}"
+                />
+              </div>
+              <h5 class="my-3 name">{{ res.name }}</h5>
+              <p class="text-muted my-3">{{ res.affiliation }}</p>
               <div class="d-flex justify-content-center mb-2">
                 <button type="button" class="btn btn-outline-primary">
                   Edit
@@ -17,14 +25,36 @@
           </div>
           <div class="social-networks-card rounded shadow">
             <div class="ssnn-content">
-              <div class="edit-btn">
-                <button type="button" class="btn" (click)="editarRS()">
-                  <i class="bi bi-pencil-square"></i>
-                </button>
+              <div class="edit-btn-row">
+                <ng-container *ngIf="!editingSocials; else editingSocialsData">
+                  <button
+                    type="button"
+                    class="btn btn-edit"
+                    (click)="editSocials()"
+                  >
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                </ng-container>
+                <ng-template #editingSocialsData>
+                  <button
+                    type="button"
+                    class="btn btn-save"
+                    (click)="saveSocials()"
+                  >
+                    <i class="bi bi-check-square"></i>
+                  </button>
+                </ng-template>
               </div>
               <hr class="divider m-0" />
-              <ng-container *ngFor="let item of res.ssnn as socials; let i = index">
-                <a role="button" class="socials-items" (click)="goToLink(item.url)">{{ item.name }}</a>
+              <ng-container
+                *ngFor="let item of res.ssnn as socials; let i = index"
+              >
+                <a
+                  role="button"
+                  class="socials-items"
+                  (click)="goToLink(item.url)"
+                  >{{ item.name }}</a
+                >
                 <hr *ngIf="i != socials.length - 1" class="divider m-0" />
               </ng-container>
             </div>
@@ -32,21 +62,32 @@
         </div>
         <div class="profile-data">
           <div class="personal-data-card rounded shadow">
-            <div class="edit-btn">
-              <button type="button" class="btn" (click)="editarRS()">
-                <i class="bi bi-pencil-square"></i>
-              </button>
+            <div class="edit-btn-row">
+              <ng-container *ngIf="!editingData; else editingProfileData">
+                <button type="button" class="btn btn-edit" (click)="editData()">
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+              </ng-container>
+              <ng-template #editingProfileData>
+                <button
+                  type="button"
+                  class="btn btn-save"
+                  (click)="saveData()"
+                >
+                  <i class="bi bi-check-square"></i>
+                </button>
+              </ng-template>
             </div>
-  
+
             <hr class="divider m-0" />
-  
+
             <div class="profile-data-container">
               <div class="row-data">
                 <p>Full Name</p>
                 <input
                   type="text"
                   placeholder="e.g., Name & Surname"
-                  [readOnly]="profileFieldsEditable"
+                  formControlName="fullName"
                 />
               </div>
               <hr class="divider m-0" />
@@ -55,7 +96,7 @@
                 <input
                   type="text"
                   placeholder="e.g., example@example.com"
-                  [readOnly]="profileFieldsEditable"
+                  formControlName="email"
                 />
               </div>
               <hr class="divider m-0" />
@@ -64,7 +105,7 @@
                 <input
                   type="text"
                   placeholder="e.g., (+34) 612345678"
-                  [readOnly]="profileFieldsEditable"
+                  formControlName="phone"
                 />
               </div>
               <hr class="divider m-0" />
@@ -73,7 +114,7 @@
                 <input
                   type="text"
                   placeholder="e.g., Developer, Madrid"
-                  [readOnly]="profileFieldsEditable"
+                  formControlName="affiliation"
                 />
               </div>
             </div>
@@ -82,7 +123,11 @@
       </form>
     </ng-container>
     <ng-template #error>
-      <h1 class="text-danger p-5 d-flex justify-content-center align-items-center">There was an error! Please try again later.</h1>
+      <h1
+        class="text-danger p-5 d-flex justify-content-center align-items-center"
+      >
+        There was an error! Please try again later.
+      </h1>
     </ng-template>
   </div>
 </div>

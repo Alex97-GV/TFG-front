@@ -11,51 +11,79 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   data$!: Observable<ProfileData> | undefined;
-  profileFieldsEditable: boolean = true;
+  editingSocials = false;
+  editingData = false;
   form!: FormGroup;
 
   private readonly componentDestroyed$ = new Subject<void>();
 
   constructor(private userSvc: UserService, private fb: FormBuilder) {}
-  
+
   ngOnInit(): void {
     const user = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.initForm();
-    this.data$ = this.userSvc.getProfileData(user.mail).pipe(takeUntil(this.componentDestroyed$), tap((res) => {
-      this.fillForm(res);
-    })) ?? undefined;
+    this.data$ =
+      this.userSvc.getProfileData(user.mail).pipe(
+        takeUntil(this.componentDestroyed$),
+        tap((res) => {
+          this.fillForm(res);
+        })
+      ) ?? undefined;
   }
-  
+
   initForm() {
     this.form = this.fb.group({
-      fullName: [{value: '', disabled: true}],
-      picture: [{value: '', disabled: true}],
+      fullName: [{ value: '', disabled: true }],
+      picture: [{ value: null, disabled: true }],
       openToCollab: [false],
       interests: [[]],
-      affiliation: [{value: '', disabled: true}],
-      email: [{value: '', disabled: true}],
-      phone: [{value: '', disabled: true}],
+      affiliation: [{ value: '', disabled: true }],
+      email: [{ value: '', disabled: true }],
+      phone: [{ value: '', disabled: true }],
       socials: [[]],
     });
   }
 
   fillForm(data: ProfileData) {
-    this.form.patchValue({
-      name: data.name,
-      picture: data.picture,
-      openToCollab: data.openToCollaborate,
-      interests: data.interests,
-      affiliation: data.affiliation,
-      phone: data.phone,
-      socials: data.ssnn,
-    })
+    this.form.patchValue(
+      {
+        fullName: data.name,
+        picture: data.picture,
+        openToCollab: data.openToCollaborate,
+        interests: data.interests,
+        affiliation: data.affiliation,
+        email: data.email,
+        phone: data.phone,
+        socials: data.ssnn,
+      },
+      { emitEvent: false }
+    );
   }
-  
+
   goToLink(url: string) {
     window.open(url, '_blank');
   }
-  
-  editarRS() {}
+
+  editSocials() {
+    this.form.enable();
+    this.editingSocials = true;
+  }
+
+  saveSocials() {
+    this.form.disable();
+    this.editingSocials = false;
+  }
+
+  editData() {
+    this.form.enable();
+    this.editingData = true;
+  }
+
+  saveData() {
+    this.form.disable();
+    this.editingData = false;
+  }
+
 
   ngOnDestroy(): void {
     this.componentDestroyed$.next();

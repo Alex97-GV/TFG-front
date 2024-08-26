@@ -17,7 +17,20 @@
     .profile-card {
       background-color: white;
       .profile-content {
+        display: grid;
+        grid-template-columns: auto;
         padding: 1rem;
+        justify-items: center;
+        .profile-picture {
+          overflow: hidden;
+          max-height: 15rem;
+          max-width: 15rem;
+          border-radius: 50%;
+          img {
+            height: 100%;
+            width: 100%;
+          }
+        }
       }
     }
     .social-networks-card {
@@ -25,12 +38,9 @@
       .ssnn-content {
         display: grid;
         grid-template-columns: auto;
-        .edit-btn {
+        .edit-btn-row {
           display: flex;
           justify-content: end;
-          > button:hover {
-            background-color: #f8f9fa;
-          }
         }
         .socials-items {
           padding: 1rem;
@@ -38,7 +48,7 @@
           font-weight: 450;
         }
         .socials-items:hover {
-          background-color: #f8f9fa;
+          background-color: #f0f0f0;
         }
       }
     }
@@ -50,12 +60,9 @@
     .personal-data-card {
       background-color: white;
       height: fit-content;
-      .edit-btn {
+      .edit-btn-row {
         display: flex;
         justify-content: end;
-        > button:hover {
-          background-color: #f8f9fa;
-        }
       }
       .profile-data-container {
         display: grid;
@@ -63,12 +70,15 @@
         column-gap: 1%;
         .row-data {
           display: grid;
-          grid-template-columns: 30% auto;
+          grid-template-columns: 20% auto;
           p {
             margin: 0;
             padding: 1rem;
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
             font-weight: 450;
+          }
+          input {
+            padding-left: 1rem;
           }
         }
       }
@@ -86,6 +96,20 @@
     outline: none;
   }
 }
+.btn-edit {
+  margin: 0.2rem;
+}
+.btn-edit:hover {
+  background-color: #f0f0f0;
+}
+.btn-save {
+  margin: 0.2rem;
+  color: green;
+}
+.btn-save:hover {
+  background-color: rgba(0, 128, 0, 0.068);
+}
+
 
 .socials-items {
   color: black !important;
