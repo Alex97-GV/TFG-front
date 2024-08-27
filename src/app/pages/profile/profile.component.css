@@ -91,16 +91,17 @@
     font-size: inherit;
     padding: 0;
     width: auto;
-  }
-  input:focus-visible {
-    outline: none;
-  }
-  input:disabled {
-    cursor: default;
     background-color: light-dark(
       rgba(239, 239, 239, 0.3),
       rgba(59, 59, 59, 0.3)
     );
+  }
+  input:focus-visible :disabled {
+    outline: none;
+  }
+  input:disabled {
+    cursor: default;
+    background-color: white;
     color: light-dark(rgb(84, 84, 84), rgb(170, 170, 170));
   }
 }
@@ -116,12 +117,4 @@
 }
 .btn-save:hover {
   background-color: rgba(0, 128, 0, 0.068);
-}
-
-.socials-items {
-  color: black !important;
-  text-decoration: none !important;
-  :hover {
-    background-color: #d5d5d5 !important;
-  }
 }

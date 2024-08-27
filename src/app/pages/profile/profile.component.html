@@ -1,7 +1,7 @@
-<div class="main-container">
+<div class="main-container" [formGroup]="form">
   <div class="container">
     <ng-container *ngIf="data$ | async as res; else error">
-      <form class="columns-container" [formGroup]="form">
+      <form class="columns-container">
         <div class="profile-and-rrss">
           <div class="profile-card rounded shadow">
             <div class="profile-content text-center">
@@ -27,42 +27,7 @@
               </div>
             </div>
           </div>
-          <div class="social-networks-card rounded shadow">
-            <div class="ssnn-content">
-              <div class="edit-btn-row">
-                <ng-container *ngIf="!editingSocials; else editingSocialsData">
-                  <button
-                    type="button"
-                    class="btn btn-edit"
-                    (click)="editSocials()"
-                  >
-                    <i class="bi bi-pencil-square"></i>
-                  </button>
-                </ng-container>
-                <ng-template #editingSocialsData>
-                  <button
-                    type="button"
-                    class="btn btn-save"
-                    (click)="saveSocials()"
-                  >
-                    <i class="bi bi-check-square"></i>
-                  </button>
-                </ng-template>
-              </div>
-              <hr class="divider m-0" />
-              <ng-container
-                *ngFor="let item of res.ssnn as socials; let i = index"
-              >
-                <a
-                  role="button"
-                  class="socials-items"
-                  (click)="goToLink(item.url)"
-                  >{{ item.name }}</a
-                >
-                <hr *ngIf="i != socials.length - 1" class="divider m-0" />
-              </ng-container>
-            </div>
-          </div>
+          <socials-table [socials]="res.ssnn" formGroupName="socials"></socials-table>
         </div>
         <div class="profile-data">
           <div class="personal-data-card rounded shadow">

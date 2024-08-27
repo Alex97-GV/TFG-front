@@ -1,0 +1,39 @@
+<div class="social-networks-card rounded shadow">
+  <div class="ssnn-content">
+    <div class="edit-btn-row">
+      <ng-container *ngIf="!editing; else editingSocialsData">
+        <button type="button" class="btn btn-edit" (click)="editSocials()">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+      </ng-container>
+      <ng-template #editingSocialsData>
+        <button type="button" class="btn btn-save" (click)="saveSocials()">
+          <i class="bi bi-check-square"></i>
+        </button>
+      </ng-template>
+    </div>
+    <hr class="divider m-0" />
+    <ng-container *ngFor="let item of socials; let i = index">
+      <div class="socials-items">
+        <a role="button" class="social-url" (click)="goToLink(item.url)">{{
+          item.name
+        }}</a>
+        <div class="editing-buttons" *ngIf="editing">
+          <button class="btn btn-edit-item">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-delete-item">
+            <i class="bi bi-trash3"></i>
+          </button>
+        </div>
+      </div>
+      <hr *ngIf="i != socials.length - 1 || editing" class="divider m-0" />
+    </ng-container>
+    <div #newItemContainer class="new-item-container"></div>
+    <div class="add-item-container" *ngIf="editing">
+      <button class="btn btn-add-item" (click)="addSocialInput()">
+        <i class="bi bi-plus"></i>
+      </button>
+    </div>
+  </div>
+</div>

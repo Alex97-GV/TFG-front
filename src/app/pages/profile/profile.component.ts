@@ -1,3 +1,4 @@
+import { group } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, Subject, takeUntil, tap } from 'rxjs';
@@ -37,6 +38,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.fillForm(res);
         })
       ) ?? undefined;
+
+    this.setSubscriptions();
   }
 
   initForm() {
@@ -48,7 +51,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
       affiliation: [{ value: '', disabled: true }],
       email: [{ value: '', disabled: true }],
       phone: [{ value: '', disabled: true }],
-      socials: [[]],
+      socials: this.fb.group({
+        items: this.fb.array([{
+          name: ['',Validators.required],
+          url: ['',Validators.required]
+        }])
+      }),
     });
   }
 
@@ -80,21 +88,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
       },
       { emitEvent: false }
     );
-    debugger;
+    // debugger;
+  }
+
+  setSubscriptions() {
+    this.form.valueChanges
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe((res) => {
+        // debugger;
+      });
   }
 
   goToLink(url: string) {
     window.open(url, '_blank');
-  }
-
-  editSocials() {
-    this.form.enable();
-    this.editingSocials = true;
-  }
-
-  saveSocials() {
-    this.form.disable();
-    this.editingSocials = false;
   }
 
   editData() {

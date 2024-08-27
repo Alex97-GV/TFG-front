@@ -23,6 +23,7 @@ import { ChartsModule } from './charts/charts.module';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ToProfileDataMapperService } from './mappers/to-profile-data.mapper';
+import { SocialsTableComponent } from './components/socials-table/socials-table.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ToProfileDataMapperService } from './mappers/to-profile-data.mapper';
     AuthorPageComponent,
     DataTableComponent,
     ProfileComponent,
+    SocialsTableComponent,
   ],
   imports: [
     BrowserModule,
