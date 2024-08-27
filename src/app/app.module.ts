@@ -10,7 +10,6 @@ import { LogInComponent } from './pages/log-in/log-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PassResetComponent } from './pages/pass-reset/pass-reset.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { PerfilComponent } from './pages/perfil/perfil.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToUserMapperService } from './mappers/to-user.mapper';
 import { UserService } from './services/user.service';
@@ -34,7 +33,6 @@ import { ToProfileDataMapperService } from './mappers/to-profile-data.mapper';
     LogInComponent,
     PassResetComponent,
     SignupComponent,
-    PerfilComponent,
     SearchPageComponent,
     InterestPageComponent,
     AuthorPageComponent,

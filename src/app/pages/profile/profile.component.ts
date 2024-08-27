@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, Subject, takeUntil, tap } from 'rxjs';
 import { ProfileData } from 'src/app/models/profile-data.model';
 import { UserService } from 'src/app/services/user.service';
@@ -16,6 +16,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
   form!: FormGroup;
 
   private readonly componentDestroyed$ = new Subject<void>();
+
+  get interests(): FormArray {
+    return <FormArray>this.form.get('interests')?.value;
+  }
+
+  // get socials(): FormArray {
+  //   return <FormArray>this.form.get('socials')?.value;
+  // }
 
   constructor(private userSvc: UserService, private fb: FormBuilder) {}
 
@@ -50,14 +58,29 @@ export class ProfileComponent implements OnInit, OnDestroy {
         fullName: data.name,
         picture: data.picture,
         openToCollab: data.openToCollaborate,
-        interests: data.interests,
+        interests: this.fb.array(
+          data.interests.map((int) => {
+            return this.fb.group({
+              keyword: int.keyword,
+              title: int.title,
+            });
+          })
+        ),
         affiliation: data.affiliation,
         email: data.email,
         phone: data.phone,
-        socials: data.ssnn,
+        socials: this.fb.array(
+          data.ssnn.map((social) => {
+            return this.fb.group({
+              name: social.name,
+              url: social.url,
+            });
+          })
+        ),
       },
       { emitEvent: false }
     );
+    debugger;
   }
 
   goToLink(url: string) {
@@ -83,7 +106,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.form.disable();
     this.editingData = false;
   }
-
 
   ngOnDestroy(): void {
     this.componentDestroyed$.next();

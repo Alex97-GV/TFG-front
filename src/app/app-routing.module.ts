@@ -5,7 +5,6 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { LogInComponent } from './pages/log-in/log-in.component';
 import { PassResetComponent } from './pages/pass-reset/pass-reset.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { PerfilComponent } from './pages/perfil/perfil.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { InterestPageComponent } from './pages/interest-page/interest-page.component';
 import { AuthorPageComponent } from './pages/author-page/author-page.component';
@@ -33,11 +32,6 @@ const routes: Routes = [
     path: 'interests',
     canActivate: [authorizeGuard],
     component: InterestPageComponent,
-  },
-  {
-    path: 'perfil',
-    canActivate: [authorizeGuard],
-    component: PerfilComponent,
   },
   {
     path: 'profile',
