@@ -155,4 +155,8 @@
       padding: 0.4rem 0 0 5rem;
     }
   }
+
+  .table-container {
+    height: 28rem;
+  }
 }

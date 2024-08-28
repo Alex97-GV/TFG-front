@@ -112,10 +112,12 @@
             role="tabpanel"
             aria-labelledby="nav-articles-tab"
           >
+          <div class="table-container">
             <data-table
               *ngIf="dataTableConfiguration?.data?.length != undefined"
               [configuration]="dataTableConfiguration"
             ></data-table>
+          </div>
           </div>
         </div>
       </div>

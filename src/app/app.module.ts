@@ -24,6 +24,7 @@ import { DataTableComponent } from './components/data-table/data-table.component
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ToProfileDataMapperService } from './mappers/to-profile-data.mapper';
 import { SocialsTableComponent } from './components/socials-table/socials-table.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,9 @@ import { SocialsTableComponent } from './components/socials-table/socials-table.
     HttpClientModule,
     HighchartsChartModule,
     ChartsModule,
+    NgScrollbarModule,
   ],
+  exports: [NgScrollbarModule],
   providers: [
     ToUserMapperService,
     ToDataMapperService,

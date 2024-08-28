@@ -85,8 +85,7 @@
     .table-data-card {
       background-color: white;
       padding: 1rem;
-      max-height: 28rem;
-      overflow-y: auto;
+      height: 28rem;
     }
   }
   input {
