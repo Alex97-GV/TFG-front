@@ -7,7 +7,7 @@ export class ProfileData {
   public affiliation!: string;
   public ssnn!: { name: string; url: string }[];
   public openToCollaborate!: boolean;
-  public id!: string | null;
+  public id!: string;
 
   constructor(item: Partial<ProfileData>) {
     Object.assign(this, item);

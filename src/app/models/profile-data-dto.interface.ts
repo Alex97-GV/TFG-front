@@ -13,5 +13,5 @@ export interface ProfileDataDto {
     url: string;
   }[];
   open_to_collaborate: boolean;
-  id: null;
+  schoolar_id: string;
 }

@@ -103,7 +103,7 @@ export class UserService {
           },
         ],
         openToCollaborate: true,
-        id: null,
+        id: 'UF2TnzsAAAAJ',
       })
     );
 

@@ -2,7 +2,13 @@ import { group } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, of, Subject, takeUntil, tap } from 'rxjs';
+import { AuthorData } from 'src/app/models/author-data.model';
 import { ProfileData } from 'src/app/models/profile-data.model';
+import {
+  Column,
+  TableConfiguration,
+} from 'src/app/models/table-configuration.model';
+import { DataService } from 'src/app/services/data-service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,6 +18,32 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   data$!: Observable<ProfileData> | undefined;
+  dataTableConfiguration = new TableConfiguration<AuthorData>({
+    data: undefined,
+    columns: [
+      new Column({
+        name: 'title',
+        title: 'Title',
+      }),
+      new Column({
+        name: 'writtenBy',
+        title: 'Written By',
+        width: '20rem',
+      }),
+      new Column({
+        name: 'citedBy',
+        title: 'Cited By',
+        width: '6rem',
+        align: 'center',
+      }),
+      new Column({
+        name: 'year',
+        title: 'Year',
+        width: '6rem',
+        align: 'center',
+      }),
+    ],
+  });
   editingSocials = false;
   editingData = false;
   form!: FormGroup;
@@ -22,11 +54,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     return <FormArray>this.form.get('interests')?.value;
   }
 
-  // get socials(): FormArray {
-  //   return <FormArray>this.form.get('socials')?.value;
-  // }
-
-  constructor(private userSvc: UserService, private fb: FormBuilder) {}
+  constructor(
+    private userSvc: UserService,
+    private fb: FormBuilder,
+    private dataSvc: DataService
+  ) {}
 
   ngOnInit(): void {
     const user = JSON.parse(sessionStorage.getItem('user') ?? '');
@@ -36,6 +68,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         takeUntil(this.componentDestroyed$),
         tap((res) => {
           this.fillForm(res);
+          this.getDataTable(res.id);
         })
       ) ?? undefined;
 
@@ -52,10 +85,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       email: [{ value: '', disabled: true }],
       phone: [{ value: '', disabled: true }],
       socials: this.fb.group({
-        items: this.fb.array([{
-          name: ['',Validators.required],
-          url: ['',Validators.required]
-        }])
+        items: this.fb.array([]),
       }),
     });
   }
@@ -96,6 +126,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((res) => {
         // debugger;
+      });
+  }
+
+  getDataTable(id: string) {
+    this.dataSvc
+      .getAuthor(id)
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe((res) => {
+        this.dataTableConfiguration.data = res.articles;
       });
   }
 

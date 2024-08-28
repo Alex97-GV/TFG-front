@@ -113,7 +113,7 @@
             aria-labelledby="nav-articles-tab"
           >
             <data-table
-              *ngIf="dataTableConfiguration?.data"
+              *ngIf="dataTableConfiguration?.data?.length != undefined"
               [configuration]="dataTableConfiguration"
             ></data-table>
           </div>

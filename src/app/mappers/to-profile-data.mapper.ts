@@ -24,7 +24,7 @@ export class ToProfileDataMapperService extends MapperService<
         url: social.url,
       })),
       openToCollaborate: entity.open_to_collaborate,
-      id: entity.id,
+      id: entity.schoolar_id,
     });
   }
 }

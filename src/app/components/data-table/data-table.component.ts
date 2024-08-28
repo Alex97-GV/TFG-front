@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { TableConfiguration } from 'src/app/models/table-configuration.model';
 
 @Component({
@@ -6,14 +6,18 @@ import { TableConfiguration } from 'src/app/models/table-configuration.model';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.css']
 })
-export class DataTableComponent implements OnInit, OnDestroy{
+export class DataTableComponent implements OnInit, OnDestroy, OnChanges{
   @Input() configuration = new TableConfiguration<any>();
   data!: any[];
   // componentDestroyed$ = new Subject<void>();
 
   constructor(){}
+  ngOnChanges(changes: SimpleChanges): void {
+    debugger;
+  }
     
   ngOnInit(): void {
+    debugger;
     this.data = this.configuration.data ?? [];
   }
 

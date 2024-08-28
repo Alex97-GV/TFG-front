@@ -8,17 +8,25 @@
               <div class="profile-picture">
                 <img
                   src="{{
-                    form.get('picture')?.value != null
+                    form.get('picture')?.value != ''
                       ? form.get('picture')?.value
                       : '/assets/def-profile.png'
                   }}"
                 />
               </div>
               <h5 class="my-3 name">
-                {{ form.get("fullName")?.value != "" ? form.get("fullName")?.value : "Type full name here" }}
+                {{
+                  form.get("fullName")?.value != ""
+                    ? form.get("fullName")?.value
+                    : "Type full name here"
+                }}
               </h5>
               <p class="text-muted my-3">
-                {{ form.get("affiliation")?.value != "" ?  form.get("affiliation")?.value : "Type affiliation here"}}
+                {{
+                  form.get("affiliation")?.value != ""
+                    ? form.get("affiliation")?.value
+                    : "Type affiliation here"
+                }}
               </p>
               <div class="d-flex justify-content-center mb-2">
                 <button type="button" class="btn btn-outline-primary">
@@ -27,21 +35,36 @@
               </div>
             </div>
           </div>
-          <socials-table [socials]="res.ssnn" formGroupName="socials"></socials-table>
+          <socials-table formGroupName="socials"></socials-table>
         </div>
+
         <div class="profile-data">
           <div class="personal-data-card rounded shadow">
-            <div class="edit-btn-row">
-              <ng-container *ngIf="!editingData; else editingProfileData">
-                <button type="button" class="btn btn-edit" (click)="editData()">
-                  <i class="bi bi-pencil-square"></i>
-                </button>
-              </ng-container>
-              <ng-template #editingProfileData>
-                <button type="button" class="btn btn-save" (click)="saveData()">
-                  <i class="bi bi-check-square"></i>
-                </button>
-              </ng-template>
+            <div class="profile-title-row">
+              <h3 class="profile-title m-0">
+                <div class="icon-title rounded"></div>
+                <span style="color: #16697a"> MY PROFILE </span>
+              </h3>
+              <div class="edit-btn-row">
+                <ng-container *ngIf="!editingData; else editingProfileData">
+                  <button
+                    type="button"
+                    class="btn btn-edit"
+                    (click)="editData()"
+                  >
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                </ng-container>
+                <ng-template #editingProfileData>
+                  <button
+                    type="button"
+                    class="btn btn-save"
+                    (click)="saveData()"
+                  >
+                    <i class="bi bi-check-square"></i>
+                  </button>
+                </ng-template>
+              </div>
             </div>
 
             <hr class="divider m-0" />
@@ -84,9 +107,17 @@
               </div>
             </div>
           </div>
+
+          <div class="table-data-card rounded shadow">
+            <data-table
+              *ngIf="dataTableConfiguration?.data"
+              [configuration]="dataTableConfiguration"
+            ></data-table>
+          </div>
         </div>
       </form>
     </ng-container>
+
     <ng-template #error>
       <h1
         class="text-danger p-5 d-flex justify-content-center align-items-center"

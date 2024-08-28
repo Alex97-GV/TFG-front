@@ -6,7 +6,13 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { FormGroup, FormGroupDirective } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  FormGroupDirective,
+  Validators,
+} from '@angular/forms';
 import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -15,18 +21,23 @@ import { filter, Subject, takeUntil } from 'rxjs';
   styleUrls: ['./socials-table.component.css'],
 })
 export class SocialsTableComponent implements OnInit {
-  @ViewChild('newItemContainer') newItem!: ElementRef;
   @Input() formGroupName!: string;
-  @Input() socials: any[] = [];
+  @Input() socials: string[] = ['Twitter', 'Instagram', 'Facebook', 'Youtube'];
+
+  hoverSaveSocials = false;
 
   form!: FormGroup;
-  editing = true;
+  editing = false;
 
   private _unsubscribeAll: Subject<any>;
 
+  get items(): FormArray {
+    return this.form.get('items') as FormArray;
+  }
+
   constructor(
     private rootFormGroup: FormGroupDirective,
-    private renderer: Renderer2
+    private fb: FormBuilder
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -41,30 +52,56 @@ export class SocialsTableComponent implements OnInit {
   }
 
   setSubscriptions() {
-    this.form
-      .get('url')
-      ?.valueChanges.pipe(
-        (filter((value) => value !== null), takeUntil(this._unsubscribeAll))
-      );
+    this.form.valueChanges.subscribe((val) => {
+      debugger;
+    });
+  }
+
+  checkIfEmpty() {
+    if (this.items.length == 0) this.addSocial();
   }
 
   editSocials() {
-    console.log('editando');
-    this.form.enable();
+    debugger;
+    this.checkIfEmpty();
+    this.form.enable({ emitEvent: false });
     this.editing = true;
   }
 
   saveSocials() {
-    console.log('guardado');
-    this.form.disable();
+    debugger;
+    this.deleteNotValids();
+    this.form.disable({ emitEvent: false });
     this.editing = false;
   }
 
-  addSocial() {}
+  deleteNotValids() {
+    if (this.items.length > 0) {
+      this.items.controls.map((control, i) => {
+        if (control.invalid) this.deleteSocial(i);
+      });
+    }
+  }
 
-  addSocialInput() {
+  deleteSocial(index: number) {
+    if (this.items.length > 0) {
+      this.items.removeAt(index, { emitEvent: false });
+    }
+  }
+
+  setControlName(name: string, index: number) {
     debugger;
+    this.items.at(index).get('name')?.setValue(name, { emitEvent: false });
+  }
 
+  addSocial() {
+    debugger;
+    this.items.push(
+      this.fb.group({
+        name: ['', Validators.required],
+        url: ['', Validators.required],
+      })
+    );
   }
 
   goToLink(url: string) {
