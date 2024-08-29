@@ -76,11 +76,13 @@ export class SocialsTableComponent implements OnInit {
   }
 
   deleteNotValids() {
-    if (this.items.length > 0) {
-      this.items.controls.map((control, i) => {
-        if (control.invalid) this.deleteSocial(i);
-      });
+    if (this.items.length > 0 ) {
+      this.items.controls = this.items.controls.filter((ctl) => ctl.valid);
     }
+  }
+
+  allConditionsAreValid(): boolean {
+    return this.items.controls.every((control) => control.valid);
   }
 
   deleteSocial(index: number) {

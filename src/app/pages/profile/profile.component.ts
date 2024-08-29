@@ -77,48 +77,74 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.form = this.fb.group({
+      openToCollab: [false],
       fullName: [{ value: '', disabled: true }],
       picture: [{ value: null, disabled: true }],
-      openToCollab: [false],
-      interests: [[]],
+      interests: this.fb.array([this.createInterestGroup()]),
       affiliation: [{ value: '', disabled: true }],
       email: [{ value: '', disabled: true }],
       phone: [{ value: '', disabled: true }],
       socials: this.fb.group({
-        items: this.fb.array([]),
+        items: this.fb.array([this.createItemsGroup()]),
       }),
     });
   }
 
+  createItemsGroup(): FormGroup {
+    return this.fb.group({
+      name: ['', Validators.required],
+      url: ['', Validators.required],
+    });
+  }
+
+  createInterestGroup(): FormGroup {
+    return this.fb.group({
+      title: ['', Validators.required],
+      keyword: ['', Validators.required],
+    });
+  }
+
   fillForm(data: ProfileData) {
-    this.form.patchValue(
-      {
-        fullName: data.name,
-        picture: data.picture,
-        openToCollab: data.openToCollaborate,
-        interests: this.fb.array(
-          data.interests.map((int) => {
-            return this.fb.group({
-              keyword: int.keyword,
-              title: int.title,
-            });
-          })
-        ),
-        affiliation: data.affiliation,
-        email: data.email,
-        phone: data.phone,
-        socials: this.fb.array(
-          data.ssnn.map((social) => {
-            return this.fb.group({
-              name: social.name,
-              url: social.url,
-            });
-          })
-        ),
-      },
-      { emitEvent: false }
-    );
-    // debugger;
+    const profileData = data as ProfileData;
+    this.fillInterests(profileData);
+    this.fillSocials(profileData);
+
+    const form = {
+      ...profileData,
+      fullName: data.name,
+      picture: data.picture,
+      openToCollab: data.openToCollaborate,
+      affiliation: data.affiliation,
+      email: data.email,
+      phone: data.phone,
+    };
+    this.form.patchValue(form);
+  }
+
+  fillInterests(data: ProfileData) {
+    const interestArray = this.form.get('interests') as FormArray;
+    interestArray.clear();
+    data.interests.forEach((int: any) => {
+      interestArray.push(
+        this.fb.group({
+          title: int.title,
+          keyword: int.keyword,
+        })
+      );
+    });
+  }
+
+  fillSocials(data: ProfileData) {
+    const socials = this.form.get('socials.items') as FormArray;
+    if (socials) socials.clear();
+    data.ssnn.forEach((sn) => {
+      socials.push(
+        this.fb.group({
+          name: sn.name,
+          url: sn.url,
+        })
+      );
+    });
   }
 
   setSubscriptions() {

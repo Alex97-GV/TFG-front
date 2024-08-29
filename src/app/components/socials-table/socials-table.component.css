@@ -1,5 +1,6 @@
 .social-networks-card {
   background-color: white;
+  height: fit-content;
   .ssnn-content {
     display: grid;
     grid-template-columns: auto;
