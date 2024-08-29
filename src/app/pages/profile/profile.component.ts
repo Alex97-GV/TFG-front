@@ -79,7 +79,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       openToCollab: [false],
       fullName: [{ value: '', disabled: true }],
-      picture: [{ value: null, disabled: true }],
+      picture: [{ value: '', disabled: true }],
       interests: this.fb.array([this.createInterestGroup()]),
       affiliation: [{ value: '', disabled: true }],
       email: [{ value: '', disabled: true }],

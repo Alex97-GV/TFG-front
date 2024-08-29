@@ -3,38 +3,12 @@
     <ng-container *ngIf="data$ | async as res; else error">
       <form class="columns-container">
         <div class="profile-and-rrss">
-          <div class="profile-card rounded shadow">
-            <div class="profile-content text-center">
-              <div class="profile-picture">
-                <img
-                  src="{{
-                    form.get('picture')?.value != ''
-                      ? form.get('picture')?.value
-                      : '/assets/def-profile.png'
-                  }}"
-                />
-              </div>
-              <h5 class="my-3 name">
-                {{
-                  form.get("fullName")?.value != ""
-                    ? form.get("fullName")?.value
-                    : "Type full name here"
-                }}
-              </h5>
-              <p class="text-muted my-3">
-                {{
-                  form.get("affiliation")?.value != ""
-                    ? form.get("affiliation")?.value
-                    : "Type affiliation here"
-                }}
-              </p>
-              <div class="d-flex justify-content-center mb-2">
-                <button type="button" class="btn btn-outline-primary">
-                  Edit
-                </button>
-              </div>
-            </div>
-          </div>
+          <profile-general-info-card
+            [picture]="form.get('picture')?.value"
+            [fullName]="form.get('fullName')?.value"
+            [affiliation]="form.get('affiliation')?.value"
+            [interests]="form.get('interests')?.value"
+          ></profile-general-info-card>
           <socials-table formGroupName="socials"></socials-table>
         </div>
 

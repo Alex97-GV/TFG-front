@@ -28,6 +28,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { NotificationService } from './services/notification.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProfileGeneralInfoCardComponent } from './components/profile-general-info-card/profile-general-info-card.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DataTableComponent,
     ProfileComponent,
     SocialsTableComponent,
+    ProfileGeneralInfoCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,46 @@
+.profile-card {
+    background-color: white;
+    max-height: 32rem !important;
+    max-width: 26rem;
+    display: flex;
+    justify-content: center;
+    .profile-content {
+      display: grid;
+      grid-template-columns: 24rem;
+      padding: 1rem;
+      justify-items: center;
+      .profile-picture {
+        overflow: hidden;
+        max-height: 15rem;
+        max-width: 15rem;
+        border-radius: 50%;
+        img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+      .interests-container {
+        padding: 1rem;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        column-gap: 2%;
+        row-gap: 20%;
+        align-items: center;
+        justify-content: left;
+        .item {
+            border-radius: 50rem;
+            background-color: #ff9500;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            text-decoration: none;
+        }
+        .item:hover {
+            background-color: #e48500;
+        }
+      }
+      .edit-interests-row {
+        padding: 1rem;
+      }
+    }
+  }

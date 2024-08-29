@@ -62,7 +62,8 @@ export class UserService {
     return of(
       new ProfileData({
         name: 'Lorena',
-        picture: 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp',
+        picture:
+          'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp',
         interests: [
           {
             keyword: 'particle_physics',

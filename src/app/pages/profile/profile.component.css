@@ -14,32 +14,12 @@
     grid-template-columns: auto;
     grid-template-rows: auto auto;
     row-gap: 2rem;
-    .profile-card {
-      background-color: white;
-      max-height: 32rem !important;
-      .profile-content {
-        display: grid;
-        grid-template-columns: auto;
-        padding: 1rem;
-        justify-items: center;
-        .profile-picture {
-          overflow: hidden;
-          max-height: 15rem;
-          max-width: 15rem;
-          border-radius: 50%;
-          img {
-            height: 100%;
-            width: 100%;
-          }
-        }
-      }
-    }
   }
   .profile-data {
     display: grid;
     grid-template-columns: auto;
-    row-gap: 3rem;
-    max-height: 50rem;
+    row-gap: 2rem;
+    max-height: 49rem;
     .personal-data-card {
       background-color: white;
       max-height: 20rem;
