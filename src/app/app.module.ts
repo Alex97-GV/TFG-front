@@ -25,6 +25,9 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ToProfileDataMapperService } from './mappers/to-profile-data.mapper';
 import { SocialsTableComponent } from './components/socials-table/socials-table.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { NotificationService } from './services/notification.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -44,15 +47,19 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     HighchartsChartModule,
     ChartsModule,
     NgScrollbarModule,
+    ToastrModule.forRoot(),
   ],
   exports: [NgScrollbarModule],
   providers: [
+    ToastrService,
+    NotificationService,
     ToUserMapperService,
     ToDataMapperService,
     UserService,

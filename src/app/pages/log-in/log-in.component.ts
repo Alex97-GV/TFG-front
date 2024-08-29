@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-log-in',
@@ -17,7 +18,8 @@ export class LogInComponent implements OnInit, OnDestroy {
   constructor(
     private readonly fb: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private notificationSvc: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -42,8 +44,10 @@ export class LogInComponent implements OnInit, OnDestroy {
             this.router.navigate(['/home']);
           },
           error: (error) => {
-            //notificar sobre un problema y redireccionar
             debugger;
+            this.notificationSvc.error(
+              'Los datos introducidos no son correctos', 'ERROR'
+            );
           },
         });
     }
