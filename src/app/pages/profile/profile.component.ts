@@ -78,12 +78,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
   initForm() {
     this.form = this.fb.group({
       openToCollab: [false],
-      fullName: [{ value: '', disabled: true }],
-      picture: [{ value: '', disabled: true }],
-      interests: this.fb.array([this.createInterestGroup()]),
-      affiliation: [{ value: '', disabled: true }],
-      email: [{ value: '', disabled: true }],
-      phone: [{ value: '', disabled: true }],
+      generalInfo: this.fb.group({
+        fullName: [{ value: '', disabled: true }],
+        picture: [{ value: '', disabled: true }],
+        interests: this.fb.array([this.createInterestGroup()]),
+        affiliation: [{ value: '', disabled: true }],
+        email: [{ value: '', disabled: true }],
+        phone: [{ value: '', disabled: true }],
+      }),
       socials: this.fb.group({
         items: this.fb.array([this.createItemsGroup()]),
       }),
@@ -111,18 +113,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     const form = {
       ...profileData,
-      fullName: data.name,
-      picture: data.picture,
-      openToCollab: data.openToCollaborate,
-      affiliation: data.affiliation,
-      email: data.email,
-      phone: data.phone,
+      generalInfo: {
+        fullName: profileData.name,
+        picture: profileData.picture,
+        openToCollab: profileData.openToCollaborate,
+        affiliation: profileData.affiliation,
+        email: profileData.email,
+        phone: profileData.phone,
+      },
     };
     this.form.patchValue(form);
   }
 
   fillInterests(data: ProfileData) {
-    const interestArray = this.form.get('interests') as FormArray;
+    const interestArray = this.form.get('generalInfo.interests') as FormArray;
     interestArray.clear();
     data.interests.forEach((int: any) => {
       interestArray.push(
@@ -168,15 +172,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     window.open(url, '_blank');
   }
 
-  editData() {
-    this.form.enable();
-    this.editingData = true;
-  }
-
-  saveData() {
-    this.form.disable();
-    this.editingData = false;
-  }
+  saveProfile(hasChange: boolean) {}
 
   ngOnDestroy(): void {
     this.componentDestroyed$.next();

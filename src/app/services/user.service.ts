@@ -111,6 +111,8 @@ export class UserService {
     // return this.baseApiService.get<ProfileData>(`${this.urlBase}get_user_info`, params);
   }
 
+  saveProfileData(data: any) {}
+
   hashPass(pass: string): string {
     return bcrypt.hashSync(pass, bcrypt.genSaltSync());
   }

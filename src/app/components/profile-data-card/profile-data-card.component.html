@@ -1,0 +1,46 @@
+<div class="personal-data-card rounded shadow" [formGroup]="form">
+    <div class="profile-title-row">
+        <h3 class="profile-title m-0">
+            <div class="icon-title rounded"></div>
+            <span style="color: #16697a"> MY PROFILE </span>
+        </h3>
+        <div class="edit-btn-row">
+            <ng-container *ngIf="!editing; else editingProfileData">
+                <button type="button" class="btn btn-edit" (click)="editData()">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+            </ng-container>
+            <ng-template #editingProfileData>
+                <button type="button" class="btn btn-save" (mouseenter)="hoverOverSave = true"
+                    (mouseleave)="hoverOverSave = false" (click)="saveData()">
+                    <i class="bi bi-check-square" *ngIf="!hoverOverSave"></i>
+                    <i class="bi bi-check-square-fill" *ngIf="hoverOverSave"></i>
+                </button>
+            </ng-template>
+        </div>
+    </div>
+
+    <hr class="divider m-0" />
+
+    <div class="profile-data-container">
+        <div class="row-data">
+            <p>Full Name</p>
+            <input type="text" placeholder="e.g., Name & Surname" formControlName="fullName" />
+        </div>
+        <hr class="divider m-0" />
+        <div class="row-data">
+            <p>Email</p>
+            <input type="text" placeholder="e.g., example@example.com" formControlName="email" />
+        </div>
+        <hr class="divider m-0" />
+        <div class="row-data">
+            <p>Phone number</p>
+            <input type="text" placeholder="e.g., (+34) 612 345678" formControlName="phone" />
+        </div>
+        <hr class="divider m-0" />
+        <div class="row-data">
+            <p>Affiliation</p>
+            <input type="text" placeholder="e.g., Developer, Madrid" formControlName="affiliation" />
+        </div>
+    </div>
+</div>

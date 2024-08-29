@@ -29,6 +29,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { NotificationService } from './services/notification.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileGeneralInfoCardComponent } from './components/profile-general-info-card/profile-general-info-card.component';
+import { ProfileDataCardComponent } from './components/profile-data-card/profile-data-card.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ProfileGeneralInfoCardComponent } from './components/profile-general-in
     ProfileComponent,
     SocialsTableComponent,
     ProfileGeneralInfoCardComponent,
+    ProfileDataCardComponent,
   ],
   imports: [
     BrowserModule,

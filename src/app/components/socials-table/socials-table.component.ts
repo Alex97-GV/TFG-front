@@ -1,8 +1,10 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -14,6 +16,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { filter, Subject, takeUntil } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'socials-table',
@@ -23,6 +26,7 @@ import { filter, Subject, takeUntil } from 'rxjs';
 export class SocialsTableComponent implements OnInit {
   @Input() formGroupName!: string;
   @Input() socials: string[] = ['Twitter', 'Instagram', 'Facebook', 'Youtube'];
+  @Output() saveData = new EventEmitter<boolean>();
 
   hoverSaveSocials = false;
 
@@ -37,7 +41,8 @@ export class SocialsTableComponent implements OnInit {
 
   constructor(
     private rootFormGroup: FormGroupDirective,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private userSvc: UserService
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -73,10 +78,11 @@ export class SocialsTableComponent implements OnInit {
     this.deleteNotValids();
     this.form.disable({ emitEvent: false });
     this.editing = false;
+    this.saveData.emit(true);
   }
 
   deleteNotValids() {
-    if (this.items.length > 0 ) {
+    if (this.items.length > 0) {
       this.items.controls = this.items.controls.filter((ctl) => ctl.valid);
     }
   }
