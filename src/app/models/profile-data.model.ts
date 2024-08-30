@@ -1,5 +1,5 @@
 export class ProfileData {
-  public openToCollaborate!: boolean;
+  public openToCollab!: boolean;
   public generalInfo!: {
     fullName: string;
     picture: string;

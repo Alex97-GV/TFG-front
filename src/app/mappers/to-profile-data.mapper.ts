@@ -10,7 +10,7 @@ export class ToProfileDataMapperService extends MapperService<
 > {
   protected map(entity: ProfileDataDto): ProfileData {
     return new ProfileData({
-      openToCollaborate: entity.open_to_collaborate,
+      openToCollab: entity.open_to_collaborate,
       generalInfo: {
         fullName: entity.name,
         picture: entity.picture,

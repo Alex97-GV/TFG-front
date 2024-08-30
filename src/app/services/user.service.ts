@@ -61,7 +61,7 @@ export class UserService {
 
     return of(
       new ProfileData({
-        openToCollaborate: true,
+        openToCollab: true,
         generalInfo: {
           fullName: 'Lorena',
           picture:
