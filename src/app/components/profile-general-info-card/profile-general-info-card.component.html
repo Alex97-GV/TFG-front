@@ -1,0 +1,23 @@
+<div class="profile-card rounded shadow">
+  <div class="profile-content text-center">
+    <div class="profile-picture">
+      <img src="{{ picture != '' ? picture : '/assets/def-profile.png' }}" />
+    </div>
+    <h5 class="my-3 name">
+      {{ fullName != "" ? fullName : "Type full name here" }}
+    </h5>
+    <p class="text-muted">
+      {{ affiliation != "" ? affiliation : "Type affiliation here" }}
+    </p>
+    <div class="interests-container">
+      <ng-container *ngFor="let item of interests">
+          <a role="button" class="badge item" (click)="searchInterests(item.keyword)">{{ item.title }}</a>
+      </ng-container>
+    </div>
+    <div class="edit-interests-row">
+      <button type="button" class="btn btn-outline-primary" routerLink="/interests">
+        Edit Interests
+      </button>
+    </div>
+  </div>
+</div>

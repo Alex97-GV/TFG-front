@@ -1,0 +1,37 @@
+<div class="main-container" [formGroup]="form">
+  <!-- <pre>{{form.value | json}}</pre> -->
+  <div class="container">
+    <ng-container *ngIf="data$ | async as res; else error">
+      <form class="columns-container">
+        <div class="profile-and-rrss-col">
+          <profile-general-info-card [picture]="form.get('generalInfo.picture')?.value"
+            [fullName]="form.get('generalInfo.fullName')?.value"
+            [affiliation]="form.get('generalInfo.affiliation')?.value"
+            [interests]="form.get('generalInfo.interests')?.value"></profile-general-info-card>
+          <socials-table (saveData)="saveProfile($event)" formGroupName="socials"></socials-table>
+        </div>
+        <div class="profile-data-col">
+          <div class="open-to-coll-card rounded shadow">
+            <div class="collab-container">
+              <div class="form-check form-switch">
+                <input class="form-check-input switch" type="checkbox" formControlName="openToCollab" />
+              </div>
+              <span class="open-text m-0">OPEN TO COLLABORATE</span>
+            </div>
+          </div>
+
+          <profile-data-card formGroupName="generalInfo"></profile-data-card>
+          <div class="table-data-card rounded shadow">
+            <data-table *ngIf="dataTableConfiguration?.data" [configuration]="dataTableConfiguration"></data-table>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+
+    <ng-template #error>
+      <h1 class="text-danger p-5 d-flex justify-content-center align-items-center">
+        There was an error! Please try again later.
+      </h1>
+    </ng-template>
+  </div>
+</div>

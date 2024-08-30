@@ -10,7 +10,6 @@ import { LogInComponent } from './pages/log-in/log-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PassResetComponent } from './pages/pass-reset/pass-reset.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { PerfilComponent } from './pages/perfil/perfil.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToUserMapperService } from './mappers/to-user.mapper';
 import { UserService } from './services/user.service';
@@ -22,6 +21,15 @@ import { ToAuthorDataMapperService } from './mappers/to-author-data.mapper';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ChartsModule } from './charts/charts.module';
 import { DataTableComponent } from './components/data-table/data-table.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ToProfileDataMapperService } from './mappers/to-profile-data.mapper';
+import { SocialsTableComponent } from './components/socials-table/socials-table.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { NotificationService } from './services/notification.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProfileGeneralInfoCardComponent } from './components/profile-general-info-card/profile-general-info-card.component';
+import { ProfileDataCardComponent } from './components/profile-data-card/profile-data-card.component';
 
 @NgModule({
   declarations: [
@@ -32,25 +40,35 @@ import { DataTableComponent } from './components/data-table/data-table.component
     LogInComponent,
     PassResetComponent,
     SignupComponent,
-    PerfilComponent,
     SearchPageComponent,
     InterestPageComponent,
     AuthorPageComponent,
     DataTableComponent,
+    ProfileComponent,
+    SocialsTableComponent,
+    ProfileGeneralInfoCardComponent,
+    ProfileDataCardComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     HighchartsChartModule,
     ChartsModule,
+    NgScrollbarModule,
+    ToastrModule.forRoot(),
   ],
+  exports: [NgScrollbarModule],
   providers: [
+    ToastrService,
+    NotificationService,
     ToUserMapperService,
     ToDataMapperService,
     UserService,
     ToAuthorDataMapperService,
+    ToProfileDataMapperService,
   ],
   bootstrap: [AppComponent],
 })

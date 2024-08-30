@@ -1,63 +1,67 @@
+<ng-scrollbar>
 <div class="table-responsive">
-  <table
-    class="table table-hover align-middle mb-0"
-    *ngIf="configuration.columns.length; else error"
-  >
-    <thead class="table-header">
-      <tr>
-        <ng-container *ngFor="let cols of configuration.columns">
-          <th
-            [attr.style]="'width:' + cols?.width + '; text-align:' + cols.align"
-          >
-            {{ cols.title }}
-          </th>
-        </ng-container>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let rowData of data">
+    <table
+      class="table table-hover align-middle mb-0"
+      *ngIf="configuration.columns.length; else error"
+    >
+      <thead class="table-header">
         <tr>
-          <ng-container
-            *ngFor="let col of configuration.columns; let i = index"
-          >
-            <td *ngIf="configuration.columns[i].name == 'author'">
-              <div class="picture-and-name">
-                <img src="{{ rowData.picture }}" />
-                <span>{{ rowData.name }}</span>
-              </div>
-            </td>
-            <td *ngIf="configuration.columns[i].name == 'title'">
-              <a (click)="goToLink(rowData.link)">{{ rowData.title }}</a>
-            </td>
-            <td *ngIf="configuration.columns[i].name == 'writtenBy'">
-              <span>{{ rowData.authors }}</span>
-            </td>
-            <td
-              [attr.style]="'text-align:' + col.align"
-              *ngIf="configuration.columns[i].name == 'citedBy'"
+          <ng-container *ngFor="let cols of configuration.columns">
+            <th
+              [attr.style]="
+                'width:' + cols?.width + '; text-align:' + cols.align
+              "
             >
-              <span>{{ rowData.cited_by }}</span>
-            </td>
-            <td
-              [attr.style]="'text-align:' + col.align"
-              *ngIf="configuration.columns[i].name == 'year'"
-            >
-              <span>{{ rowData.year }}</span>
-            </td>
+              {{ cols.title }}
+            </th>
           </ng-container>
         </tr>
-      </ng-container>
-      <ng-template #loading> </ng-template>
-    </tbody>
-    <ng-template #loading>
-      <div class="loading-block">
-        <div class="spinner-border loading" role="status">
-          <span class="visually-hidden">Loading...</span>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let rowData of data">
+          <tr>
+            <ng-container
+              *ngFor="let col of configuration.columns; let i = index"
+            >
+              <td *ngIf="configuration.columns[i].name == 'author'">
+                <div class="picture-and-name">
+                  <img src="{{ rowData.picture }}" />
+                  <span>{{ rowData.name }}</span>
+                </div>
+              </td>
+              <td *ngIf="configuration.columns[i].name == 'title'">
+                <a (click)="goToLink(rowData.link)">{{ rowData.title }}</a>
+              </td>
+              <td *ngIf="configuration.columns[i].name == 'writtenBy'">
+                <span>{{ rowData.authors }}</span>
+              </td>
+              <td
+                [attr.style]="'text-align:' + col.align"
+                *ngIf="configuration.columns[i].name == 'citedBy'"
+              >
+                <span>{{ rowData.cited_by }}</span>
+              </td>
+              <td
+                [attr.style]="'text-align:' + col.align"
+                *ngIf="configuration.columns[i].name == 'year'"
+              >
+                <span>{{ rowData.year }}</span>
+              </td>
+            </ng-container>
+          </tr>
+        </ng-container>
+        <ng-template #loading> </ng-template>
+      </tbody>
+      <ng-template #loading>
+        <div class="loading-block">
+          <div class="spinner-border loading" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
         </div>
-      </div>
-    </ng-template>
-  </table>
-</div>
+      </ng-template>
+    </table>
+  </div>
+</ng-scrollbar>
 <ng-template #error>
   <h3 class="py-3">No hay artículos disponibles</h3>
 </ng-template>

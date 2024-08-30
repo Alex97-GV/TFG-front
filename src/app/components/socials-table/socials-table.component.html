@@ -1,0 +1,102 @@
+<div class="social-networks-card rounded shadow" [formGroup]="form">
+  <div class="ssnn-content" formArrayName="items">
+    <div class="ssnn-title-row">
+      <div class="ssnn-title">
+        <div class="icon-title rounded"></div>
+        <p class="socials-title m-0">
+          MY SOCIALS!
+        </p>
+      </div>
+      <ng-container *ngIf="!editing; else editingSocialsData">
+        <button type="button" class="btn btn-edit" (click)="editSocials()">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+      </ng-container>
+      <ng-template #editingSocialsData>
+        <button
+          type="button"
+          class="btn btn-save"
+          (mouseenter)="hoverSaveSocials = true"
+          (mouseleave)="hoverSaveSocials = false"
+          (click)="saveSocials()"
+        >
+          <i class="bi bi-check-square" *ngIf="!hoverSaveSocials"></i>
+          <i class="bi bi-check-square-fill" *ngIf="hoverSaveSocials"></i>
+        </button>
+      </ng-template>
+    </div>
+    <hr class="divider m-0" />
+
+    <ng-container *ngIf="items.length > 0; else socialsEmpty">
+      <div *ngFor="let item of items?.controls; let i = index">
+        <div [formGroupName]="i">
+          <ng-container *ngIf="editing; else socialsBlocked">
+            <div class="new-item-container">
+              <div class="input-group input-group-sm">
+                <button
+                  class="btn btn-outline-primary dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {{item.get('name')?.value != '' ? item.get('name')?.value : 'Select'}}
+                </button>
+                <ul class="dropdown-menu">
+                  <ng-container *ngFor="let sn of socials; let j = index">
+                    <li><a class="dropdown-item" (click)="setControlName(sn, i)">{{sn}}</a></li>
+                  </ng-container>
+                </ul>
+                <input
+                  type="text"
+                  class="form-control"
+                  aria-label="Text input with dropdown button"
+                  formControlName="url"
+                />
+              </div>
+              <div
+                role="button"
+                class="btn-delete-item rounded"
+                (click)="deleteSocial(i)"
+                *ngIf="editing"
+              >
+                <i class="bi bi-trash3"></i>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #socialsBlocked>
+            <div class="socials-items">
+              <a
+                role="button"
+                class="social-url"
+                (click)="goToLink(item.get('url')?.value)"
+                >{{ item.get("name")?.value }}</a
+              >
+              <div class="editing-buttons" *ngIf="editing">
+                <button class="btn btn-edit-item">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-delete-item">
+                  <i class="bi bi-trash3"></i>
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+        <hr *ngIf="i != items.length - 1" class="divider m-0" />
+      </div>
+    </ng-container>
+    <ng-template #socialsEmpty>
+      <div class="no-socials-available">
+        <p>
+          Add Social Networks to list them here 
+        </p>
+      </div>
+    </ng-template>
+
+    <div class="add-item-container" *ngIf="editing">
+      <button class="btn btn-add-item" (click)="addSocial()">
+        <i class="bi bi-plus"></i>
+      </button>
+    </div>
+  </div>
+</div>
