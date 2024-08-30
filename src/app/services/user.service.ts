@@ -61,31 +61,35 @@ export class UserService {
 
     return of(
       new ProfileData({
-        name: 'Lorena',
-        picture:
-          'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp',
-        interests: [
-          {
-            keyword: 'particle_physics',
-            title: 'Particle Physics',
-          },
-          {
-            keyword: 'high_energy_physics',
-            title: 'High Energy Physics',
-          },
-          {
-            keyword: 'grid_computing',
-            title: 'Grid Computing',
-          },
-          {
-            keyword: 'computing_for_high_energy_physics',
-            title: 'Computing for High Energy Physics',
-          },
-        ],
-        email: 'lor@ucm.es',
-        phone: '999999999',
-        affiliation: 'Full Professor, Universidad Complutense de Madrid (UCM)',
-        ssnn: [
+        openToCollaborate: true,
+        generalInfo: {
+          fullName: 'Lorena',
+          picture:
+            'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp',
+          interests: [
+            {
+              keyword: 'particle_physics',
+              title: 'Particle Physics',
+            },
+            {
+              keyword: 'high_energy_physics',
+              title: 'High Energy Physics',
+            },
+            {
+              keyword: 'grid_computing',
+              title: 'Grid Computing',
+            },
+            {
+              keyword: 'computing_for_high_energy_physics',
+              title: 'Computing for High Energy Physics',
+            },
+          ],
+          affiliation:
+            'Full Professor, Universidad Complutense de Madrid (UCM)',
+          email: 'lor@ucm.es',
+          phone: '999999999',
+        },
+        socials: [
           {
             name: 'Twitter',
             url: 'https://www.google.es/',
@@ -103,7 +107,6 @@ export class UserService {
             url: 'https://www.google.es/',
           },
         ],
-        openToCollaborate: true,
         id: 'UF2TnzsAAAAJ',
       })
     );
