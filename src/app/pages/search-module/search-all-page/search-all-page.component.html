@@ -1,1 +1,11 @@
-<p>search-all-page works!</p>
+<div class="table-container" *ngIf="data$ | async; else loading">
+    <data-table *ngIf="dataTableConfiguration?.data?.length != undefined"
+        [configuration]="dataTableConfiguration"></data-table>
+</div>
+<ng-template #loading>
+    <div class="loading-container">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+</ng-template>
