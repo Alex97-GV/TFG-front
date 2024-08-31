@@ -17,6 +17,7 @@ import { TableConfiguration } from 'src/app/models/table-configuration.model';
 export class DataTableComponent implements OnInit, OnDestroy {
   @Input() configuration = new TableConfiguration<any>();
   data!: any[];
+  nestedData!: any[];
   // componentDestroyed$ = new Subject<void>();
 
   constructor(private router: Router) {}
@@ -27,6 +28,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     debugger;
     this.data = this.configuration.data ?? [];
+    this.nestedData = this.configuration.nestedTables[0].data ?? [];
   }
 
   getInterests(interests: any[]) {

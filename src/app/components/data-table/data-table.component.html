@@ -41,7 +41,9 @@
                 </div>
               </td>
               <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'title'">
-                <a (click)="goToLink(rowData.link)">{{ rowData.title }}</a>
+                <div role="button" class="article-url">
+                  <a (click)="goToLink(rowData.link)">{{ rowData.title }}</a>
+                </div>
               </td>
               <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'writtenBy'">
                 <span>{{ rowData.authors }}</span>
@@ -55,15 +57,65 @@
             </ng-container>
           </tr>
         </ng-container>
-        <ng-template #loading> </ng-template>
       </tbody>
-      <ng-template #loading>
-        <div class="loading-block">
-          <div class="spinner-border loading" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      </ng-template>
+    </table>
+    <table class="table table-hover align-middle mb-0" *ngIf="configuration.nestedTables[0].columns.length">
+      <tbody>
+        <ng-container *ngFor="let nRowData of nestedData">
+          <tr>
+            <ng-container *ngFor="let col of configuration.nestedTables[0].columns; let i = index">
+              <td [attr.style]="'text-align:' + col.align + ';width:' + col?.width"
+                *ngIf="configuration.nestedTables[0].columns[i].name == 'author'">
+                <div class="author" role="button" (click)="goToAuthor(nRowData.authorId)">
+                  <div class="profile-picture">
+                    <img src="{{ nRowData.picture }}" />
+                  </div>
+                  <a>{{ nRowData.name }}</a>
+                </div>
+              </td>
+              <td [attr.style]="'text-align:' + col.align + ';width:' + col?.width"
+                *ngIf="configuration.nestedTables[0].columns[i].name == 'openToCollab'">
+                <i class="bi bi-check-circle-fill green-check" *ngIf="nRowData.openToCollab"></i>
+                <i class="bi bi-x-circle-fill red-check" style="color: red !important;"
+                  *ngIf="!nRowData.openToCollab"></i>
+              </td>
+              <td [attr.style]="'text-align:' + col.align + ';width:' + col?.width"
+                *ngIf="configuration.nestedTables[0].columns[i].name == 'affiliation'">
+                <span>{{ nRowData.affiliation }}</span>
+              </td>
+              <td [attr.style]="'text-align:' + col.align + ';width:' + col?.width"
+                *ngIf="configuration.nestedTables[0].columns[i].name == 'interests'">
+                <!-- <span>{{ getInterests(nRowData.interests) }}</span> -->
+                <div class="interests-container">
+                  <ng-container *ngFor="let int of nRowData.interests">
+                    <a role="button" class="badge item" (click)="searchInterests(int.keyword)">{{ int.title
+                      }}</a>
+                  </ng-container>
+                </div>
+              </td>
+              <td [attr.style]="'text-align:' + col.align + ';width:' + col?.width"
+                *ngIf="configuration.nestedTables[0].columns[i].name == 'title'">
+                <div role="button" class="article-url">
+                  <a (click)="goToLink(nRowData.link)">{{ nRowData.title }}</a>
+                </div>
+              </td>
+              <td [attr.style]="'text-align:' + col.align + ';width:' + col?.width"
+                *ngIf="configuration.nestedTables[0].columns[i].name == 'writtenBy'">
+                <span>{{ nRowData.authors }}</span>
+              </td>
+              <td [attr.style]="'text-align:' + col.align + ';width:' + col?.width"
+                *ngIf="configuration.nestedTables[0].columns[i].name == 'citedBy'">
+                <span>{{ nRowData.citedBy }}</span>
+              </td>
+              <td [attr.style]="'text-align:' + col.align + ';width:' + col?.width"
+                *ngIf="configuration.nestedTables[0].columns[i].name == 'year'">
+                <span>{{ nRowData.year }}</span>
+              </td>
+            </ng-container>
+          </tr>
+
+        </ng-container>
+      </tbody>
     </table>
   </div>
 </ng-scrollbar>

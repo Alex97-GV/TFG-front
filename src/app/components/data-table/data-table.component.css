@@ -24,6 +24,11 @@ a {
   font-weight: 500;
 }
 
+.article-url:hover {
+  color: #ffa62b !important;
+  font-weight: 500;
+}
+
 .interests-container {
   display: grid;
   grid-template-columns: 50% 50%;

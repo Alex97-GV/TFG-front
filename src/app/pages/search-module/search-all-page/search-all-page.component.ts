@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { Articles } from 'src/app/models/author-data.model';
 import { AuthorsByInterest } from 'src/app/models/authors-by-interest.model';
 import { MixSearchResponse } from 'src/app/models/mix-search-response.model';
@@ -18,51 +18,51 @@ import { DataService } from 'src/app/services/data-service';
 export class SearchAllPageComponent implements OnInit, OnDestroy {
   key = '';
   data$!: Observable<MixSearchResponse>;
-  dataTableConfiguration = new TableConfiguration<Articles>({
+  dataTableConfiguration = new TableConfiguration<AuthorsByInterest>({
     data: [],
     columns: [
       new Column({
-        name: 'title',
+        name: 'author',
+        width: '12rem',
       }),
       new Column({
-        name: 'writtenBy',
+        name: 'openToCollab',
+        width: '9rem',
+        align: 'center',
+      }),
+      new Column({
+        name: 'affiliation',
         width: '20rem',
+      }),
+      new Column({
+        name: 'interests',
+        width: '15rem',
       }),
       new Column({
         name: 'citedBy',
         width: '6rem',
         align: 'center',
       }),
-      new Column({
-        name: 'year',
-        width: '6rem',
-        align: 'center',
-      }),
     ],
     nestedTables: [
-      new TableConfiguration<AuthorsByInterest>({
+      new TableConfiguration<Articles>({
         data: [],
         columns: [
           new Column({
-            name: 'author',
-            width: '12rem',
+            name: 'title',
+            width: '26.2rem',
           }),
           new Column({
-            name: 'openToCollab',
-            width: '9rem',
-            align: 'center',
-          }),
-          new Column({
-            name: 'affiliation',
-            width: '20rem',
-          }),
-          new Column({
-            name: 'interests',
-            width: '15rem',
+            name: 'writtenBy',
+            width: '34rem',
           }),
           new Column({
             name: 'citedBy',
-            width: '6rem',
+            width: '9.7rem',
+            align: 'center',
+          }),
+          new Column({
+            name: 'year',
             align: 'center',
           }),
         ],
@@ -78,7 +78,25 @@ export class SearchAllPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.activatedRoute.paramMap
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe((params) => {
+        this.key = params.get('key') ?? '';
+        if (this.key != '') {
+          this.getMixSearch();
+        }
+      });
+  }
+
+  getMixSearch() {
+    this.data$ = this.dataSvc.searchAll(this.key).pipe(
+      takeUntil(this.componentDestroyed$),
+      tap((res) => {
+        debugger;
+        this.dataTableConfiguration.data = res.authors;
+        this.dataTableConfiguration.nestedTables[0].data = res.articles;
+      })
+    );
   }
 
   ngOnDestroy(): void {
