@@ -16,20 +16,38 @@
         <ng-container *ngFor="let rowData of data">
           <tr>
             <ng-container *ngFor="let col of configuration.columns; let i = index">
-              <td *ngIf="configuration.columns[i].name == 'author'">
-                <div class="picture-and-name">
-                  <img src="{{ rowData.picture }}" />
-                  <span>{{ rowData.name }}</span>
+              <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'author'">
+                <div class="author" role="button" (click)="goToAuthor(rowData.authorId)">
+                  <div class="profile-picture">
+                    <img src="{{ rowData.picture }}" />
+                  </div>
+                  <a>{{ rowData.name }}</a>
                 </div>
               </td>
-              <td *ngIf="configuration.columns[i].name == 'title'">
+              <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'openToCollab'">
+                <i class="bi bi-check-circle-fill green-check" *ngIf="rowData.openToCollab"></i>
+                <i class="bi bi-x-circle-fill red-check" style="color: red !important;"
+                  *ngIf="!rowData.openToCollab"></i>
+              </td>
+              <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'affiliation'">
+                <span>{{ rowData.affiliation }}</span>
+              </td>
+              <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'interests'">
+                <!-- <span>{{ getInterests(rowData.interests) }}</span> -->
+                <div class="interests-container">
+                  <ng-container *ngFor="let int of rowData.interests">
+                    <a role="button" class="badge item" (click)="searchInterests(int.keyword)">{{ int.title }}</a>
+                  </ng-container>
+                </div>
+              </td>
+              <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'title'">
                 <a (click)="goToLink(rowData.link)">{{ rowData.title }}</a>
               </td>
-              <td *ngIf="configuration.columns[i].name == 'writtenBy'">
+              <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'writtenBy'">
                 <span>{{ rowData.authors }}</span>
               </td>
               <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'citedBy'">
-                <span>{{ rowData.cited_by }}</span>
+                <span>{{ rowData.citedBy }}</span>
               </td>
               <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'year'">
                 <span>{{ rowData.year }}</span>

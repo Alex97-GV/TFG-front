@@ -162,8 +162,7 @@ export class AuthorPageComponent implements OnInit, OnDestroy {
   }
 
   searchInterest(interest: string) {
-    //buscar interes clickado
-    // this.router.navigate([`search/interest/${interest}`]);
+    this.router.navigate([`search/interests/${interest}`]);
   }
 
   ngOnDestroy(): void {
