@@ -59,11 +59,11 @@
         </ng-container>
       </tbody>
     </table>
-    <table class="table table-hover align-middle mb-0" *ngIf="configuration.nestedTables[0].columns.length">
+    <table class="table table-hover align-middle mb-0" *ngIf="configuration.nestedTables[0]?.columns?.length">
       <tbody>
         <ng-container *ngFor="let nRowData of nestedData">
           <tr>
-            <ng-container *ngFor="let col of configuration.nestedTables[0].columns; let i = index">
+            <ng-container *ngFor="let col of configuration.nestedTables[0]?.columns; let i = index">
               <td [attr.style]="'text-align:' + col.align + ';width:' + col?.width"
                 *ngIf="configuration.nestedTables[0].columns[i].name == 'author'">
                 <div class="author" role="button" (click)="goToAuthor(nRowData.authorId)">
