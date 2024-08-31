@@ -27,7 +27,6 @@ export class UserService {
       .get<UserDto>(`${this.urlBase}login`, params)
       .pipe(
         map((user) => {
-          debugger;
           if (this.comparePassword(data.password, user.password))
             return this.toUserMapperService.transform(user);
           else throw new Error('Password does not match');
@@ -43,12 +42,10 @@ export class UserService {
       open_to_collaborate: true, //modificar en un futuro
       user_terms_acceptance: data.agree,
     };
-    debugger;
     return this.baseApiService
       .post<UserDto>(`${this.urlBase}sign_up`, params)
       .pipe(
         map((user) => {
-          debugger;
           return this.toUserMapperService.transform(user);
         })
       );

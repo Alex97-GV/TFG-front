@@ -44,9 +44,9 @@ export class LogInComponent implements OnInit, OnDestroy {
             this.router.navigate(['/home']);
           },
           error: (error) => {
-            debugger;
             this.notificationSvc.error(
-              'Los datos introducidos no son correctos', 'ERROR'
+              'Los datos introducidos no son correctos',
+              'ERROR'
             );
           },
         });

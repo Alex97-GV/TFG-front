@@ -6,6 +6,7 @@ import { ToDataMapperService } from '../mappers/to-data.mapper';
 import { AuthorDataDto } from '../models/author-data-dto.interface';
 import { AuthorData } from '../models/author-data.model';
 import { ToAuthorDataMapperService } from '../mappers/to-author-data.mapper';
+import { SearchTypes } from '../pages/search-module/types/search-types.type';
 
 @Injectable({
   providedIn: 'root',
@@ -19,9 +20,18 @@ export class DataService {
 
   private readonly urlBase = 'http://127.0.0.1:5000/api/';
 
-  search(data: any): Observable<Data[]> {
-    let params = {};
-    if (data.key) params = { ...params, key: data.key };
+  search(keyword: string, searchType: SearchTypes): Observable<any> {
+    switch (searchType) {
+      case 'all':
+        //llamada a función de busqueda mixta
+        break;
+      // case 'authors':
+      //   return this.searchAuthors(keyword);
+      case 'interests':
+        return this.searchAuthorsByInterests(keyword);
+      default:
+        new Error('Invalid search! please try again.');
+    }
 
     return of([
       {
@@ -62,6 +72,20 @@ export class DataService {
     // return this.baseApiSvc
     //   .get<DataDto>(`${this.url}`, params)
     //   .pipe(map((data) => this.toDataMapperService.transform(data)));
+  }
+
+  searchAuthorsByInterests(keyword: string): Observable<any> {
+    const params = {
+      label: keyword,
+    };
+    return this.baseApiSvc
+      .get<any>(`${this.urlBase}search_authors_by_interests`, params)
+      .pipe(
+        map((res) => {
+          debugger;
+          // this.toAuthorsByInterestsMapperService.transform(res);
+        })
+      );
   }
 
   saveInterests(interestsList: string[]): Observable<any> {
@@ -363,7 +387,9 @@ export class DataService {
       open_to_collaborate: true,
       picture:
         'https://scholar.googleusercontent.com/citations?view_op=view_photo&user=UF2TnzsAAAAJ&citpid=2',
-    } as unknown as AuthorDataDto).pipe(map((res) => this.toAuthorDataMapperService.transform(res)));
+    } as unknown as AuthorDataDto).pipe(
+      map((res) => this.toAuthorDataMapperService.transform(res))
+    );
     // return this.baseApiSvc
     //   .get<AuthorDataDto>(`${this.urlBase}search_author_id`, params)
     //   .pipe(

@@ -63,7 +63,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const user = JSON.parse(sessionStorage.getItem('user') ?? '');
     this.initForm();
-    debugger;
     this.data$ =
       this.userSvc.getProfileData(user.mail).pipe(
         takeUntil(this.componentDestroyed$),

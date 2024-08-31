@@ -34,9 +34,9 @@ export class ProfileDataCardComponent implements OnInit, OnDestroy {
   }
 
   setSubscriptions() {
-    this.form.valueChanges.subscribe((val) => {
-      debugger;
-    });
+    // this.form.valueChanges.subscribe((val) => {
+    //   debugger;
+    // });
   }
 
   editData() {

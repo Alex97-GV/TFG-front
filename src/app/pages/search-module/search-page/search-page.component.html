@@ -1,0 +1,28 @@
+<div class="container">
+    <h4 class="my-5">Resultados para <strong class="text-break">{{key | uppercase }}</strong></h4>
+    <div class="tab-container shadow rounded">
+        <nav class="p-3">
+            <div class="nav nav-tabs custom-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all"
+                    type="button" role="tab" aria-controls="nav-all" aria-selected="true"
+                    [ngClass]="{ 'active': searchType== 'all'}" (click)="changeLocation('all')">
+                    All
+                </button>
+                <button class="nav-link" id="nav-interests-tab" data-bs-toggle="tab" data-bs-target="#nav-interests"
+                    type="button" role="tab" aria-controls="nav-interests" aria-selected="false"
+                    [ngClass]="{ 'active': searchType== 'interests'}" (click)="changeLocation('interests')">
+                    Interests
+                </button>
+                <button class="nav-link" id="nav-authors-tab" data-bs-toggle="tab" data-bs-target="#nav-authors"
+                    type="button" role="tab" aria-controls="nav-authors" aria-selected="false"
+                    [ngClass]="{ 'active': searchType== 'authors'}" (click)="changeLocation('authors')">
+                    Authors
+                </button>
+            </div>
+        </nav>
+        <div class="tab-content px-3 pb-3" id="nav-tabContent">
+            <router-outlet></router-outlet>
+        </div>
+
+    </div>
+</div>
