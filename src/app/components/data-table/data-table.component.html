@@ -1,17 +1,12 @@
-<ng-scrollbar>
-<div class="table-responsive">
-    <table
-      class="table table-hover align-middle mb-0"
-      *ngIf="configuration.columns.length; else error"
-    >
+<ng-scrollbar [autoHeightDisabled]="false">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0" *ngIf="configuration.columns.length; else error">
       <thead class="table-header">
         <tr>
           <ng-container *ngFor="let cols of configuration.columns">
-            <th
-              [attr.style]="
+            <th [attr.style]="
                 'width:' + cols?.width + '; text-align:' + cols.align
-              "
-            >
+              ">
               {{ cols.title }}
             </th>
           </ng-container>
@@ -20,9 +15,7 @@
       <tbody>
         <ng-container *ngFor="let rowData of data">
           <tr>
-            <ng-container
-              *ngFor="let col of configuration.columns; let i = index"
-            >
+            <ng-container *ngFor="let col of configuration.columns; let i = index">
               <td *ngIf="configuration.columns[i].name == 'author'">
                 <div class="picture-and-name">
                   <img src="{{ rowData.picture }}" />
@@ -35,16 +28,10 @@
               <td *ngIf="configuration.columns[i].name == 'writtenBy'">
                 <span>{{ rowData.authors }}</span>
               </td>
-              <td
-                [attr.style]="'text-align:' + col.align"
-                *ngIf="configuration.columns[i].name == 'citedBy'"
-              >
+              <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'citedBy'">
                 <span>{{ rowData.cited_by }}</span>
               </td>
-              <td
-                [attr.style]="'text-align:' + col.align"
-                *ngIf="configuration.columns[i].name == 'year'"
-              >
+              <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'year'">
                 <span>{{ rowData.year }}</span>
               </td>
             </ng-container>

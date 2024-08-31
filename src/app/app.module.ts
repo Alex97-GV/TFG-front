@@ -14,7 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToUserMapperService } from './mappers/to-user.mapper';
 import { UserService } from './services/user.service';
 import { ToDataMapperService } from './mappers/to-data.mapper';
-import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { InterestPageComponent } from './pages/interest-page/interest-page.component';
 import { AuthorPageComponent } from './pages/author-page/author-page.component';
 import { ToAuthorDataMapperService } from './mappers/to-author-data.mapper';
@@ -30,6 +29,10 @@ import { NotificationService } from './services/notification.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileGeneralInfoCardComponent } from './components/profile-general-info-card/profile-general-info-card.component';
 import { ProfileDataCardComponent } from './components/profile-data-card/profile-data-card.component';
+import { SearchPageComponent } from './pages/search-module/search-page/search-page.component';
+import { SearchAllPageComponent } from './pages/search-module/search-all-page/search-all-page.component';
+import { SearchAuthorsPageComponent } from './pages/search-module/search-authors-page/search-authors-page.component';
+import { SearchInterestsPageComponent } from './pages/search-module/search-interests-page/search-interests-page.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,6 @@ import { ProfileDataCardComponent } from './components/profile-data-card/profile
     LogInComponent,
     PassResetComponent,
     SignupComponent,
-    SearchPageComponent,
     InterestPageComponent,
     AuthorPageComponent,
     DataTableComponent,
@@ -48,6 +50,10 @@ import { ProfileDataCardComponent } from './components/profile-data-card/profile
     SocialsTableComponent,
     ProfileGeneralInfoCardComponent,
     ProfileDataCardComponent,
+    SearchPageComponent,
+    SearchAllPageComponent,
+    SearchAuthorsPageComponent,
+    SearchInterestsPageComponent,
   ],
   imports: [
     BrowserModule,

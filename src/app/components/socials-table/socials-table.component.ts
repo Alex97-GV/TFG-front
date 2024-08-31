@@ -49,7 +49,6 @@ export class SocialsTableComponent implements OnInit {
 
   ngOnInit(): void {
     const parentForm = this.rootFormGroup.control as FormGroup;
-    debugger;
     if (this.formGroupName && parentForm) {
       this.form = parentForm.get(this.formGroupName) as FormGroup;
       this.setSubscriptions();
@@ -57,9 +56,9 @@ export class SocialsTableComponent implements OnInit {
   }
 
   setSubscriptions() {
-    this.form.valueChanges.subscribe((val) => {
-      debugger;
-    });
+    // this.form.valueChanges.subscribe((val) => {
+    //   debugger;
+    // });
   }
 
   checkIfEmpty() {
@@ -67,14 +66,12 @@ export class SocialsTableComponent implements OnInit {
   }
 
   editSocials() {
-    debugger;
     this.checkIfEmpty();
     this.form.enable({ emitEvent: false });
     this.editing = true;
   }
 
   saveSocials() {
-    debugger;
     this.deleteNotValids();
     this.form.disable({ emitEvent: false });
     this.editing = false;
@@ -98,12 +95,10 @@ export class SocialsTableComponent implements OnInit {
   }
 
   setControlName(name: string, index: number) {
-    debugger;
     this.items.at(index).get('name')?.setValue(name, { emitEvent: false });
   }
 
   addSocial() {
-    debugger;
     this.items.push(
       this.fb.group({
         name: ['', Validators.required],

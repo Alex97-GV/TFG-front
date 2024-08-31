@@ -27,7 +27,6 @@ export class UserService {
       .get<UserDto>(`${this.urlBase}login`, params)
       .pipe(
         map((user) => {
-          debugger;
           if (this.comparePassword(data.password, user.password))
             return this.toUserMapperService.transform(user);
           else throw new Error('Password does not match');
@@ -43,12 +42,10 @@ export class UserService {
       open_to_collaborate: true, //modificar en un futuro
       user_terms_acceptance: data.agree,
     };
-    debugger;
     return this.baseApiService
       .post<UserDto>(`${this.urlBase}sign_up`, params)
       .pipe(
         map((user) => {
-          debugger;
           return this.toUserMapperService.transform(user);
         })
       );
@@ -61,31 +58,35 @@ export class UserService {
 
     return of(
       new ProfileData({
-        name: 'Lorena',
-        picture:
-          'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp',
-        interests: [
-          {
-            keyword: 'particle_physics',
-            title: 'Particle Physics',
-          },
-          {
-            keyword: 'high_energy_physics',
-            title: 'High Energy Physics',
-          },
-          {
-            keyword: 'grid_computing',
-            title: 'Grid Computing',
-          },
-          {
-            keyword: 'computing_for_high_energy_physics',
-            title: 'Computing for High Energy Physics',
-          },
-        ],
-        email: 'lor@ucm.es',
-        phone: '999999999',
-        affiliation: 'Full Professor, Universidad Complutense de Madrid (UCM)',
-        ssnn: [
+        openToCollab: true,
+        generalInfo: {
+          fullName: 'Lorena',
+          picture:
+            'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp',
+          interests: [
+            {
+              keyword: 'particle_physics',
+              title: 'Particle Physics',
+            },
+            {
+              keyword: 'high_energy_physics',
+              title: 'High Energy Physics',
+            },
+            {
+              keyword: 'grid_computing',
+              title: 'Grid Computing',
+            },
+            {
+              keyword: 'computing_for_high_energy_physics',
+              title: 'Computing for High Energy Physics',
+            },
+          ],
+          affiliation:
+            'Full Professor, Universidad Complutense de Madrid (UCM)',
+          email: 'lor@ucm.es',
+          phone: '999999999',
+        },
+        socials: [
           {
             name: 'Twitter',
             url: 'https://www.google.es/',
@@ -103,7 +104,6 @@ export class UserService {
             url: 'https://www.google.es/',
           },
         ],
-        openToCollaborate: true,
         id: 'UF2TnzsAAAAJ',
       })
     );

@@ -110,25 +110,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const profileData = data as ProfileData;
     this.fillInterests(profileData);
     this.fillSocials(profileData);
-
-    const form = {
-      ...profileData,
-      generalInfo: {
-        fullName: profileData.name,
-        picture: profileData.picture,
-        openToCollab: profileData.openToCollaborate,
-        affiliation: profileData.affiliation,
-        email: profileData.email,
-        phone: profileData.phone,
-      },
-    };
-    this.form.patchValue(form);
+    debugger;
+    this.form.patchValue(profileData);
   }
 
   fillInterests(data: ProfileData) {
     const interestArray = this.form.get('generalInfo.interests') as FormArray;
     interestArray.clear();
-    data.interests.forEach((int: any) => {
+    data.generalInfo.interests.forEach((int: any) => {
       interestArray.push(
         this.fb.group({
           title: int.title,
@@ -141,7 +130,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   fillSocials(data: ProfileData) {
     const socials = this.form.get('socials.items') as FormArray;
     if (socials) socials.clear();
-    data.ssnn.forEach((sn) => {
+    data.socials.forEach((sn) => {
       socials.push(
         this.fb.group({
           name: sn.name,

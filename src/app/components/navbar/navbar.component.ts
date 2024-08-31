@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLinkActive } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Data } from '../../models/data.model';
 
@@ -13,12 +13,9 @@ export class NavbarComponent implements OnInit {
   form!: FormGroup;
   data$!: Observable<Data>;
   user: string = 'Unknown';
-  searchTypes = ['all', 'author', 'interests'];
+  searchTypes = ['all', 'authors', 'interests'];
 
-  constructor(
-    private readonly fb: FormBuilder,
-    private router: Router
-  ) {}
+  constructor(private readonly fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     const userInfo = JSON.parse(sessionStorage.getItem('user') ?? '');
@@ -29,7 +26,7 @@ export class NavbarComponent implements OnInit {
   initForm(): void {
     this.form = this.fb.group({
       key: ['', Validators.required],
-      type: ['all', Validators.required]
+      type: ['all', Validators.required],
     });
   }
 
@@ -40,18 +37,24 @@ export class NavbarComponent implements OnInit {
 
   goToAuthor() {
     const authorId = 'EicYvbwAAAAJ';
-    this.router.navigate([`/author/${authorId}`])
+    this.router.navigate([`/author/${authorId}`]);
   }
 
   changeSearchType(type: string) {
     this.form.get('type')?.setValue(type);
-
   }
 
   onSubmit(): void {
     if (this.form.valid) {
       //en caso de que haya filtros, incluir en la url los parámetros
-      this.router.navigate([`/search/${this.form.get('key')?.value}`]);
+      this.router.navigate(
+        [
+          `/search/${this.form.get('type')?.value}/${
+            this.form.get('key')?.value
+          }`,
+        ],
+        { preserveFragment: false }
+      );
     }
   }
 }

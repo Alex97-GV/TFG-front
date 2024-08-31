@@ -22,7 +22,13 @@
 
           <profile-data-card formGroupName="generalInfo"></profile-data-card>
           <div class="table-data-card rounded shadow">
-            <data-table *ngIf="dataTableConfiguration?.data" [configuration]="dataTableConfiguration"></data-table>
+            <div class="table-data-title-row">
+              <div class="table-data-icon rounded"></div>
+              <h3 class="table-data-title m-0">MY ARTICLES</h3>
+            </div>
+            <div class="table-container">
+              <data-table *ngIf="dataTableConfiguration?.data" [configuration]="dataTableConfiguration"></data-table>
+            </div>
           </div>
         </div>
       </form>

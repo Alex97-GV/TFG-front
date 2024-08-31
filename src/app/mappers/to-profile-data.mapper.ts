@@ -10,20 +10,22 @@ export class ToProfileDataMapperService extends MapperService<
 > {
   protected map(entity: ProfileDataDto): ProfileData {
     return new ProfileData({
-      name: entity.name,
-      picture: entity.picture,
-      interests: entity.interests.map((int) => ({
-        keyword: int.keyword,
-        title: int.title,
-      })),
-      email: entity.email,
-      phone: entity.phone,
-      affiliation: entity.affiliation,
-      ssnn: entity.ssnn.map((social) => ({
+      openToCollab: entity.open_to_collaborate,
+      generalInfo: {
+        fullName: entity.name,
+        picture: entity.picture,
+        interests: entity.interests.map((int) => ({
+          keyword: int.keyword,
+          title: int.title,
+        })),
+        affiliation: entity.affiliation,
+        email: entity.email,
+        phone: entity.phone,
+      },
+      socials: entity.ssnn.map((social) => ({
         name: social.name,
         url: social.url,
       })),
-      openToCollaborate: entity.open_to_collaborate,
       id: entity.schoolar_id,
     });
   }

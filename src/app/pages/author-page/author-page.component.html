@@ -16,24 +16,17 @@
               <h4 class="m-0 text-uppercase">{{ response.name }}</h4>
               <span class="text-muted fw-bolder">{{
                 response.affiliations
-              }}</span>
+                }}</span>
             </div>
           </div>
-          <div
-            class="interests shadow rounded"
-            *ngIf="response.interests.length > 0"
-          >
+          <div class="interests shadow rounded" *ngIf="response.interests.length > 0">
             <div class="interests-title">
               <span class="fw-bold span-interests-title">Interests</span>
             </div>
             <div class="list-of-interests">
               <ng-container *ngFor="let int of response.interests">
-                <span
-                  role="button"
-                  class="span-interest rounded"
-                  (click)="searchInterest(int.keyword)"
-                  >{{ int.title | titlecase }}</span
-                >
+                <span role="button" class="span-interest rounded" (click)="searchInterest(int.keyword)">{{ int.title |
+                  titlecase }}</span>
               </ng-container>
             </div>
           </div>
@@ -41,13 +34,13 @@
             <span class="fw-bold span-articles">Total Articles</span>
             <span class="fw-bolder span-articles-num">{{
               response.articleInfo.totalNumberArticles
-            }}</span>
+              }}</span>
           </div>
           <div class="citations shadow rounded">
             <span class="fw-bold span-citations">Avg. Citations</span>
             <span class="fw-bolder span-citations-num">{{
               response.citedBy.average
-            }}</span>
+              }}</span>
           </div>
         </div>
       </div>
@@ -59,65 +52,31 @@
         </h3>
         <nav class="p-3">
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button
-              class="nav-link active"
-              id="nav-data-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#nav-data"
-              type="button"
-              role="tab"
-              aria-controls="nav-data"
-              aria-selected="true"
-            >
+            <button class="nav-link active" id="nav-data-tab" data-bs-toggle="tab" data-bs-target="#nav-data"
+              type="button" role="tab" aria-controls="nav-data" aria-selected="true">
               Data
             </button>
-            <button
-              class="nav-link"
-              id="nav-articles-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#nav-articles"
-              type="button"
-              role="tab"
-              aria-controls="nav-articles"
-              aria-selected="false"
-            >
+            <button class="nav-link" id="nav-articles-tab" data-bs-toggle="tab" data-bs-target="#nav-articles"
+              type="button" role="tab" aria-controls="nav-articles" aria-selected="false">
               Articles
             </button>
           </div>
         </nav>
         <div class="tab-content px-3 pb-3" id="nav-tabContent">
-          <div
-            class="tab-pane fade show active"
-            id="nav-data"
-            role="tabpanel"
-            aria-labelledby="nav-data-tab"
-          >
+          <div class="tab-pane fade show active" id="nav-data" role="tabpanel" aria-labelledby="nav-data-tab">
             <div class="data-panel">
-              <line-chart
-                *ngIf="lineChartConfig"
-                [configuration]="lineChartConfig"
-              ></line-chart>
+              <line-chart *ngIf="lineChartConfig" [configuration]="lineChartConfig"></line-chart>
               <div>
                 <h3 class="m-0 semi-donut-title">Articles Information</h3>
-                <semi-donut-chart
-                  *ngIf="semiDonutConfig.series.length"
-                  [data]="semiDonutConfig"
-                ></semi-donut-chart>
+                <semi-donut-chart *ngIf="semiDonutConfig.series.length" [data]="semiDonutConfig"></semi-donut-chart>
               </div>
             </div>
           </div>
-          <div
-            class="tab-pane fade"
-            id="nav-articles"
-            role="tabpanel"
-            aria-labelledby="nav-articles-tab"
-          >
-          <div class="table-container">
-            <data-table
-              *ngIf="dataTableConfiguration?.data?.length != undefined"
-              [configuration]="dataTableConfiguration"
-            ></data-table>
-          </div>
+          <div class="tab-pane fade" id="nav-articles" role="tabpanel" aria-labelledby="nav-articles-tab">
+            <div class="table-container">
+              <data-table *ngIf="dataTableConfiguration?.data?.length != undefined"
+                [configuration]="dataTableConfiguration"></data-table>
+            </div>
           </div>
         </div>
       </div>

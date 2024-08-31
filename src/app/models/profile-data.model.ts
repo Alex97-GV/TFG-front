@@ -1,12 +1,14 @@
 export class ProfileData {
-  public name!: string;
-  public picture!: string | null;
-  public interests!: { keyword: string; title: string }[];
-  public email!: string;
-  public phone!: string;
-  public affiliation!: string;
-  public ssnn!: { name: string; url: string }[];
-  public openToCollaborate!: boolean;
+  public openToCollab!: boolean;
+  public generalInfo!: {
+    fullName: string;
+    picture: string;
+    interests: { keyword: string; title: string }[];
+    affiliation: string;
+    email: string;
+    phone: string;
+  };
+  public socials!: { name: string; url: string }[];
   public id!: string;
 
   constructor(item: Partial<ProfileData>) {

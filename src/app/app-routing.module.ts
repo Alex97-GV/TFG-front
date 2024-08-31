@@ -5,11 +5,14 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { LogInComponent } from './pages/log-in/log-in.component';
 import { PassResetComponent } from './pages/pass-reset/pass-reset.component';
 import { SignupComponent } from './pages/signup/signup.component';
-import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { InterestPageComponent } from './pages/interest-page/interest-page.component';
 import { AuthorPageComponent } from './pages/author-page/author-page.component';
 import { authorizeGuard } from './guards/authorize.guard';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { SearchPageComponent } from './pages/search-module/search-page/search-page.component';
+import { SearchInterestsPageComponent } from './pages/search-module/search-interests-page/search-interests-page.component';
+import { SearchAuthorsPageComponent } from './pages/search-module/search-authors-page/search-authors-page.component';
+import { SearchAllPageComponent } from './pages/search-module/search-all-page/search-all-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LogInComponent },
@@ -40,21 +43,28 @@ const routes: Routes = [
   },
   {
     path: 'author/:id',
-    children: [
-      {
-        path: '',
-        canActivate: [authorizeGuard],
-        component: AuthorPageComponent,
-      },
-    ],
+    canActivate: [authorizeGuard],
+    component: AuthorPageComponent,
   },
   {
-    path: 'search/:key',
+    path: 'search',
+    canActivate: [authorizeGuard],
+    component: SearchPageComponent,
     children: [
       {
-        path: '',
+        path: 'all/:key',
         canActivate: [authorizeGuard],
-        component: SearchPageComponent,
+        component: SearchAllPageComponent,
+      },
+      {
+        path: 'interests/:key',
+        canActivate: [authorizeGuard],
+        component: SearchInterestsPageComponent,
+      },
+      {
+        path: 'authors/:key',
+        canActivate: [authorizeGuard],
+        component: SearchAuthorsPageComponent,
       },
     ],
   },
