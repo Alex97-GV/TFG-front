@@ -11,13 +11,12 @@ a {
   align-items: center;
   .profile-picture {
     overflow: hidden;
-    max-height: 4rem;
-    max-width: 4rem;
+    height: 4rem;
+    width: 4rem;
     border-radius: 50%;
-    img {
-      height: 100%;
-      width: 100%;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 .author:hover {

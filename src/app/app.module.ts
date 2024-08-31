@@ -34,6 +34,7 @@ import { SearchAllPageComponent } from './pages/search-module/search-all-page/se
 import { SearchAuthorsPageComponent } from './pages/search-module/search-authors-page/search-authors-page.component';
 import { SearchInterestsPageComponent } from './pages/search-module/search-interests-page/search-interests-page.component';
 import { ToAuthorsByInterestsMapperService } from './mappers/to-authors-by-interest.mapper';
+import { ToMixSearchResponseMapperService } from './mappers/to-mix-search-response.mapper';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { ToAuthorsByInterestsMapperService } from './mappers/to-authors-by-inter
     ToAuthorDataMapperService,
     ToProfileDataMapperService,
     ToAuthorsByInterestsMapperService,
+    ToMixSearchResponseMapperService,
   ],
   bootstrap: [AppComponent],
 })

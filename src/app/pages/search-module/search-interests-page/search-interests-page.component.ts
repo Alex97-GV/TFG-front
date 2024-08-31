@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import {
@@ -16,7 +16,7 @@ import { DataService } from 'src/app/services/data-service';
   templateUrl: './search-interests-page.component.html',
   styleUrls: ['./search-interests-page.component.css'],
 })
-export class SearchInterestsPageComponent implements OnInit {
+export class SearchInterestsPageComponent implements OnInit, OnDestroy {
   key = '';
   data$!: Observable<AuthorsByInterestResponse>;
   dataTableConfiguration = new TableConfiguration<AuthorsByInterest>({
@@ -57,23 +57,30 @@ export class SearchInterestsPageComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private dataSvc: DataService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.activatedRoute.paramMap
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((params) => {
         this.key = params.get('key') ?? '';
+        if (this.key != '') {
+          this.searchAuthorsByInterest();
+        }
       });
   }
 
-  ngOnInit(): void {
-    if (this.key != '') {
-      this.data$ = this.dataSvc.searchAuthorsByInterests(this.key).pipe(
-        takeUntil(this.componentDestroyed$),
-        tap((res) => {
-          debugger;
-          this.dataTableConfiguration.data = res.authors;
-        })
-      );
-    }
+  searchAuthorsByInterest() {
+    this.data$ = this.dataSvc.searchAuthorsByInterests(this.key).pipe(
+      takeUntil(this.componentDestroyed$),
+      tap((res) => {
+        debugger;
+        this.dataTableConfiguration.data = res.authors;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.componentDestroyed$.next();
   }
 }
