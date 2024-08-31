@@ -11,7 +11,7 @@ export class AuthorData {
     notAvailable: number;
     available: number;
   };
-  public articles!: any[];
+  public articles!: Articles[];
   public citedBy!: {
     totalCitations: number;
     graph: {
@@ -23,6 +23,18 @@ export class AuthorData {
   };
 
   constructor(item: Partial<AuthorData>) {
+    Object.assign(this, item);
+  }
+}
+
+export class Articles {
+  public authors!: string;
+  public citedBy!: number;
+  public link!: string;
+  public title!: string;
+  public year!: string;
+
+  constructor(item: Partial<Articles>) {
     Object.assign(this, item);
   }
 }

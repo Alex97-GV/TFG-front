@@ -6,6 +6,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { TableConfiguration } from 'src/app/models/table-configuration.model';
 
 @Component({
@@ -18,13 +19,27 @@ export class DataTableComponent implements OnInit, OnDestroy {
   data!: any[];
   // componentDestroyed$ = new Subject<void>();
 
-  constructor() {}
+  constructor(private router: Router) {}
   // ngOnChanges(changes: SimpleChanges): void {
   //   debugger;
   // }
 
   ngOnInit(): void {
+    debugger;
     this.data = this.configuration.data ?? [];
+  }
+
+  getInterests(interests: any[]) {
+    if (interests) return interests.map((int) => int.title).join(', ');
+    return '';
+  }
+
+  goToAuthor(id: string) {
+    this.router.navigate([`/author/${id}`]);
+  }
+
+  searchInterests(keyword: string) {
+    this.router.navigate([`search/interests/${keyword}`]);
   }
 
   goToLink(url: string) {

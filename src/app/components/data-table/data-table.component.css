@@ -2,12 +2,48 @@ a {
   color: black;
   text-decoration: none;
   font-weight: 500;
-
 }
 
-a:hover {
+.author {
+  display: grid;
+  grid-template-columns: 4rem auto;
+  column-gap: 1rem;
+  align-items: center;
+  .profile-picture {
+    overflow: hidden;
+    max-height: 4rem;
+    max-width: 4rem;
+    border-radius: 50%;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+.author:hover {
   color: #ffa62b !important;
   font-weight: 500;
+}
+
+.interests-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  column-gap: 2%;
+  row-gap: 20%;
+  align-items: center;
+  justify-content: left;
+  .item {
+    border-radius: 50rem;
+    background-color: #489fb5;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    color: white;
+  }
+  .item:hover {
+    background-color: #16697a;
+  }
 }
 
 .table-header {

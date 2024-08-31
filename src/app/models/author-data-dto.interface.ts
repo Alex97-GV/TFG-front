@@ -11,7 +11,7 @@ export interface AuthorDataDto {
     not_available: number;
     available: number;
   };
-  articles: any[];
+  articles: ArticleDto[];
   cited_by: {
     total_citations: number;
     graph: {
@@ -21,4 +21,12 @@ export interface AuthorDataDto {
     average: number;
     open_to_collaborate: boolean;
   };
+}
+
+export interface ArticleDto {
+  authors: string;
+  cited_by: number;
+  link: string;
+  title: string;
+  year: string;
 }

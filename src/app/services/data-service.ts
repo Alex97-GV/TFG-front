@@ -1,12 +1,19 @@
 import { Injectable } from '@angular/core';
-import { BaseApiService } from './base-api.service';
-import { map, Observable, of, takeUntil } from 'rxjs';
-import { Data } from '../models/data.model';
+import { map, Observable, of } from 'rxjs';
+import { ToAuthorDataMapperService } from '../mappers/to-author-data.mapper';
+import { ToAuthorsByInterestsMapperService } from '../mappers/to-authors-by-interest.mapper';
 import { ToDataMapperService } from '../mappers/to-data.mapper';
 import { AuthorDataDto } from '../models/author-data-dto.interface';
 import { AuthorData } from '../models/author-data.model';
-import { ToAuthorDataMapperService } from '../mappers/to-author-data.mapper';
-import { SearchTypes } from '../pages/search-module/types/search-types.type';
+import { BaseApiService } from './base-api.service';
+import {
+  AuthorsByInterestDto,
+  AuthorsByInterestResponseDto,
+} from '../models/authors-by-interest-dto.interface';
+import {
+  AuthorsByInterest,
+  AuthorsByInterestResponse,
+} from '../models/authors-by-interest.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,24 +22,13 @@ export class DataService {
   constructor(
     private baseApiSvc: BaseApiService,
     private toDataMapperService: ToDataMapperService,
-    private toAuthorDataMapperService: ToAuthorDataMapperService
+    private toAuthorDataMapperService: ToAuthorDataMapperService,
+    private toAuthorsByInterestMapperService: ToAuthorsByInterestsMapperService
   ) {}
 
   private readonly urlBase = 'http://127.0.0.1:5000/api/';
 
-  search(keyword: string, searchType: SearchTypes): Observable<any> {
-    switch (searchType) {
-      case 'all':
-        //llamada a función de busqueda mixta
-        break;
-      // case 'authors':
-      //   return this.searchAuthors(keyword);
-      case 'interests':
-        return this.searchAuthorsByInterests(keyword);
-      default:
-        new Error('Invalid search! please try again.');
-    }
-
+  searchAll(keyword: string): Observable<any> {
     return of([
       {
         affiliation: 'Postdoctoral research assistant, University of Bremen',
@@ -74,18 +70,117 @@ export class DataService {
     //   .pipe(map((data) => this.toDataMapperService.transform(data)));
   }
 
-  searchAuthorsByInterests(keyword: string): Observable<any> {
+  searchAuthorsByInterests(
+    keyword: string
+  ): Observable<AuthorsByInterestResponse> {
     const params = {
       label: keyword,
     };
-    return this.baseApiSvc
-      .get<any>(`${this.urlBase}search_authors_by_interests`, params)
-      .pipe(
-        map((res) => {
-          debugger;
-          // this.toAuthorsByInterestsMapperService.transform(res);
-        })
-      );
+
+    return of({
+      authors: [
+        {
+          affiliations: 'University of Wisconsin-Madison',
+          author_id: 'xqqiJYIAAAAJ',
+          cited_by: 477238,
+          interests: [
+            {
+              keyword: 'particle_physics',
+              title: 'Particle Physics',
+            },
+          ],
+          name: 'Fuquan Wang',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.google.com/citations/images/avatar_scholar_56.png',
+        },
+        {
+          affiliations: 'Research director at CNRS France',
+          author_id: 'Kea0PH8AAAAJ',
+          cited_by: 473022,
+          interests: [
+            {
+              keyword: 'physics',
+              title: 'physics',
+            },
+            {
+              keyword: 'particle_physics',
+              title: 'particle physics',
+            },
+            {
+              keyword: 'nuclear_physics',
+              title: 'nuclear physics',
+            },
+            {
+              keyword: 'cosmology',
+              title: 'cosmology',
+            },
+            {
+              keyword: 'computing',
+              title: 'computing',
+            },
+          ],
+          name: 'Dr. Fairouz Malek, Physicist',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.googleusercontent.com/citations?view_op=small_photo&user=Kea0PH8AAAAJ&citpid=1',
+        },
+        {
+          affiliations:
+            'Professor of Physics, Royal Holloway, University of London',
+          author_id: 'ljQwt8QAAAAJ',
+          cited_by: 462574,
+          interests: [
+            {
+              keyword: 'physics',
+              title: 'Physics',
+            },
+            {
+              keyword: 'particle_physics',
+              title: 'Particle Physics',
+            },
+            {
+              keyword: 'statistical_data_analysis',
+              title: 'Statistical Data Analysis',
+            },
+          ],
+          name: 'Glen Cowan',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.google.com/citations/images/avatar_scholar_56.png',
+        },
+        {
+          affiliations: 'Michigan State University',
+          author_id: 'uTIcEYsAAAAJ',
+          cited_by: 454521,
+          interests: [
+            {
+              keyword: 'high_energy_physics',
+              title: 'high energy physics',
+            },
+            {
+              keyword: 'particle_physics',
+              title: 'particle physics',
+            },
+          ],
+          name: 'Joey Huston',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.google.com/citations/images/avatar_scholar_56.png',
+        },
+      ],
+    } as unknown as AuthorsByInterestResponseDto).pipe(
+      map((res) => this.toAuthorsByInterestMapperService.transform(res))
+    );
+
+    // return this.baseApiSvc
+    //   .get<any>(`${this.urlBase}search_authors_by_interests`, params)
+    //   .pipe(
+    //     map((res) => {
+    //       debugger;
+    //       this.toAuthorsByInterestsMapperService.transform(res);
+    //     })
+    //   );
   }
 
   saveInterests(interestsList: string[]): Observable<any> {

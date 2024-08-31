@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MapperService } from './mapper.service';
 import { AuthorDataDto } from '../models/author-data-dto.interface';
-import { AuthorData } from '../models/author-data.model';
+import { Articles, AuthorData } from '../models/author-data.model';
 
 @Injectable()
 export class ToAuthorDataMapperService extends MapperService<
@@ -22,7 +22,16 @@ export class ToAuthorDataMapperService extends MapperService<
         notAvailable: entity.article_info.not_available,
         available: entity.article_info.available,
       },
-      articles: entity.articles,
+      articles: entity.articles.map(
+        (art) =>
+          new Articles({
+            authors: art.authors,
+            citedBy: art.cited_by,
+            link: art.link,
+            title: art.title,
+            year: art.year,
+          })
+      ),
       citedBy: {
         totalCitations: entity.cited_by.total_citations,
         graph: entity.cited_by.graph.map((gr) => {
