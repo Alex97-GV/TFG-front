@@ -1,7 +1,7 @@
 <div class="main-container" [formGroup]="form">
   <!-- <pre>{{form.value | json}}</pre> -->
   <div class="container">
-    <ng-container *ngIf="data$ | async as res; else error">
+    <ng-container *ngIf="data$ | async as res; else loading">
       <form class="columns-container">
         <div class="profile-and-rrss-col">
           <profile-general-info-card [picture]="form.get('generalInfo.picture')?.value"
@@ -20,7 +20,7 @@
             </div>
           </div>
 
-          <profile-data-card formGroupName="generalInfo"></profile-data-card>
+          <profile-data-card formGroupName="generalInfo" (saveEvent)="saveProfile($event)"></profile-data-card>
           <div class="table-data-card rounded shadow">
             <div class="table-data-title-row">
               <div class="table-data-icon rounded"></div>
@@ -34,10 +34,12 @@
       </form>
     </ng-container>
 
-    <ng-template #error>
-      <h1 class="text-danger p-5 d-flex justify-content-center align-items-center">
-        There was an error! Please try again later.
-      </h1>
+    <ng-template #loading>
+      <div class="loading-container">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
     </ng-template>
   </div>
 </div>

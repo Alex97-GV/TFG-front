@@ -1024,7 +1024,7 @@ export class DataService {
         },
       ],
       name: 'Antonio Sarasa-Cabezuelo',
-      open_to_collaborate: true,
+      open_to_collaborate: Math.random() < 0.5,
       picture:
         'https://scholar.googleusercontent.com/citations?view_op=view_photo&user=UF2TnzsAAAAJ&citpid=2',
     } as unknown as AuthorDataDto).pipe(

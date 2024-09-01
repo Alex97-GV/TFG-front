@@ -13,13 +13,8 @@
         </button>
       </ng-container>
       <ng-template #editingSocialsData>
-        <button
-          type="button"
-          class="btn btn-save"
-          (mouseenter)="hoverSaveSocials = true"
-          (mouseleave)="hoverSaveSocials = false"
-          (click)="saveSocials()"
-        >
+        <button type="button" class="btn btn-save" (mouseenter)="hoverSaveSocials = true"
+          (mouseleave)="hoverSaveSocials = false" (click)="saveSocials()">
           <i class="bi bi-check-square" *ngIf="!hoverSaveSocials"></i>
           <i class="bi bi-check-square-fill" *ngIf="hoverSaveSocials"></i>
         </button>
@@ -33,52 +28,28 @@
           <ng-container *ngIf="editing; else socialsBlocked">
             <div class="new-item-container">
               <div class="input-group input-group-sm">
-                <button
-                  class="btn btn-outline-primary dropdown-toggle"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
+                <button class="btn btn-outline-primary dropdown-toggle" style="width: 6rem;" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
                   {{item.get('name')?.value != '' ? item.get('name')?.value : 'Select'}}
                 </button>
                 <ul class="dropdown-menu">
                   <ng-container *ngFor="let sn of socials; let j = index">
-                    <li><a class="dropdown-item" (click)="setControlName(sn, i)">{{sn}}</a></li>
+                    <li><a class="dropdown-item" (click)="setControlName(sn.name, i)">{{sn.name}}</a></li>
                   </ng-container>
                 </ul>
-                <input
-                  type="text"
-                  class="form-control"
-                  aria-label="Text input with dropdown button"
-                  formControlName="url"
-                />
+                <input type="text" class="form-control" aria-label="Text input with dropdown button"
+                  formControlName="url" />
               </div>
-              <div
-                role="button"
-                class="btn-delete-item rounded"
-                (click)="deleteSocial(i)"
-                *ngIf="editing"
-              >
+              <div role="button" class="btn-delete-item rounded" (click)="deleteSocial(i)" *ngIf="editing">
                 <i class="bi bi-trash3"></i>
               </div>
             </div>
           </ng-container>
           <ng-template #socialsBlocked>
             <div class="socials-items">
-              <a
-                role="button"
-                class="social-url"
-                (click)="goToLink(item.get('url')?.value)"
-                >{{ item.get("name")?.value }}</a
-              >
-              <div class="editing-buttons" *ngIf="editing">
-                <button class="btn btn-edit-item">
-                  <i class="bi bi-pencil"></i>
-                </button>
-                <button class="btn btn-delete-item">
-                  <i class="bi bi-trash3"></i>
-                </button>
-              </div>
+              <i class="{{getIcon(item.get('name')?.value)}}"></i>
+              <a role="button" class="social-url" (click)="goToLink(item.get('url')?.value)">{{ item.get("name")?.value
+                }}</a>
             </div>
           </ng-template>
         </div>
@@ -88,7 +59,7 @@
     <ng-template #socialsEmpty>
       <div class="no-socials-available">
         <p>
-          Add Social Networks to list them here 
+          Add Social Networks to list them here
         </p>
       </div>
     </ng-template>

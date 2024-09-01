@@ -22,10 +22,12 @@ export class ToProfileDataMapperService extends MapperService<
         email: entity.email,
         phone: entity.phone,
       },
-      socials: entity.ssnn.map((social) => ({
-        name: social.name,
-        url: social.url,
-      })),
+      socials: {
+        items: entity.ssnn.map((social) => ({
+          name: social.name,
+          url: social.url,
+        })),
+      },
       id: entity.schoolar_id,
     });
   }

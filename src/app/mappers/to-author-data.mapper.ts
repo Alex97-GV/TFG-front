@@ -41,8 +41,8 @@ export class ToAuthorDataMapperService extends MapperService<
           };
         }),
         average: entity.cited_by.average,
-        openToCollaborate: entity.cited_by.open_to_collaborate,
       },
+      openToCollaborate: Math.random() < 0.5,
     });
   }
 }

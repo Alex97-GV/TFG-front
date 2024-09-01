@@ -6,6 +6,9 @@ import { UserDto } from '../models/user-dto.interface';
 import { User } from '../models/user.model';
 import { BaseApiService } from './base-api.service';
 import { ProfileData } from '../models/profile-data.model';
+import { ToProfileDataMapperService } from '../mappers/to-profile-data.mapper';
+import { ProfileDataDto } from '../models/profile-data-dto.interface';
+import { FromProfileDataMapperService } from '../mappers/from-profile-data.mapper';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +16,9 @@ import { ProfileData } from '../models/profile-data.model';
 export class UserService {
   constructor(
     private baseApiService: BaseApiService,
-    private toUserMapperService: ToUserMapperService
+    private toUserMapperService: ToUserMapperService,
+    private toProfileDataMapperService: ToProfileDataMapperService,
+    private fromProfileDataMapperService: FromProfileDataMapperService
   ) {}
 
   private readonly urlBase = 'http://127.0.0.1:5000/api/';
@@ -51,67 +56,23 @@ export class UserService {
       );
   }
 
-  getProfileData(email: string) {
+  getProfileData(email: string): Observable<ProfileData> {
     const params = {
       email: email,
     };
 
-    return of(
-      new ProfileData({
-        openToCollab: true,
-        generalInfo: {
-          fullName: 'Lorena',
-          picture:
-            'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-2.webp',
-          interests: [
-            {
-              keyword: 'particle_physics',
-              title: 'Particle Physics',
-            },
-            {
-              keyword: 'high_energy_physics',
-              title: 'High Energy Physics',
-            },
-            {
-              keyword: 'grid_computing',
-              title: 'Grid Computing',
-            },
-            {
-              keyword: 'computing_for_high_energy_physics',
-              title: 'Computing for High Energy Physics',
-            },
-          ],
-          affiliation:
-            'Full Professor, Universidad Complutense de Madrid (UCM)',
-          email: 'lor@ucm.es',
-          phone: '999999999',
-        },
-        socials: [
-          {
-            name: 'Twitter',
-            url: 'https://www.google.es/',
-          },
-          {
-            name: 'Instagram',
-            url: 'https://www.google.es/',
-          },
-          {
-            name: 'Facebook',
-            url: 'https://www.google.es/',
-          },
-          {
-            name: 'Youtube',
-            url: 'https://www.google.es/',
-          },
-        ],
-        id: 'UF2TnzsAAAAJ',
-      })
-    );
-
-    // return this.baseApiService.get<ProfileData>(`${this.urlBase}get_user_info`, params);
+    return this.baseApiService
+      .get<ProfileDataDto>(`${this.urlBase}user_info`, params)
+      .pipe(map((res) => this.toProfileDataMapperService.transform(res)));
   }
 
-  saveProfileData(data: any) {}
+  saveProfileData(data: any): Observable<ProfileData> {
+    const body = this.fromProfileDataMapperService.transform(data);
+
+    return this.baseApiService
+      .put<ProfileDataDto>(`${this.urlBase}user_info`, body)
+      .pipe(map((res) => this.toProfileDataMapperService.transform(res)));
+  }
 
   hashPass(pass: string): string {
     return bcrypt.hashSync(pass, bcrypt.genSaltSync());

@@ -89,6 +89,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       socials: this.fb.group({
         items: this.fb.array([this.createItemsGroup()]),
       }),
+      id: [''],
     });
   }
 
@@ -130,7 +131,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   fillSocials(data: ProfileData) {
     const socials = this.form.get('socials.items') as FormArray;
     if (socials) socials.clear();
-    data.socials.forEach((sn) => {
+    data.socials.items.forEach((sn) => {
       socials.push(
         this.fb.group({
           name: sn.name,
@@ -141,11 +142,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   setSubscriptions() {
-    this.form.valueChanges
-      .pipe(takeUntil(this.componentDestroyed$))
-      .subscribe((res) => {
-        // debugger;
-      });
+    // this.form.valueChanges
+    //   .pipe(takeUntil(this.componentDestroyed$))
+    //   .subscribe((res) => {
+    //     // debugger;
+    //   });
   }
 
   getDataTable(id: string) {
@@ -157,11 +158,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
       });
   }
 
-  goToLink(url: string) {
-    window.open(url, '_blank');
+  saveProfile(hasChange: boolean) {
+    this.userSvc
+      .saveProfileData(this.form.getRawValue())
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe((res) => {
+        debugger;
+        this.fillForm(res);
+      });
   }
-
-  saveProfile(hasChange: boolean) {}
 
   ngOnDestroy(): void {
     this.componentDestroyed$.next();

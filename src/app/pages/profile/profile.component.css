@@ -7,7 +7,7 @@
 .columns-container {
   padding: 3rem 0 3rem 0;
   display: grid;
-  grid-template-columns: 32% auto;
+  grid-template-columns: 26rem auto;
   column-gap: 2rem;
   .profile-and-rrss-col {
     display: grid;
@@ -68,7 +68,7 @@
         align-items: center;
         padding: 0 0 1rem 0;
         .table-data-icon {
-          height: 69%;
+          height: 1.44rem;
           background-color: #16697a;
         }
         .table-data-title {
@@ -80,4 +80,13 @@
       }
     }
   }
+}
+
+.loading-container {
+  height: 100vh;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

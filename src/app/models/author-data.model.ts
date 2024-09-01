@@ -19,8 +19,8 @@ export class AuthorData {
       citations: number;
     }[];
     average: number;
-    openToCollaborate: boolean;
   };
+  public openToCollaborate!: boolean;
 
   constructor(item: Partial<AuthorData>) {
     Object.assign(this, item);
@@ -32,7 +32,7 @@ export class Articles {
   public citedBy!: number;
   public link!: string;
   public title!: string;
-  public year!: string;
+  public year?: string;
 
   constructor(item: Partial<Articles>) {
     Object.assign(this, item);
