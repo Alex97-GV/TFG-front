@@ -1,8 +1,8 @@
-export interface AuthorsByInterestResponseDto {
-  authors: AuthorsByInterestDto[];
+export interface AuthorSearchDataResponseDto {
+  authors: AuthorSearchDataDto[];
 }
 
-export interface AuthorsByInterestDto {
+export interface AuthorSearchDataDto {
   affiliations: string;
   author_id: string;
   cited_by: number;

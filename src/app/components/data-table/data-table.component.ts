@@ -14,16 +14,12 @@ import { TableConfiguration } from 'src/app/models/table-configuration.model';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.css'],
 })
-export class DataTableComponent implements OnInit, OnDestroy {
+export class DataTableComponent implements OnInit {
   @Input() configuration = new TableConfiguration<any>();
   data: any[] = [];
   nestedData: any[] = [];
-  // componentDestroyed$ = new Subject<void>();
 
   constructor(private router: Router) {}
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   debugger;
-  // }
 
   ngOnInit(): void {
     debugger;
@@ -46,9 +42,5 @@ export class DataTableComponent implements OnInit, OnDestroy {
 
   goToLink(url: string) {
     window.open(url, '_blank');
-  }
-
-  ngOnDestroy(): void {
-    // this.componentDestroyed$.next();
   }
 }

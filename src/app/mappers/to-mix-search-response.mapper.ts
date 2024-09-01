@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { MapperService } from './mapper.service';
+import { Articles } from '../models/author-data.model';
+import { AuthorSearchData } from '../models/author-search-data.model';
 import { MixSearchResponseDto } from '../models/mix-search-response-dto.interface';
 import { MixSearchResponse } from '../models/mix-search-response.model';
-import { AuthorsByInterest } from '../models/authors-by-interest.model';
-import { Articles } from '../models/author-data.model';
+import { MapperService } from './mapper.service';
 
 @Injectable()
 export class ToMixSearchResponseMapperService extends MapperService<
@@ -14,7 +14,7 @@ export class ToMixSearchResponseMapperService extends MapperService<
     return new MixSearchResponse({
       authors: entity.authors.map(
         (author) =>
-          new AuthorsByInterest({
+          new AuthorSearchData({
             affiliation: author.affiliations,
             authorId: author.author_id,
             citedBy: author.cited_by,
@@ -23,7 +23,7 @@ export class ToMixSearchResponseMapperService extends MapperService<
               title: int.title,
             })),
             name: author.name,
-            openToCollab: author.open_to_collaborate,
+            openToCollab: Math.random() < 0.5,
             picture: author.picture,
           })
       ),

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { Articles } from 'src/app/models/author-data.model';
-import { AuthorsByInterest } from 'src/app/models/authors-by-interest.model';
+import { AuthorSearchData } from 'src/app/models/author-search-data.model';
 import { MixSearchResponse } from 'src/app/models/mix-search-response.model';
 import {
   Column,
@@ -18,7 +18,7 @@ import { DataService } from 'src/app/services/data-service';
 export class SearchAllPageComponent implements OnInit, OnDestroy {
   key = '';
   data$!: Observable<MixSearchResponse>;
-  dataTableConfiguration = new TableConfiguration<AuthorsByInterest>({
+  dataTableConfiguration = new TableConfiguration<AuthorSearchData>({
     data: [],
     columns: [
       new Column({
