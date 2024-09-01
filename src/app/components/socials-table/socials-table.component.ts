@@ -31,7 +31,7 @@ export class SocialsTableComponent implements OnInit {
     { name: 'Facebook', icon: 'bi bi-facebook' },
     { name: 'Youtube', icon: 'bi bi-youtube' },
   ];
-  @Output() saveData = new EventEmitter<boolean>();
+  @Output() saveData = new EventEmitter<void>();
 
   hoverSaveSocials = false;
 
@@ -80,7 +80,7 @@ export class SocialsTableComponent implements OnInit {
     this.deleteNotValids();
     this.form.disable({ emitEvent: false });
     this.editing = false;
-    this.saveData.emit(true);
+    this.saveData.emit();
   }
 
   deleteNotValids() {

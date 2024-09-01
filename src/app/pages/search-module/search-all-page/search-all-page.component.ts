@@ -92,7 +92,6 @@ export class SearchAllPageComponent implements OnInit, OnDestroy {
     this.data$ = this.dataSvc.searchAll(this.key).pipe(
       takeUntil(this.componentDestroyed$),
       tap((res) => {
-        debugger;
         this.dataTableConfiguration.data = res.authors;
         this.dataTableConfiguration.nestedTables[0].data = res.articles;
       })

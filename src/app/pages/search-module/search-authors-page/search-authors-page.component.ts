@@ -74,7 +74,6 @@ export class SearchAuthorsPageComponent implements OnInit, OnDestroy {
     this.data$ = this.dataSvc.searchAuthors(this.key).pipe(
       takeUntil(this.componentDestroyed$),
       tap((res) => {
-        debugger;
         this.dataTableConfiguration.data = res.authors;
       })
     );
