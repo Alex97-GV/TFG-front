@@ -35,6 +35,7 @@ import { SearchAuthorsPageComponent } from './pages/search-module/search-authors
 import { SearchInterestsPageComponent } from './pages/search-module/search-interests-page/search-interests-page.component';
 import { ToMixSearchResponseMapperService } from './mappers/to-mix-search-response.mapper';
 import { ToAuthorSearchDataMapperService } from './mappers/to-author-search-data.mapper';
+import { FromProfileDataMapperService } from './mappers/from-profile-data.mapper';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { ToAuthorSearchDataMapperService } from './mappers/to-author-search-data
     ToProfileDataMapperService,
     ToMixSearchResponseMapperService,
     ToAuthorSearchDataMapperService,
+    FromProfileDataMapperService,
   ],
   bootstrap: [AppComponent],
 })

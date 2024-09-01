@@ -28,5 +28,5 @@ export interface ArticleDto {
   cited_by: number;
   link: string;
   title: string;
-  year: string;
+  year?: string;
 }

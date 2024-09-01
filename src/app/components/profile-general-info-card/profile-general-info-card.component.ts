@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   templateUrl: './profile-general-info-card.component.html',
   styleUrls: ['./profile-general-info-card.component.css'],
 })
-export class ProfileGeneralInfoCardComponent implements OnInit {
+export class ProfileGeneralInfoCardComponent {
   @Input() picture = '';
   @Input() fullName = '';
   @Input() affiliation = '';
@@ -24,6 +24,4 @@ export class ProfileGeneralInfoCardComponent implements OnInit {
   searchInterests(keyword: string) {
     this.router.navigate([`search/interests/${keyword}`]);
   }
-
-  ngOnInit(): void {}
 }

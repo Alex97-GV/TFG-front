@@ -8,7 +8,7 @@ export class ProfileData {
     email: string;
     phone: string;
   };
-  public socials!: { name: string; url: string }[];
+  public socials!: { items: { name: string; url: string }[] };
   public id!: string;
 
   constructor(item: Partial<ProfileData>) {

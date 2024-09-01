@@ -1,4 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import { Subject } from 'rxjs';
 
@@ -9,19 +16,20 @@ import { Subject } from 'rxjs';
 })
 export class ProfileDataCardComponent implements OnInit, OnDestroy {
   @Input() formGroupName!: string;
+  @Output() saveEvent = new EventEmitter<boolean>();
 
   hoverOverSave = false;
 
   form!: FormGroup;
   editing = false;
 
-  private _unsubscribeAll: Subject<any>;
+  private _unsubscribeAll: Subject<void>;
 
   constructor(
     private rooFormGroup: FormGroupDirective,
     private fb: FormBuilder
   ) {
-    this._unsubscribeAll = new Subject();
+    this._unsubscribeAll = new Subject<void>();
   }
 
   ngOnInit(): void {
@@ -29,24 +37,19 @@ export class ProfileDataCardComponent implements OnInit, OnDestroy {
 
     if (this.formGroupName && parentForm) {
       this.form = parentForm.get(this.formGroupName) as FormGroup;
-      this.setSubscriptions();
     }
-  }
-
-  setSubscriptions() {
-    // this.form.valueChanges.subscribe((val) => {
-    //   debugger;
-    // });
   }
 
   editData() {
     this.form.enable();
+    this.form.get('email')?.disable();
     this.editing = true;
   }
 
   saveData() {
     this.form.disable();
     this.editing = false;
+    this.saveEvent.emit(true);
   }
 
   ngOnDestroy(): void {

@@ -7,13 +7,16 @@
       {{ fullName != "" ? fullName : "Type full name here" }}
     </h5>
     <p class="text-muted">
-      {{ affiliation != "" ? affiliation : "Type affiliation here" }}
+      {{ affiliation != "" ? affiliation : "No Affiliation yet" }}
     </p>
-    <div class="interests-container">
+    <div class="interests-container" *ngIf="interests.length > 0; else interestsPlaceHolder">
       <ng-container *ngFor="let item of interests">
-          <a role="button" class="badge item" (click)="searchInterests(item.keyword)">{{ item.title }}</a>
+        <a role="button" class="badge item" (click)="searchInterests(item.keyword)">{{ item.title }}</a>
       </ng-container>
     </div>
+    <ng-template #interestsPlaceHolder>
+      <p class="text-muted">Choose interests to list them here</p>
+    </ng-template>
     <div class="edit-interests-row">
       <button type="button" class="btn btn-outline-primary" routerLink="/interests">
         Edit Interests
