@@ -1,14 +1,10 @@
 <div class="main-container" [formGroup]="form">
-  <!-- <pre>{{form.value | json}}</pre> -->
   <div class="container">
     <ng-container *ngIf="data$ | async as res; else loading">
       <form class="columns-container">
         <div class="profile-and-rrss-col">
-          <profile-general-info-card [picture]="form.get('generalInfo.picture')?.value"
-            [fullName]="form.get('generalInfo.fullName')?.value"
-            [affiliation]="form.get('generalInfo.affiliation')?.value"
-            [interests]="form.get('generalInfo.interests')?.value"></profile-general-info-card>
-          <socials-table (saveData)="saveProfile($event)" formGroupName="socials"></socials-table>
+          <profile-general-info-card formGroupName="generalInfo" (saveData)="saveProfile()"></profile-general-info-card>
+          <socials-table (saveData)="saveProfile()" formGroupName="socials"></socials-table>
         </div>
         <div class="profile-data-col">
           <div class="open-to-coll-card rounded shadow">
@@ -20,7 +16,7 @@
             </div>
           </div>
 
-          <profile-data-card formGroupName="generalInfo" (saveEvent)="saveProfile($event)"></profile-data-card>
+          <profile-data-card formGroupName="generalInfo" (saveEvent)="saveProfile()"></profile-data-card>
           <div class="table-data-card rounded shadow">
             <div class="table-data-title-row">
               <div class="table-data-icon rounded"></div>

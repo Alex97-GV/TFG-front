@@ -111,7 +111,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const profileData = data as ProfileData;
     this.fillInterests(profileData);
     this.fillSocials(profileData);
-    debugger;
     this.form.patchValue(profileData);
   }
 
@@ -158,12 +157,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       });
   }
 
-  saveProfile(hasChange: boolean) {
+  saveProfile() {
     this.userSvc
       .saveProfileData(this.form.getRawValue())
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((res) => {
-        debugger;
         this.fillForm(res);
       });
   }

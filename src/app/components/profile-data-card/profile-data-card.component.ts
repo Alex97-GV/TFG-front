@@ -16,7 +16,7 @@ import { Subject } from 'rxjs';
 })
 export class ProfileDataCardComponent implements OnInit, OnDestroy {
   @Input() formGroupName!: string;
-  @Output() saveEvent = new EventEmitter<boolean>();
+  @Output() saveEvent = new EventEmitter<void>();
 
   hoverOverSave = false;
 
@@ -26,14 +26,14 @@ export class ProfileDataCardComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<void>;
 
   constructor(
-    private rooFormGroup: FormGroupDirective,
+    private rootFormGroup: FormGroupDirective,
     private fb: FormBuilder
   ) {
     this._unsubscribeAll = new Subject<void>();
   }
 
   ngOnInit(): void {
-    const parentForm = this.rooFormGroup.control as FormGroup;
+    const parentForm = this.rootFormGroup.control as FormGroup;
 
     if (this.formGroupName && parentForm) {
       this.form = parentForm.get(this.formGroupName) as FormGroup;
@@ -49,7 +49,7 @@ export class ProfileDataCardComponent implements OnInit, OnDestroy {
   saveData() {
     this.form.disable();
     this.editing = false;
-    this.saveEvent.emit(true);
+    this.saveEvent.emit();
   }
 
   ngOnDestroy(): void {
