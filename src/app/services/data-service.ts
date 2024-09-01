@@ -1,21 +1,16 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { ToAuthorDataMapperService } from '../mappers/to-author-data.mapper';
-import { ToAuthorsByInterestsMapperService } from '../mappers/to-authors-by-interest.mapper';
+import { ToAuthorSearchDataMapperService } from '../mappers/to-author-search-data.mapper';
 import { ToDataMapperService } from '../mappers/to-data.mapper';
+import { ToMixSearchResponseMapperService } from '../mappers/to-mix-search-response.mapper';
 import { AuthorDataDto } from '../models/author-data-dto.interface';
 import { AuthorData } from '../models/author-data.model';
-import { BaseApiService } from './base-api.service';
-import {
-  AuthorsByInterestDto,
-  AuthorsByInterestResponseDto,
-} from '../models/authors-by-interest-dto.interface';
-import {
-  AuthorsByInterest,
-  AuthorsByInterestResponse,
-} from '../models/authors-by-interest.model';
+import { AuthorSearchDataResponseDto } from '../models/author-search-data-dto.interface';
+import { AuthorSearchDataResponse } from '../models/author-search-data.model';
+import { MixSearchResponseDto } from '../models/mix-search-response-dto.interface';
 import { MixSearchResponse } from '../models/mix-search-response.model';
-import { ToMixSearchResponseMapperService } from '../mappers/to-mix-search-response.mapper';
+import { BaseApiService } from './base-api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,13 +20,16 @@ export class DataService {
     private baseApiSvc: BaseApiService,
     private toDataMapperService: ToDataMapperService,
     private toAuthorDataMapperService: ToAuthorDataMapperService,
-    private toAuthorsByInterestMapperService: ToAuthorsByInterestsMapperService,
+    private toAuthorSearchDataMapperService: ToAuthorSearchDataMapperService,
     private toMixSearchResponseMapperService: ToMixSearchResponseMapperService
   ) {}
 
   private readonly urlBase = 'http://127.0.0.1:5000/api/';
 
   searchAll(keyword: string): Observable<MixSearchResponse> {
+    const params = {
+      keyword: keyword,
+    };
     return of({
       authors: [
         {
@@ -118,17 +116,17 @@ export class DataService {
           year: '2014',
         },
       ],
-    }).pipe(
+    } as unknown as MixSearchResponseDto).pipe(
       map((data) => this.toMixSearchResponseMapperService.transform(data))
     );
     // return this.baseApiSvc
-    //   .get<DataDto>(`${this.url}`, params)
+    //   .get<MixSearchResponseDto>(`${this.url}`, params)
     //   .pipe(map((data) => this.toDataMapperService.transform(data)));
   }
 
   searchAuthorsByInterests(
     keyword: string
-  ): Observable<AuthorsByInterestResponse> {
+  ): Observable<AuthorSearchDataResponse> {
     const params = {
       label: keyword,
     };
@@ -419,21 +417,315 @@ export class DataService {
         },
       ],
       next_page: 'xM2QAEXf__8J',
-    } as unknown as AuthorsByInterestResponseDto).pipe(
-      map((res) => this.toAuthorsByInterestMapperService.transform(res))
+    } as unknown as AuthorSearchDataResponseDto).pipe(
+      map((res) => this.toAuthorSearchDataMapperService.transform(res))
     );
 
     // return this.baseApiSvc
-    //   .get<AuthorsByInterestResponseDto>(
+    //   .get<AuthorSearchDataResponseDto>(
     //     `${this.urlBase}search_authors_by_interests`,
     //     params
     //   )
     //   .pipe(
     //     map((res) => {
     //       debugger;
-    //       return this.toAuthorsByInterestMapperService.transform(res);
+    //       return this.toAuthorSearchDataMapperService.transform(res);
     //     })
     //   );
+  }
+
+  searchAuthors(keyword: string): Observable<AuthorSearchDataResponse> {
+    const params = { keyword: keyword };
+
+    return of({
+      authors: [
+        {
+          affiliations: 'Universidade Federal do Parana',
+          author_id: 'x-oRfTkAAAAJ',
+          cited_by: 45667,
+          interests: [
+            {
+              keyword: 'biotechnology',
+              title: 'Biotechnology',
+            },
+            {
+              keyword: 'solid_state_fermentation',
+              title: 'Solid-State Fermentation',
+            },
+            {
+              keyword: 'microalgae',
+              title: 'Microalgae',
+            },
+            {
+              keyword: 'coffee',
+              title: 'Coffee',
+            },
+            {
+              keyword: 'cocoa',
+              title: 'Cocoa',
+            },
+          ],
+          name: 'Carlos Ricardo Soccol',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.googleusercontent.com/citations?view_op=small_photo&user=x-oRfTkAAAAJ&citpid=15',
+        },
+        {
+          affiliations:
+            'Food Chemist and Toxicologist, CVUA Karlsruhe, Germany, http://orcid.org/0000-0002-3115 …',
+          author_id: 'B1bx9OEAAAAJ',
+          cited_by: 23066,
+          interests: [
+            {
+              keyword: 'food_chemistry',
+              title: 'Food Chemistry',
+            },
+            {
+              keyword: 'toxicology',
+              title: 'Toxicology',
+            },
+            {
+              keyword: 'cancer',
+              title: 'Cancer',
+            },
+            {
+              keyword: 'coffee',
+              title: 'Coffee',
+            },
+            {
+              keyword: 'cannabis',
+              title: 'Cannabis',
+            },
+          ],
+          name: 'Dirk W. Lachenmeier',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.googleusercontent.com/citations?view_op=small_photo&user=B1bx9OEAAAAJ&citpid=2',
+        },
+        {
+          affiliations:
+            'Associate Professor of Chemistry, University of Oregon',
+          author_id: 'k1erO3EAAAAJ',
+          cited_by: 20507,
+          interests: [
+            {
+              keyword: 'materials_modeling',
+              title: 'Materials Modeling',
+            },
+            {
+              keyword: 'coffee',
+              title: 'Coffee',
+            },
+          ],
+          name: 'Christopher H. Hendon',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.googleusercontent.com/citations?view_op=small_photo&user=k1erO3EAAAAJ&citpid=2',
+        },
+        {
+          affiliations:
+            'CentraleSupélec (former Ecole Centrale Paris)/ CNRS-UMR8580 / Université Paris-Saclay',
+          author_id: 'zWzbK_8AAAAJ',
+          cited_by: 19046,
+          interests: [
+            {
+              keyword: 'condensed_matter',
+              title: 'Condensed matter',
+            },
+            {
+              keyword: 'materials_science',
+              title: 'Materials science',
+            },
+            {
+              keyword: 'phase_transitions',
+              title: 'Phase transitions',
+            },
+            {
+              keyword: 'ferroelectric',
+              title: 'Ferroelectric',
+            },
+            {
+              keyword: 'coffee',
+              title: 'Coffee',
+            },
+          ],
+          name: 'Brahim Dkhil',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.googleusercontent.com/citations?view_op=small_photo&user=zWzbK_8AAAAJ&citpid=1',
+        },
+        {
+          affiliations: 'University of California, Santa Cruz',
+          author_id: 'ohyI73YAAAAJ',
+          cited_by: 14229,
+          interests: [
+            {
+              keyword: 'agroecology',
+              title: 'agroecology',
+            },
+            {
+              keyword: 'biodiversity',
+              title: 'biodiversity',
+            },
+            {
+              keyword: 'insect_ecology',
+              title: 'insect ecology',
+            },
+            {
+              keyword: 'coffee',
+              title: 'coffee',
+            },
+            {
+              keyword: 'urban_gardens',
+              title: 'urban gardens',
+            },
+          ],
+          name: 'Stacy M. Philpott',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.googleusercontent.com/citations?view_op=small_photo&user=ohyI73YAAAAJ&citpid=2',
+        },
+        {
+          affiliations:
+            'Retired - US Department of Agriculture, Agricultural Research Service',
+          author_id: 'MnDBa8wAAAAJ',
+          cited_by: 12585,
+          interests: [
+            {
+              keyword: 'coffee',
+              title: 'Coffee',
+            },
+            {
+              keyword: 'coffee_berry_borer',
+              title: 'Coffee Berry Borer',
+            },
+            {
+              keyword: 'history_of_coffee',
+              title: 'History of Coffee',
+            },
+            {
+              keyword: 'fungal_endophytes',
+              title: 'Fungal Endophytes',
+            },
+            {
+              keyword: 'fungal_entomopathogens',
+              title: 'Fungal Entomopathogens',
+            },
+          ],
+          name: 'Fernando E. Vega',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.googleusercontent.com/citations?view_op=small_photo&user=MnDBa8wAAAAJ&citpid=9',
+        },
+        {
+          affiliations: 'Universidade Federal de Minas Gerais',
+          author_id: 'iy3eOtsAAAAJ',
+          cited_by: 9540,
+          interests: [
+            {
+              keyword: 'mechanical_engineering',
+              title: 'Mechanical engineering',
+            },
+            {
+              keyword: 'food_engineering',
+              title: 'Food Engineering',
+            },
+            {
+              keyword: 'coffee',
+              title: 'coffee',
+            },
+          ],
+          name: 'Adriana S Franca',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.googleusercontent.com/citations?view_op=small_photo&user=iy3eOtsAAAAJ&citpid=1',
+        },
+        {
+          affiliations: 'Professor Tropical Agroforestry CATIE',
+          author_id: 'vcgrjM4AAAAJ',
+          cited_by: 9490,
+          interests: [
+            {
+              keyword: 'agroforestry',
+              title: 'agroforestry',
+            },
+            {
+              keyword: 'cocoa',
+              title: 'cocoa',
+            },
+            {
+              keyword: 'coffee',
+              title: 'coffee',
+            },
+            {
+              keyword: 'trees_on_farms',
+              title: 'trees on farms',
+            },
+          ],
+          name: 'Eduardo Somarriba',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.google.com/citations/images/avatar_scholar_56.png',
+        },
+        {
+          affiliations: 'Montpellier Supagro',
+          author_id: 'tVDt_i0AAAAJ',
+          cited_by: 8569,
+          interests: [
+            {
+              keyword: 'agrobiodiversity',
+              title: 'Agrobiodiversity',
+            },
+            {
+              keyword: 'genetics',
+              title: 'genetics',
+            },
+            {
+              keyword: 'plant_breeding',
+              title: 'plant breeding',
+            },
+            {
+              keyword: 'coffee',
+              title: 'coffee',
+            },
+          ],
+          name: 'ANDRE CHARRIER',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.googleusercontent.com/citations?view_op=small_photo&user=tVDt_i0AAAAJ&citpid=1',
+        },
+        {
+          affiliations: 'Olam International Ltd',
+          author_id: 'tM6ZAjUAAAAJ',
+          cited_by: 8376,
+          interests: [
+            {
+              keyword: 'coffee',
+              title: 'coffee',
+            },
+            {
+              keyword: 'farming_systems',
+              title: 'farming systems',
+            },
+            {
+              keyword: 'climate_change',
+              title: 'climate change',
+            },
+            {
+              keyword: 'sustainable_agriculture',
+              title: 'sustainable agriculture',
+            },
+          ],
+          name: 'Piet van Asten',
+          open_to_collaborate: false,
+          picture:
+            'https://scholar.googleusercontent.com/citations?view_op=small_photo&user=tM6ZAjUAAAAJ&citpid=1',
+        },
+      ],
+      next_page: 'xM2QAEXf__8J',
+    } as unknown as AuthorSearchDataResponseDto).pipe(
+      map((res) => this.toAuthorSearchDataMapperService.transform(res))
+    );
   }
 
   saveInterests(interestsList: string[]): Observable<any> {

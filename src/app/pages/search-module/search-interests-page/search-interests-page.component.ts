@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import {
-  AuthorsByInterest,
-  AuthorsByInterestResponse,
-} from 'src/app/models/authors-by-interest.model';
+  AuthorSearchData,
+  AuthorSearchDataResponse,
+} from 'src/app/models/author-search-data.model';
 import {
   Column,
   TableConfiguration,
@@ -18,8 +18,8 @@ import { DataService } from 'src/app/services/data-service';
 })
 export class SearchInterestsPageComponent implements OnInit, OnDestroy {
   key = '';
-  data$!: Observable<AuthorsByInterestResponse>;
-  dataTableConfiguration = new TableConfiguration<AuthorsByInterest>({
+  data$!: Observable<AuthorSearchDataResponse>;
+  dataTableConfiguration = new TableConfiguration<AuthorSearchData>({
     data: [],
     columns: [
       new Column({

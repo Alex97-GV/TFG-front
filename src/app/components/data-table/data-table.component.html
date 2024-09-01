@@ -25,7 +25,8 @@
                 </div>
               </td>
               <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'openToCollab'">
-                <i class="bi bi-check-circle-fill green-check" *ngIf="rowData.openToCollab"></i>
+                <i class="bi bi-check-circle-fill green-check" style="color: green !important;"
+                  *ngIf="rowData.openToCollab"></i>
                 <i class="bi bi-x-circle-fill red-check" style="color: red !important;"
                   *ngIf="!rowData.openToCollab"></i>
               </td>

@@ -1,8 +1,8 @@
 import { Articles } from './author-data.model';
-import { AuthorsByInterest } from './authors-by-interest.model';
+import { AuthorSearchData } from './author-search-data.model';
 
 export class MixSearchResponse {
-  public authors!: AuthorsByInterest[];
+  public authors!: AuthorSearchData[];
   public articles!: Articles[];
 
   constructor(item: Partial<MixSearchResponse>) {

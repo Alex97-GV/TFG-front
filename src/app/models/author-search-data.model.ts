@@ -1,14 +1,14 @@
-export class AuthorsByInterestResponse {
-  public authors!: AuthorsByInterest[];
+export class AuthorSearchDataResponse {
+  public authors!: AuthorSearchData[];
   public nextPage!: string;
   public previousePage!: string;
 
-  constructor(item: Partial<AuthorsByInterestResponse>) {
+  constructor(item: Partial<AuthorSearchDataResponse>) {
     Object.assign(this, item);
   }
 }
 
-export class AuthorsByInterest {
+export class AuthorSearchData {
   public affiliation!: string;
   public authorId!: string;
   public citedBy!: number;
@@ -20,7 +20,7 @@ export class AuthorsByInterest {
   public openToCollab!: boolean;
   public picture!: string;
 
-  constructor(item: Partial<AuthorsByInterest>) {
+  constructor(item: Partial<AuthorSearchData>) {
     Object.assign(this, item);
   }
 }

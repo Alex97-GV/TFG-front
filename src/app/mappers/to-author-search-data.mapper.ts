@@ -1,23 +1,21 @@
 import { Injectable } from '@angular/core';
-import { AuthorsByInterestResponseDto } from '../models/authors-by-interest-dto.interface';
+import { AuthorSearchDataResponseDto } from '../models/author-search-data-dto.interface';
 import {
-  AuthorsByInterest,
-  AuthorsByInterestResponse,
-} from '../models/authors-by-interest.model';
+  AuthorSearchData,
+  AuthorSearchDataResponse,
+} from '../models/author-search-data.model';
 import { MapperService } from './mapper.service';
 
 @Injectable()
-export class ToAuthorsByInterestsMapperService extends MapperService<
-  AuthorsByInterestResponseDto,
-  AuthorsByInterestResponse
+export class ToAuthorSearchDataMapperService extends MapperService<
+  AuthorSearchDataResponseDto,
+  AuthorSearchDataResponse
 > {
-  protected map(
-    entity: AuthorsByInterestResponseDto
-  ): AuthorsByInterestResponse {
-    return new AuthorsByInterestResponse({
+  protected map(entity: AuthorSearchDataResponseDto): AuthorSearchDataResponse {
+    return new AuthorSearchDataResponse({
       authors: entity.authors.map(
         (author) =>
-          new AuthorsByInterest({
+          new AuthorSearchData({
             affiliation: author.affiliations,
             authorId: author.author_id,
             citedBy: author.cited_by,
@@ -26,7 +24,7 @@ export class ToAuthorsByInterestsMapperService extends MapperService<
               title: int.title,
             })),
             name: author.name,
-            openToCollab: author.open_to_collaborate,
+            openToCollab: Math.random() < 0.5,
             picture: author.picture,
           })
       ),

@@ -1,7 +1,7 @@
 import { ArticleDto } from './author-data-dto.interface';
-import { AuthorsByInterestDto } from './authors-by-interest-dto.interface';
+import { AuthorSearchDataDto } from './author-search-data-dto.interface';
 
 export interface MixSearchResponseDto {
-  authors: AuthorsByInterestDto[];
+  authors: AuthorSearchDataDto[];
   articles: ArticleDto[];
 }
