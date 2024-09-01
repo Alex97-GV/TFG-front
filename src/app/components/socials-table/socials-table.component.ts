@@ -25,7 +25,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SocialsTableComponent implements OnInit {
   @Input() formGroupName!: string;
-  @Input() socials: string[] = ['Twitter', 'Instagram', 'Facebook', 'Youtube'];
+  socials = [
+    { name: 'Twitter', icon: 'bi bi-twitter-x' },
+    { name: 'Instagram', icon: 'bi bi-instagram' },
+    { name: 'Facebook', icon: 'bi bi-facebook' },
+    { name: 'Youtube', icon: 'bi bi-youtube' },
+  ];
   @Output() saveData = new EventEmitter<boolean>();
 
   hoverSaveSocials = false;
@@ -109,5 +114,10 @@ export class SocialsTableComponent implements OnInit {
 
   goToLink(url: string) {
     window.open(url, '_blank');
+  }
+
+  getIcon(name: string) {
+    const social = this.socials.find((social) => social.name == name);
+    return social?.icon;
   }
 }

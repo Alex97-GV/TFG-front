@@ -19,8 +19,8 @@ export class AuthorData {
       citations: number;
     }[];
     average: number;
-    openToCollaborate: boolean;
   };
+  public openToCollaborate!: boolean;
 
   constructor(item: Partial<AuthorData>) {
     Object.assign(this, item);

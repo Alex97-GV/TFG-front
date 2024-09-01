@@ -13,7 +13,7 @@
       padding: 1rem;
       align-items: center;
       .icon-title {
-        height: 70%;
+        height: 1.44rem;
         background-color: #16697a;
       }
     }
@@ -26,10 +26,9 @@
   .profile-data-container {
     display: grid;
     grid-template-columns: auto;
-    column-gap: 1%;
     .row-data {
       display: grid;
-      grid-template-columns: 20% auto;
+      grid-template-columns: 11rem auto;
       p {
         margin: 0;
         padding: 1rem;

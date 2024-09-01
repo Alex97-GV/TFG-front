@@ -19,8 +19,8 @@ export interface AuthorDataDto {
       citations: number;
     }[];
     average: number;
-    open_to_collaborate: boolean;
   };
+  open_to_collaborate: boolean;
 }
 
 export interface ArticleDto {
