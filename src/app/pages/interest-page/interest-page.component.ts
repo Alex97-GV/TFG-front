@@ -6,10 +6,11 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { DataService } from 'src/app/services/data-service';
+import { Interest } from 'src/app/models/interests-response.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-interest-page',
@@ -23,164 +24,21 @@ export class InterestPageComponent implements OnInit, OnDestroy {
   form!: FormGroup;
   interestsList: string[] = [];
   remainingInt!: number;
+  options: Interest[] = [];
 
   componentDestroyed$ = new Subject<void>();
 
-  options = [
-    {
-      mainCategory: 'Business, Economics and Management',
-      subcategories: [
-        {
-          title: 'General',
-          keyword: 'business_economics_&_finance',
-        },
-        {
-          title: 'Finance',
-          keyword: 'finance',
-        },
-        {
-          title: 'Entrepreneurship & Innovation',
-          keyword: 'entrepreneurship_&_innovation',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Chemical & Material Sciences',
-      subcategories: [
-        {
-          title: 'General',
-          keyword: 'chemical_&_material_sciences',
-        },
-        {
-          title: 'Polymers & Plastics',
-          keyword: 'polymers_&_plastics',
-        },
-        {
-          title: 'Medicinal Chemistry',
-          keyword: 'medicinal_chemistry',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Engineering & Computer Science',
-      subcategories: [
-        {
-          title: 'General',
-          keyword: 'engineering_&_computer_science',
-        },
-        {
-          title: 'Aritificial Intelligence',
-          keyword: 'artificial_intelligence',
-        },
-        {
-          title: 'Bioinformatics & Computational Biology',
-          keyword: 'bioinformatics_&_computational_biology',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Health & Medical Sciences',
-      subcategories: [
-        {
-          title: 'General',
-          keyword: 'health_&_medical_sciences',
-        },
-        {
-          title: 'Genetics & Genomics',
-          keyword: 'genetics_&_genomics',
-        },
-        {
-          title: 'Psychology',
-          keyword: 'psychology',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Humanities, Literature & Arts',
-      subcategories: [
-        {
-          title: 'General',
-          keyword: 'humanities_literature_&_arts',
-        },
-        {
-          title: 'History',
-          keyword: 'history',
-        },
-        {
-          title: 'Philosophy',
-          keyword: 'philosophy',
-        },
-        {
-          title: 'Feminism & Women`s Studies',
-          keyword: 'feminism_&_womens_studies',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Life Sciences & Earth Sciences',
-      subcategories: [
-        {
-          title: 'General',
-          keyword: 'life_sciences_&_earth_sciences',
-        },
-        {
-          title: 'Food Science & Technology',
-          keyword: 'food_science_&_technology',
-        },
-        {
-          title: 'Sustainable Development',
-          keyword: 'sustainable_development',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Physics & Mathematics',
-      subcategories: [
-        {
-          title: 'Mathematics Optimization',
-          keyword: 'mathematics_optimization',
-        },
-        {
-          title: 'Astronomy & Astrophysics',
-          keyword: 'astronomy_&_astrophysics',
-        },
-        {
-          title: 'Optic & Photonics',
-          keyword: 'optic_&_photonics',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Social Sciences',
-      subcategories: [
-        {
-          title: 'Political Science',
-          keyword: 'political_science',
-        },
-        {
-          title: 'Education',
-          keyword: 'education',
-        },
-        {
-          title: 'Ethics',
-          keyword: 'ethics',
-        },
-      ],
-    },
-  ];
-
-  constructor(private router: Router, private dataSvc: DataService) {}
-
-  getSubcategoriesTitles(index: number) {
-    return (
-      this.options
-        .at(index)
-        ?.subcategories.map((sub) => sub.title)
-        .filter((titles) => titles !== undefined) ?? ['']
-    );
-  }
+  constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
+    const user = JSON.parse(sessionStorage.getItem('user') ?? '');
+    if (user != null)
+      this.userService
+        .getUserInterests(user.mail)
+        .pipe(takeUntil(this.componentDestroyed$))
+        .subscribe((res) => {
+          this.options = res.interests;
+        });
     this.remainingInt = this.MAXINTERESTS - this.interestsList.length;
   }
 
@@ -198,8 +56,17 @@ export class InterestPageComponent implements OnInit, OnDestroy {
     this.remainingInt = this.MAXINTERESTS - this.interestsList.length;
   }
 
+  getSubcategoriesTitles(index: number) {
+    return (
+      this.options
+        .at(index)
+        ?.subcategories.map((sub) => sub.title)
+        .filter((titles) => titles !== undefined) ?? ['']
+    );
+  }
+
   saveInterests() {
-    this.dataSvc
+    this.userService
       .saveInterests(this.interestsList)
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe({

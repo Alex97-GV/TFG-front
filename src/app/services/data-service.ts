@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { ToAuthorDataMapperService } from '../mappers/to-author-data.mapper';
 import { ToAuthorSearchDataMapperService } from '../mappers/to-author-search-data.mapper';
-import { ToDataMapperService } from '../mappers/to-data.mapper';
 import { ToMixSearchResponseMapperService } from '../mappers/to-mix-search-response.mapper';
 import { AuthorDataDto } from '../models/author-data-dto.interface';
 import { AuthorData } from '../models/author-data.model';
@@ -18,7 +17,6 @@ import { BaseApiService } from './base-api.service';
 export class DataService {
   constructor(
     private baseApiSvc: BaseApiService,
-    private toDataMapperService: ToDataMapperService,
     private toAuthorDataMapperService: ToAuthorDataMapperService,
     private toAuthorSearchDataMapperService: ToAuthorSearchDataMapperService,
     private toMixSearchResponseMapperService: ToMixSearchResponseMapperService
@@ -726,18 +724,6 @@ export class DataService {
     } as unknown as AuthorSearchDataResponseDto).pipe(
       map((res) => this.toAuthorSearchDataMapperService.transform(res))
     );
-  }
-
-  saveInterests(interestsList: string[]): Observable<any> {
-    const body = {
-      interests: interestsList,
-    };
-
-    return of({ save: true });
-
-    // return this.baseApiSvc
-    //   .post<any>(`${this.url}`, body)
-    //   .pipe(map((res) => this.toResponseInterestsMapperService.transform(res)));
   }
 
   getAuthor(id: string): Observable<AuthorData> {
