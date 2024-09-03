@@ -49,7 +49,7 @@ export class ProfileDataCardComponent implements OnInit, OnDestroy {
   saveData() {
     this.form.disable();
     this.editing = false;
-    this.saveEvent.emit();
+    if (this.form.dirty) this.saveEvent.emit();
   }
 
   ngOnDestroy(): void {

@@ -4,6 +4,7 @@ export interface ProfileDataDto {
   interests: {
     keyword: string;
     title: string;
+    main_category: string;
   }[];
   email: string;
   phone: string;

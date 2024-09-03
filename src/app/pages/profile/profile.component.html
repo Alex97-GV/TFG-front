@@ -22,9 +22,15 @@
               <div class="table-data-icon rounded"></div>
               <h3 class="table-data-title m-0">MY ARTICLES</h3>
             </div>
-            <div class="table-container">
+            <div class="table-container"
+              *ngIf="dataTableConfiguration?.data && dataTableConfiguration?.data?.length != 0; else error">
               <data-table *ngIf="dataTableConfiguration?.data" [configuration]="dataTableConfiguration"></data-table>
             </div>
+            <ng-template #error>
+              <div class="error-container">
+                <h5>No hay datos disponibles</h5>
+              </div>
+            </ng-template>
           </div>
         </div>
       </form>

@@ -6,11 +6,15 @@
         <h3 class="banner-title-row m-0">
           <div class="icon-title rounded"></div>
           <span style="color: #16697a"> AUTHOR </span>
-          <div class="open-to-collab rounded shadow"
-            [ngStyle]="{'color': response.openToCollaborate ? 'green': 'black'}">
-            <span>OPEN TO COLLABORATE</span>
-            <i class="bi bi-people-fill" *ngIf="response.openToCollaborate"></i>
-            <i class="bi bi-person-fill-x" *ngIf="!response.openToCollaborate" style="color:red"></i>
+          <div class="open-to-collab-card rounded shadow">
+            <div class="open-to-collab" *ngIf="response.openToCollaborate">
+              <span>OPEN TO COLLABORATE</span>
+              <i class="bi bi-people-fill"></i>
+            </div>
+            <div class="not-open-to-collab" *ngIf="!response.openToCollaborate">
+              <span>NOT OPEN TO COLLABORATE</span>
+              <i class="bi bi-person-fill-x" style="color:red"></i>
+            </div>
           </div>
         </h3>
         <div class="picture-and-details">

@@ -3,7 +3,7 @@ export class ProfileData {
   public generalInfo!: {
     fullName: string;
     picture: string;
-    interests: { keyword: string; title: string }[];
+    interests: { keyword: string; title: string; mainCategory: string }[];
     affiliation: string;
     email: string;
     phone: string;

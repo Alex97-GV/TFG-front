@@ -24,6 +24,7 @@ export class FromProfileDataMapperService extends MapperService<
       interests: entity.generalInfo.interests.map((int) => ({
         title: int.title,
         keyword: int.keyword,
+        main_category: int.mainCategory,
       })),
       ssnn: entity.socials.items.map((soc) => ({
         name: soc.name,

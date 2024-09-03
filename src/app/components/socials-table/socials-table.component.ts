@@ -71,7 +71,7 @@ export class SocialsTableComponent implements OnInit {
     this.deleteNotValids();
     this.form.disable({ emitEvent: false });
     this.editing = false;
-    this.saveData.emit();
+    if (this.form.dirty) this.saveData.emit();
   }
 
   deleteNotValids() {

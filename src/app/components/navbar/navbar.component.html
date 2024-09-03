@@ -6,11 +6,11 @@
           <a class="navbar-brand" routerLink="/home">WeCollaborate</a>
         </div>
         <div class="navbar-custom-items">
-          <a class="nav-link text-decoration-none" routerLink="/search/interests/hola">Search</a>
+          <a class="nav-link text-decoration-none" routerLink="/home">Home</a>
         </div>
         <form class="navbar-custom-items" [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="input-group custom-search">
-            <input type="text" class="form-control" placeholder="Search {{ form.get('type')?.value }}..."
+            <input type="text" class="form-control" placeholder="Search {{ getSearchLabel() }}..."
               formControlName="key" />
             <button type="submit" class="btn btn-search border-end">
               Search
@@ -22,8 +22,8 @@
             <ul class="dropdown-menu dropdown-menu-end">
               <ng-container *ngFor="let type of searchTypes">
                 <li>
-                  <a class="dropdown-item" (click)="changeSearchType(type)">{{
-                    type | titlecase
+                  <a class="dropdown-item" (click)="changeSearchType(type.type)">{{
+                    type.label| titlecase
                     }}</a>
                 </li>
               </ng-container>

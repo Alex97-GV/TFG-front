@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   data$!: Observable<MixSearchResponse>;
   dataTableConfiguration = new TableConfiguration<AuthorSearchData>({
     data: [],
+    height: '5rem',
     columns: [
       new Column({
         name: 'author',

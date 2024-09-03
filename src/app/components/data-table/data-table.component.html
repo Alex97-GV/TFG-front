@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <ng-container *ngFor="let rowData of data">
-          <tr>
+          <tr [attr.style]="'height:' + configuration.height">
             <ng-container *ngFor="let col of configuration.columns; let i = index">
               <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'author'">
                 <div class="author" role="button" (click)="goToAuthor(rowData.authorId)">
@@ -63,7 +63,7 @@
     <table class="table table-hover align-middle mb-0" *ngIf="configuration.nestedTables[0]?.columns?.length">
       <tbody>
         <ng-container *ngFor="let nRowData of nestedData">
-          <tr>
+          <tr [attr.style]="'height:' + configuration.height">
             <ng-container *ngFor="let col of configuration.nestedTables[0]?.columns; let i = index">
               <td [attr.style]="'text-align:' + col.align + ';width:' + col?.width"
                 *ngIf="configuration.nestedTables[0].columns[i].name == 'author'">
