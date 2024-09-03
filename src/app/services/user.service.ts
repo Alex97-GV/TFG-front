@@ -51,7 +51,7 @@ export class UserService {
       name: data.user,
       email: data.mail,
       password: this.hashPass(data.pass),
-      open_to_collaborate: true,
+      open_to_collaborate: data.openToCollab,
       user_terms_acceptance: data.agree,
     };
     return this.baseApiService
