@@ -53,7 +53,6 @@ export class DataService {
       )
       .pipe(
         map((res) => {
-          debugger;
           return this.toAuthorSearchDataMapperService.transform(res);
         })
       );
@@ -69,7 +68,6 @@ export class DataService {
       )
       .pipe(
         map((res) => {
-          debugger;
           return this.toAuthorSearchDataMapperService.transform(res);
         })
       );

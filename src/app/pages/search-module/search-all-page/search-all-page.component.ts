@@ -86,7 +86,6 @@ export class SearchAllPageComponent implements OnInit, OnDestroy {
   }
 
   isVisible() {
-    debugger;
     return (
       this.dataTableConfiguration?.data?.length != 0 ||
       this.dataTableConfiguration?.nestedTables.length != 0

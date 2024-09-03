@@ -37,6 +37,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         mail: ['', [Validators.required, Validators.email]],
         pass: ['', [Validators.required, Validators.minLength(8)]],
         repPass: ['', Validators.required],
+        openToCollab: [true, Validators.required],
         agree: [false, [Validators.required, Validators.requiredTrue]],
       },
       {
