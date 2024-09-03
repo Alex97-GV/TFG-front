@@ -20,6 +20,7 @@ export class SearchAllPageComponent implements OnInit, OnDestroy {
   data$!: Observable<MixSearchResponse>;
   dataTableConfiguration = new TableConfiguration<AuthorSearchData>({
     data: [],
+    height: '5rem',
     columns: [
       new Column({
         name: 'author',
@@ -82,6 +83,14 @@ export class SearchAllPageComponent implements OnInit, OnDestroy {
           this.getMixSearch();
         }
       });
+  }
+
+  isVisible() {
+    debugger;
+    return (
+      this.dataTableConfiguration?.data?.length != 0 ||
+      this.dataTableConfiguration?.nestedTables.length != 0
+    );
   }
 
   getMixSearch() {

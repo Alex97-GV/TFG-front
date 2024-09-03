@@ -8,6 +8,7 @@ import {
   TableConfiguration,
 } from 'src/app/models/table-configuration.model';
 import { DataService } from 'src/app/services/data-service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -56,7 +57,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(
     private userSvc: UserService,
     private fb: FormBuilder,
-    private dataSvc: DataService
+    private dataSvc: DataService,
+    private notificationSvc: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -70,8 +72,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.getDataTable(res.id);
         })
       ) ?? undefined;
-
-    this.setSubscriptions();
   }
 
   initForm() {
@@ -103,6 +103,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     return this.fb.group({
       title: ['', Validators.required],
       keyword: ['', Validators.required],
+      mainCategory: ['', Validators.required],
     });
   }
 
@@ -121,6 +122,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.fb.group({
           title: int.title,
           keyword: int.keyword,
+          mainCategory: int.mainCategory,
         })
       );
     });
@@ -139,14 +141,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  setSubscriptions() {
-    // this.form.valueChanges
-    //   .pipe(takeUntil(this.componentDestroyed$))
-    //   .subscribe((res) => {
-    //     // debugger;
-    //   });
-  }
-
   getDataTable(id: string) {
     this.dataSvc
       .getAuthor(id)
@@ -160,8 +154,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.userSvc
       .saveProfileData(this.form.getRawValue())
       .pipe(takeUntil(this.componentDestroyed$))
-      .subscribe((res) => {
-        this.fillForm(res);
+      .subscribe({
+        next: (res) => {
+          this.fillForm(res);
+          this.notificationSvc.success(
+            'Changes have been saved successfully',
+            'SAVED SUCCESSFULLY!'
+          );
+        },
+        error: (err) => {
+          this.notificationSvc.error(
+            'There was a problem saving changes',
+            'ERROR!'
+          );
+        },
       });
   }
 

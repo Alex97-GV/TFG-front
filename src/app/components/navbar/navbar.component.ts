@@ -10,7 +10,11 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   form!: FormGroup;
   user: string = 'Unknown';
-  searchTypes = ['all', 'authors', 'interests'];
+  searchTypes = [
+    { type: 'all', label: 'all' },
+    { type: 'interests', label: 'authors by interests' },
+    { type: 'authors', label: 'authors' },
+  ];
 
   constructor(private readonly fb: FormBuilder, private router: Router) {}
 
@@ -32,13 +36,13 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  goToAuthor() {
-    const authorId = 'EicYvbwAAAAJ';
-    this.router.navigate([`/author/${authorId}`]);
-  }
-
   changeSearchType(type: string) {
     this.form.get('type')?.setValue(type);
+  }
+
+  getSearchLabel() {
+    return this.searchTypes.find((t) => t.type == this.form.get('type')?.value)
+      ?.label;
   }
 
   onSubmit(): void {

@@ -17,6 +17,7 @@ export class ToProfileDataMapperService extends MapperService<
         interests: entity.interests.map((int) => ({
           keyword: int.keyword,
           title: int.title,
+          mainCategory: int.main_category,
         })),
         affiliation: entity.affiliation,
         email: entity.email,
