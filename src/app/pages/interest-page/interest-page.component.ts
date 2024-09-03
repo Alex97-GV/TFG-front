@@ -179,7 +179,6 @@ export class InterestPageComponent implements OnInit, OnDestroy {
   saveInterests() {
     const body = this.getBody();
     sessionStorage.setItem('interests', JSON.stringify(this.interestsList));
-    debugger;
     this.userService
       .saveInterests(body)
       .pipe(takeUntil(this.componentDestroyed$))
@@ -203,7 +202,7 @@ export class InterestPageComponent implements OnInit, OnDestroy {
           body.push({
             keyword: res.keyword,
             main_category: int.mainCategory,
-            name: res.title,
+            title: res.title,
           });
         });
       }

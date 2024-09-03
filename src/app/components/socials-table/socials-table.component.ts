@@ -47,14 +47,7 @@ export class SocialsTableComponent implements OnInit {
     const parentForm = this.rootFormGroup.control as FormGroup;
     if (this.formGroupName && parentForm) {
       this.form = parentForm.get(this.formGroupName) as FormGroup;
-      this.setSubscriptions();
     }
-  }
-
-  setSubscriptions() {
-    // this.form.valueChanges.subscribe((val) => {
-    //   debugger;
-    // });
   }
 
   checkIfEmpty() {
