@@ -48,6 +48,10 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     ]);
   }
 
+  getTitle(): string {
+    return decodeURI(this.key);
+  }
+
   ngOnDestroy(): void {
     this.componentDestroyed$.next();
   }
