@@ -61,10 +61,6 @@ export class SearchAllPageComponent implements OnInit, OnDestroy {
             width: '9.7rem',
             align: 'center',
           }),
-          new Column({
-            name: 'year',
-            align: 'center',
-          }),
         ],
       }),
     ],
@@ -89,7 +85,7 @@ export class SearchAllPageComponent implements OnInit, OnDestroy {
   }
 
   getMixSearch() {
-    this.data$ = this.dataSvc.searchAll(this.key).pipe(
+    this.data$ = this.dataSvc.searchAll(this.key, this.key).pipe(
       takeUntil(this.componentDestroyed$),
       tap((res) => {
         this.dataTableConfiguration.data = res.authors;

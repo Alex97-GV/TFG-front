@@ -22,7 +22,6 @@ export class DataTableComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    debugger;
     this.data = this.configuration.data ?? [];
     this.nestedData = this.configuration.nestedTables[0]?.data ?? [];
   }

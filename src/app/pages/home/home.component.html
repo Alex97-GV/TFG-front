@@ -1,5 +1,23 @@
 <div class="main-container">
-    <div class="container d-flex justify-content-center">
-        <span>Aquí van a ir los resultados de la búsqueda mixta</span>
+    <div class="container">
+        <div class="search-container">
+            <div class="search-card rounded shadow">
+                <div class="title-row">
+                    <div class="icon-title rounded"></div>
+                    <h4 class="m-0">MY FEED</h4>
+                </div>
+                <div class="table-container" *ngIf="data$ | async; else loading">
+                    <data-table *ngIf="dataTableConfiguration?.data?.length != undefined"
+                        [configuration]="dataTableConfiguration"></data-table>
+                </div>
+                <ng-template #loading>
+                    <div class="loading-container">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
     </div>
 </div>

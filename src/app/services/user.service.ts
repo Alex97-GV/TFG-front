@@ -9,6 +9,12 @@ import { ProfileData } from '../models/profile-data.model';
 import { ToProfileDataMapperService } from '../mappers/to-profile-data.mapper';
 import { ProfileDataDto } from '../models/profile-data-dto.interface';
 import { FromProfileDataMapperService } from '../mappers/from-profile-data.mapper';
+import {
+  Interest,
+  InterestsResponse,
+} from '../models/interests-response.model';
+import { ToInterestsResponseMapperService } from '../mappers/to-interests-response.mapper';
+import { InterestsResponseDto } from '../models/interests-response-dto.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +24,8 @@ export class UserService {
     private baseApiService: BaseApiService,
     private toUserMapperService: ToUserMapperService,
     private toProfileDataMapperService: ToProfileDataMapperService,
-    private fromProfileDataMapperService: FromProfileDataMapperService
+    private fromProfileDataMapperService: FromProfileDataMapperService,
+    private toInterestsResponseMapperService: ToInterestsResponseMapperService
   ) {}
 
   private readonly urlBase = 'http://127.0.0.1:5000/api/';
@@ -72,6 +79,24 @@ export class UserService {
     return this.baseApiService
       .put<ProfileDataDto>(`${this.urlBase}user_info`, body)
       .pipe(map((res) => this.toProfileDataMapperService.transform(res)));
+  }
+
+  getUserInterests(email: string): Observable<InterestsResponse> {
+    const params = { email: email };
+
+    return this.baseApiService
+      .get<InterestsResponseDto>(`${this.urlBase}interests`, params)
+      .pipe(map((res) => this.toInterestsResponseMapperService.transform(res)));
+  }
+
+  saveInterests(body: any[]): Observable<any> {
+    const user = JSON.parse(sessionStorage.getItem('user') ?? '');
+    if (user != null) {
+      return this.baseApiService
+        .post<any>(`${this.urlBase}interests?email=${user.mail}`, body)
+        .pipe(map((res) => this.toProfileDataMapperService.transform(res)));
+    }
+    return of(new Error('Ha habido un problema al guardar los intereses'));
   }
 
   hashPass(pass: string): string {

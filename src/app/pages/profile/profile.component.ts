@@ -1,7 +1,6 @@
-import { group } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable, of, Subject, takeUntil, tap } from 'rxjs';
+import { Observable, Subject, takeUntil, tap } from 'rxjs';
 import { AuthorData } from 'src/app/models/author-data.model';
 import { ProfileData } from 'src/app/models/profile-data.model';
 import {

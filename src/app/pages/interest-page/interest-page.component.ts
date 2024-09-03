@@ -6,10 +6,16 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { DataService } from 'src/app/services/data-service';
+import { Articles } from 'src/app/models/author-data.model';
+import {
+  Interest,
+  InterestsResponse,
+} from 'src/app/models/interests-response.model';
+import { NotificationService } from 'src/app/services/notification.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-interest-page',
@@ -18,176 +24,138 @@ import { DataService } from 'src/app/services/data-service';
 })
 export class InterestPageComponent implements OnInit, OnDestroy {
   @ViewChildren('switch') switches!: QueryList<ElementRef<HTMLInputElement>>;
-  titulo: string = 'Selecciona tus Intereses';
+  titulo: string = 'CHOOSE YOUR INTERESTS:';
   MAXINTERESTS = 5;
   form!: FormGroup;
   interestsList: string[] = [];
   remainingInt!: number;
+  options: Interest[] = [];
+  userInterests: Interest[] = [];
+  newUser = true;
 
   componentDestroyed$ = new Subject<void>();
 
-  options = [
-    {
-      mainCategory: 'Business, Economics and Management',
-      subcategories: [
-        {
-          title: 'General',
-          keyword: 'business_economics_&_finance',
-        },
-        {
-          title: 'Finance',
-          keyword: 'finance',
-        },
-        {
-          title: 'Entrepreneurship & Innovation',
-          keyword: 'entrepreneurship_&_innovation',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Chemical & Material Sciences',
-      subcategories: [
-        {
-          title: 'General',
-          keyword: 'chemical_&_material_sciences',
-        },
-        {
-          title: 'Polymers & Plastics',
-          keyword: 'polymers_&_plastics',
-        },
-        {
-          title: 'Medicinal Chemistry',
-          keyword: 'medicinal_chemistry',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Engineering & Computer Science',
-      subcategories: [
-        {
-          title: 'General',
-          keyword: 'engineering_&_computer_science',
-        },
-        {
-          title: 'Aritificial Intelligence',
-          keyword: 'artificial_intelligence',
-        },
-        {
-          title: 'Bioinformatics & Computational Biology',
-          keyword: 'bioinformatics_&_computational_biology',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Health & Medical Sciences',
-      subcategories: [
-        {
-          title: 'General',
-          keyword: 'health_&_medical_sciences',
-        },
-        {
-          title: 'Genetics & Genomics',
-          keyword: 'genetics_&_genomics',
-        },
-        {
-          title: 'Psychology',
-          keyword: 'psychology',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Humanities, Literature & Arts',
-      subcategories: [
-        {
-          title: 'General',
-          keyword: 'humanities_literature_&_arts',
-        },
-        {
-          title: 'History',
-          keyword: 'history',
-        },
-        {
-          title: 'Philosophy',
-          keyword: 'philosophy',
-        },
-        {
-          title: 'Feminism & Women`s Studies',
-          keyword: 'feminism_&_womens_studies',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Life Sciences & Earth Sciences',
-      subcategories: [
-        {
-          title: 'General',
-          keyword: 'life_sciences_&_earth_sciences',
-        },
-        {
-          title: 'Food Science & Technology',
-          keyword: 'food_science_&_technology',
-        },
-        {
-          title: 'Sustainable Development',
-          keyword: 'sustainable_development',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Physics & Mathematics',
-      subcategories: [
-        {
-          title: 'Mathematics Optimization',
-          keyword: 'mathematics_optimization',
-        },
-        {
-          title: 'Astronomy & Astrophysics',
-          keyword: 'astronomy_&_astrophysics',
-        },
-        {
-          title: 'Optic & Photonics',
-          keyword: 'optic_&_photonics',
-        },
-      ],
-    },
-    {
-      mainCategory: 'Social Sciences',
-      subcategories: [
-        {
-          title: 'Political Science',
-          keyword: 'political_science',
-        },
-        {
-          title: 'Education',
-          keyword: 'education',
-        },
-        {
-          title: 'Ethics',
-          keyword: 'ethics',
-        },
-      ],
-    },
-  ];
-
-  constructor(private router: Router, private dataSvc: DataService) {}
-
-  getSubcategoriesTitles(index: number) {
-    return (
-      this.options
-        .at(index)
-        ?.subcategories.map((sub) => sub.title)
-        .filter((titles) => titles !== undefined) ?? ['']
-    );
+  get interests(): FormArray {
+    return this.form.get('interests') as FormArray;
   }
 
+  getSubcategories(index: number): FormArray {
+    return this.interests.at(index)?.get('subcategories') as FormArray;
+  }
+
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private fb: FormBuilder,
+    private notificationSvc: NotificationService
+  ) {}
+
   ngOnInit(): void {
+    this.initForm();
+    const user = JSON.parse(sessionStorage.getItem('user') ?? '');
+    if (user != null)
+      this.userService
+        .getUserInterests(user.mail)
+        .pipe(takeUntil(this.componentDestroyed$))
+        .subscribe((res) => {
+          this.fillForm(res);
+          this.newUser = res.userInterests.length == 0;
+        });
     this.remainingInt = this.MAXINTERESTS - this.interestsList.length;
   }
 
-  onChange(event: any) {
+  initForm() {
+    this.form = this.fb.group({
+      interests: this.fb.array(
+        [this.createInterestGroup()],
+        Validators.required
+      ),
+    });
+  }
+
+  createInterestGroup(): FormGroup {
+    return this.fb.group({
+      mainCategory: [''],
+      subcategories: this.fb.array(
+        [this.createSubcategory()],
+        Validators.minLength(1)
+      ),
+    });
+  }
+
+  createSubcategory(): FormGroup {
+    return this.fb.group({
+      keyword: [''],
+      title: [''],
+      checked: [false],
+    });
+  }
+
+  fillForm(data: InterestsResponse) {
+    const interestsData = data as InterestsResponse;
+    this.fillInterests(interestsData.interests);
+    this.checkInterests(interestsData.userInterests);
+    this.form.patchValue(interestsData.interests);
+  }
+
+  fillInterests(data: Interest[]) {
+    const interestArray = this.form.get('interests') as FormArray;
+    interestArray.clear();
+    data.forEach((int: Interest, i: number) => {
+      interestArray.push(
+        this.fb.group({
+          mainCategory: int.mainCategory,
+          subcategories: this.fb.array(
+            [this.createSubcategory()],
+            Validators.minLength(1)
+          ),
+        })
+      );
+      this.fillSubcategories(int.subcategories, i);
+    });
+  }
+
+  fillSubcategories(subCategory: any[], i: number) {
+    const subcategoryArray = this.getSubcategories(i) as FormArray;
+    subcategoryArray.clear();
+    subCategory.forEach((sub) => {
+      subcategoryArray.push(
+        this.fb.group({
+          keyword: sub.keyword,
+          title: sub.title,
+          checked: false,
+        })
+      );
+    });
+  }
+
+  checkInterests(data: Interest[]) {
+    data.forEach((userInt) => {
+      this.interests.controls.forEach((formInt, i) => {
+        if (formInt.get('mainCategory')?.value == userInt.mainCategory) {
+          userInt.subcategories.forEach((userSub) => {
+            this.getSubcategories(i).controls.forEach((formSub) => {
+              if (formSub.get('keyword')?.value == userSub.keyword) {
+                formSub.get('checked')?.setValue(true);
+                this.interestsList.push(formSub.get('keyword')?.value);
+              }
+            });
+          });
+        }
+      });
+    });
+
+    this.checkLimit();
+  }
+
+  onChange() {
     const checkedItems = this.switches.filter((sw) => sw.nativeElement.checked);
     this.interestsList = checkedItems.map((x) => x.nativeElement.defaultValue);
 
+    this.checkLimit();
+  }
+
+  checkLimit() {
     const uncheckedItems = this.switches.filter(
       (sw) => !sw.nativeElement.checked
     );
@@ -198,17 +166,49 @@ export class InterestPageComponent implements OnInit, OnDestroy {
     this.remainingInt = this.MAXINTERESTS - this.interestsList.length;
   }
 
+  getSubcategoriesTitles(index: number) {
+    return (
+      this.interests
+        .at(index)
+        ?.get('subcategories')
+        ?.value.map((sub: any) => sub.title)
+        .filter((titles: any) => titles !== undefined) ?? ['']
+    );
+  }
+
   saveInterests() {
-    this.dataSvc
-      .saveInterests(this.interestsList)
+    const body = this.getBody();
+    sessionStorage.setItem('interests', JSON.stringify(this.interestsList));
+    debugger;
+    this.userService
+      .saveInterests(body)
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe({
         next: (res) => {
-          //save Interests in sessionStorage
-          this.router.navigate(['/home']);
+          if (this.newUser) this.router.navigate(['/home']);
+          else this.router.navigate(['/profile']);
         },
-        error: (err) => {},
+        error: (err) => {
+          this.notificationSvc.error(err.message, 'ERROR!');
+        },
       });
+  }
+
+  getBody() {
+    let body: any[] = [];
+    this.form.get('interests')?.value.map((int: any) => {
+      const aux = int.subcategories.filter((sub: any) => sub.checked == true);
+      if (aux.length > 0) {
+        aux.forEach((res: any) => {
+          body.push({
+            keyword: res.keyword,
+            main_category: int.mainCategory,
+            name: res.title,
+          });
+        });
+      }
+    });
+    return body.flat();
   }
 
   getDisabledSwitches(): boolean {

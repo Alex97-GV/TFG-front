@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, RouterLinkActive } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Data } from '../../models/data.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +9,6 @@ import { Data } from '../../models/data.model';
 })
 export class NavbarComponent implements OnInit {
   form!: FormGroup;
-  data$!: Observable<Data>;
   user: string = 'Unknown';
   searchTypes = ['all', 'authors', 'interests'];
 

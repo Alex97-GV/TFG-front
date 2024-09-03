@@ -13,7 +13,6 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToUserMapperService } from './mappers/to-user.mapper';
 import { UserService } from './services/user.service';
-import { ToDataMapperService } from './mappers/to-data.mapper';
 import { InterestPageComponent } from './pages/interest-page/interest-page.component';
 import { AuthorPageComponent } from './pages/author-page/author-page.component';
 import { ToAuthorDataMapperService } from './mappers/to-author-data.mapper';
@@ -36,6 +35,7 @@ import { SearchInterestsPageComponent } from './pages/search-module/search-inter
 import { ToMixSearchResponseMapperService } from './mappers/to-mix-search-response.mapper';
 import { ToAuthorSearchDataMapperService } from './mappers/to-author-search-data.mapper';
 import { FromProfileDataMapperService } from './mappers/from-profile-data.mapper';
+import { ToInterestsResponseMapperService } from './mappers/to-interests-response.mapper';
 
 @NgModule({
   declarations: [
@@ -74,13 +74,13 @@ import { FromProfileDataMapperService } from './mappers/from-profile-data.mapper
     ToastrService,
     NotificationService,
     ToUserMapperService,
-    ToDataMapperService,
     UserService,
     ToAuthorDataMapperService,
     ToProfileDataMapperService,
     ToMixSearchResponseMapperService,
     ToAuthorSearchDataMapperService,
     FromProfileDataMapperService,
+    ToInterestsResponseMapperService,
   ],
   bootstrap: [AppComponent],
 })

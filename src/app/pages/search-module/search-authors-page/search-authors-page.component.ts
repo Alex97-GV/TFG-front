@@ -36,7 +36,7 @@ export class SearchAuthorsPageComponent implements OnInit, OnDestroy {
       new Column({
         name: 'affiliation',
         title: 'Affiliation',
-        width: '20rem',
+        width: '18rem',
       }),
       new Column({
         name: 'interests',
@@ -46,7 +46,7 @@ export class SearchAuthorsPageComponent implements OnInit, OnDestroy {
       new Column({
         name: 'citedBy',
         title: 'Cited By',
-        width: '6rem',
+        width: '8rem',
         align: 'center',
       }),
     ],

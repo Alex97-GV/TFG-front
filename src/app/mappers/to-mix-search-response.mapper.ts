@@ -34,7 +34,6 @@ export class ToMixSearchResponseMapperService extends MapperService<
             citedBy: art.cited_by,
             link: art.link,
             title: art.title,
-            year: art?.year,
           })
       ),
     });
