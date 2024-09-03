@@ -40,6 +40,7 @@
       row-gap: 20%;
       align-items: center;
       justify-content: left;
+      min-width: 50%;
       .item {
         border-radius: 50rem;
         background-color: #ff9500;

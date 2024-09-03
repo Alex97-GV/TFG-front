@@ -1,13 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  Renderer2,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -15,7 +6,7 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
-import { filter, Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({

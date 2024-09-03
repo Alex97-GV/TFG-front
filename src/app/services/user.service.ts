@@ -9,7 +9,10 @@ import { ProfileData } from '../models/profile-data.model';
 import { ToProfileDataMapperService } from '../mappers/to-profile-data.mapper';
 import { ProfileDataDto } from '../models/profile-data-dto.interface';
 import { FromProfileDataMapperService } from '../mappers/from-profile-data.mapper';
-import { InterestsResponse } from '../models/interests-response.model';
+import {
+  Interest,
+  InterestsResponse,
+} from '../models/interests-response.model';
 import { ToInterestsResponseMapperService } from '../mappers/to-interests-response.mapper';
 import { InterestsResponseDto } from '../models/interests-response-dto.interface';
 
@@ -78,7 +81,7 @@ export class UserService {
       .pipe(map((res) => this.toProfileDataMapperService.transform(res)));
   }
 
-  getUserInterests(email: string): Observable<any> {
+  getUserInterests(email: string): Observable<InterestsResponse> {
     const params = { email: email };
 
     return this.baseApiService
@@ -86,16 +89,14 @@ export class UserService {
       .pipe(map((res) => this.toInterestsResponseMapperService.transform(res)));
   }
 
-  saveInterests(interestsList: string[]): Observable<any> {
-    const body = {
-      interests: interestsList,
-    };
-
-    return of({ save: true });
-
-    // return this.baseApiSvc
-    //   .post<any>(`${this.url}`, body)
-    //   .pipe(map((res) => this.toResponseInterestsMapperService.transform(res)));
+  saveInterests(body: any[]): Observable<any> {
+    const user = JSON.parse(sessionStorage.getItem('user') ?? '');
+    if (user != null) {
+      return this.baseApiService
+        .post<any>(`${this.urlBase}interests?email=${user.mail}`, body)
+        .pipe(map((res) => this.toProfileDataMapperService.transform(res)));
+    }
+    return of(new Error('Ha habido un problema al guardar los intereses'));
   }
 
   hashPass(pass: string): string {

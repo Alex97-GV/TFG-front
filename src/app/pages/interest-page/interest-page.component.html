@@ -1,22 +1,23 @@
-<div class="main-container py-5">
-  <div class="container">
+<div class="main-container py-5" [formGroup]="form">
+  <div class="container" formArrayName="interests">
     <div class="cards-container shadow">
       <!-- <pre>{{ interestsList | json }}</pre> -->
       <div class="content">
-        <h1 class="text-uppercase text-center p-3">{{ titulo }} <span class="text-danger px-1">{{ remainingInt }}</span>
+        <h1 class="text-uppercase text-center p-3">{{ titulo }} <span class="text-danger px-1">{{ remainingInt }}
+            remaining</span>
         </h1>
         <h5 class="text-muted text-uppercase text-center py-1">
-          Choose at least one
+          Choose at least 1, maximum 5.
         </h5>
         <div class="cards-table">
-          <ng-container *ngFor="let item of options; index as i">
+          <ng-container *ngFor="let item of interests.controls; let i = index">
             <div class="card shadow">
-              <div id="{{ i }}" class="carousel slide" data-bs-interval="false">
+              <div id="{{ i }}" class="carousel slide" data-bs-interval="false" [formGroupName]="i">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <div class="card-body">
                       <h5 class="card-title">
-                        {{ item.mainCategory }}
+                        {{ item.get('mainCategory')?.value }}
                       </h5>
                       <p class="card-text">
                         {{ getSubcategoriesTitles(i).join(", ") }}
@@ -27,16 +28,16 @@
                       </button>
                     </div>
                   </div>
-                  <div class="carousel-item">
+                  <div class="carousel-item" formArrayName="subcategories">
                     <div class="card-body">
                       <h5 class="card-title">
-                        {{ item.mainCategory }}
+                        {{ item.get('mainCategory')?.value }}
                       </h5>
-                      <ng-container *ngFor="let sub of item.subcategories">
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" #switch value="{{sub.keyword}}"
-                            (change)="onChange($event)" />
-                          <label class="form-check-label">{{ sub.title }}</label>
+                      <ng-container *ngFor="let sub of getSubcategories(i).controls; let j = index">
+                        <div class="form-check form-switch" [formGroupName]="j">
+                          <input class="form-check-input" type="checkbox" #switch formControlName="checked"
+                            value="{{sub.get('keyword')?.value}}" (change)="onChange()" />
+                          <label class="form-check-label">{{ sub.get('title')?.value }}</label>
                         </div>
                       </ng-container>
                     </div>

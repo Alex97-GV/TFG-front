@@ -21,6 +21,11 @@
   justify-content: center;
 }
 
+.card {
+  height: 12rem;
+  width: 23.2rem;
+}
+
 .card-footer {
   padding: 1rem 0 1rem 0;
   width: 100%;

@@ -50,7 +50,7 @@
                 <span>{{ rowData.authors }}</span>
               </td>
               <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'citedBy'">
-                <span>{{ rowData.citedBy }}</span>
+                <span>{{ rowData.citedBy + ' citations'}} </span>
               </td>
               <td [attr.style]="'text-align:' + col.align" *ngIf="configuration.columns[i].name == 'year'">
                 <span>{{ rowData.year }}</span>
@@ -106,7 +106,7 @@
               </td>
               <td [attr.style]="'text-align:' + col.align + ';width:' + col?.width"
                 *ngIf="configuration.nestedTables[0].columns[i].name == 'citedBy'">
-                <span>{{ nRowData.citedBy }}</span>
+                <span>{{ nRowData.citedBy + ' citations'}}</span>
               </td>
               <td [attr.style]="'text-align:' + col.align + ';width:' + col?.width"
                 *ngIf="configuration.nestedTables[0].columns[i].name == 'year'">
