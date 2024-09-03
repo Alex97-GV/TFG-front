@@ -92,10 +92,10 @@ export class HomeComponent implements OnInit, OnDestroy {
           .pipe(takeUntil(this.componentDestroyed$))
           .subscribe((res) => {
             debugger;
-            let interests: string[] = [];
+            let interests: any[] = [];
             res.userInterests.forEach((int) => {
               int.subcategories.forEach((sub) => {
-                interests.push(sub.keyword);
+                interests.push(sub);
               });
             });
             sessionStorage.setItem('interests', JSON.stringify(interests));
@@ -105,15 +105,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  getResults(interests: string[]) {
+  getResults(interests: any[]) {
     if (interests.length > 1) {
       const shuffled = interests.sort(() => 0.5 - Math.random());
       const selected = shuffled.slice(0, 2);
-      this.key = selected[0];
-      this.label = selected[1];
+      this.key = selected[0].title;
+      this.label = selected[1].keyword;
     } else {
-      this.key = interests[0];
-      this.label = interests[0];
+      this.key = interests[0].title;
+      this.label = interests[0].keyword;
     }
 
     this.data$ = this.dataSvc.searchAll(this.key, this.label).pipe(

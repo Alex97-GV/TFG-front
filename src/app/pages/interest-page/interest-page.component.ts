@@ -178,7 +178,12 @@ export class InterestPageComponent implements OnInit, OnDestroy {
 
   saveInterests() {
     const body = this.getBody();
-    sessionStorage.setItem('interests', JSON.stringify(this.interestsList));
+    const interests = body.map((int) => ({
+      keyword: int.keyword,
+      title: int.title,
+    }));
+    debugger;
+    sessionStorage.setItem('interests', JSON.stringify(interests));
     this.userService
       .saveInterests(body)
       .pipe(takeUntil(this.componentDestroyed$))
