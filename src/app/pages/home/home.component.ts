@@ -9,6 +9,7 @@ import {
   TableConfiguration,
 } from 'src/app/models/table-configuration.model';
 import { DataService } from 'src/app/services/data-service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -72,31 +73,56 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private dataSvc: DataService
+    private dataSvc: DataService,
+    private userSvc: UserService
   ) {}
 
   ngOnInit(): void {
-    const interests = JSON.parse(sessionStorage.getItem('interests') ?? '');
-
-    if (interests != null) {
-      if (interests.length > 1) {
-        const shuffled = interests.sort(() => 0.5 - Math.random());
-        const selected = shuffled.slice(0, 2);
-        this.key = selected[0];
-        this.label = selected[1];
-      } else {
-        this.key = interests[0];
-        this.label = interests[0];
+    const int = sessionStorage.getItem('interests');
+    debugger;
+    if (int != null) {
+      const interests = JSON.parse(int);
+      this.getResults(interests);
+    } else {
+      const auxUser = sessionStorage.getItem('user');
+      if (auxUser != null) {
+        const user = JSON.parse(auxUser);
+        this.userSvc
+          .getUserInterests(user.mail)
+          .pipe(takeUntil(this.componentDestroyed$))
+          .subscribe((res) => {
+            debugger;
+            let interests: string[] = [];
+            res.userInterests.forEach((int) => {
+              int.subcategories.forEach((sub) => {
+                interests.push(sub.keyword);
+              });
+            });
+            sessionStorage.setItem('interests', JSON.stringify(interests));
+            this.getResults(interests);
+          });
       }
-
-      this.data$ = this.dataSvc.searchAll(this.key, this.label).pipe(
-        takeUntil(this.componentDestroyed$),
-        tap((res) => {
-          this.dataTableConfiguration.data = res.authors;
-          this.dataTableConfiguration.nestedTables[0].data = res.articles;
-        })
-      );
     }
+  }
+
+  getResults(interests: string[]) {
+    if (interests.length > 1) {
+      const shuffled = interests.sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, 2);
+      this.key = selected[0];
+      this.label = selected[1];
+    } else {
+      this.key = interests[0];
+      this.label = interests[0];
+    }
+
+    this.data$ = this.dataSvc.searchAll(this.key, this.label).pipe(
+      takeUntil(this.componentDestroyed$),
+      tap((res) => {
+        this.dataTableConfiguration.data = res.authors;
+        this.dataTableConfiguration.nestedTables[0].data = res.articles;
+      })
+    );
   }
   ngOnDestroy(): void {
     this.componentDestroyed$.next();
