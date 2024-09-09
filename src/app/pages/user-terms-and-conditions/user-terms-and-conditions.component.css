@@ -1,0 +1,8 @@
+.main-container {
+  padding: 3rem 0;
+  background-color: hsl(0, 0%, 87%);
+  .privacy-card {
+    background-color: white;
+    padding: 2rem;
+  }
+}

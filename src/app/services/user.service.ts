@@ -46,6 +46,14 @@ export class UserService {
       );
   }
 
+  comparePassword(passFromLogin: string, hashPass: string): boolean {
+    return bcrypt.compareSync(passFromLogin, hashPass);
+  }
+
+  hashPass(pass: string): string {
+    return bcrypt.hashSync(pass, bcrypt.genSaltSync());
+  }
+
   signUp(data: any): Observable<User> {
     const params = {
       name: data.user,
@@ -96,14 +104,23 @@ export class UserService {
         .post<any>(`${this.urlBase}interests?email=${user.mail}`, body)
         .pipe(map((res) => this.toProfileDataMapperService.transform(res)));
     }
-    return of(new Error('Ha habido un problema al guardar los intereses'));
+    return of(new Error('There was a problem while saving your interests'));
   }
 
-  hashPass(pass: string): string {
-    return bcrypt.hashSync(pass, bcrypt.genSaltSync());
+  getPrivacyPolicy(): Observable<string> {
+    return this.baseApiService.get<string>(`${this.urlBase}privacy_terms`).pipe(
+      map((res: any) => {
+        debugger;
+        return res.value;
+      })
+    );
   }
 
-  comparePassword(passFromLogin: string, hashPass: string): boolean {
-    return bcrypt.compareSync(passFromLogin, hashPass);
+  getTermsAndConditions(): Observable<string> {
+    return this.baseApiService.get<string>(`${this.urlBase}user_terms`).pipe(
+      map((res: any) => {
+        return res.value;
+      })
+    );
   }
 }

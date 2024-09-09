@@ -42,10 +42,14 @@ export class LogInComponent implements OnInit, OnDestroy {
           next: (res) => {
             sessionStorage.setItem('user', JSON.stringify(res));
             this.router.navigate(['/home']);
+            this.notificationSvc.success(
+              'Successfully logged in',
+              'CONGRATULATIONS'
+            );
           },
           error: (error) => {
             this.notificationSvc.error(
-              'Los datos introducidos no son correctos',
+              'The data entered is not correct',
               'ERROR'
             );
           },

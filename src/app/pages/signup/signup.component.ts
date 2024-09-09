@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { UserService } from '../../services/user.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-signup',
@@ -23,7 +24,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   constructor(
     private readonly fb: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private notificationSvc: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -61,9 +63,16 @@ export class SignupComponent implements OnInit, OnDestroy {
           next: (res) => {
             sessionStorage.setItem('user', JSON.stringify(res));
             this.router.navigate(['/interests']);
+            this.notificationSvc.success(
+              'You have been successfully registered',
+              'SUCCESS'
+            );
           },
           error: (error) => {
-            //notificar al usuario con el mensaje recibido por el back
+            this.notificationSvc.error(
+              'There has been a problem with the server',
+              'ERROR'
+            );
           },
         });
     }

@@ -9,34 +9,32 @@
                         <form (ngSubmit)="onSubmit()" [formGroup]="form">
                             <div class="mb-3">
                                 <h5>
-                                    <label for="email" class="form-label text-primary">Correo</label>
+                                    <label for="email" class="form-label text-primary">Email</label>
                                 </h5>
                                 <input type="email" class="form-control" id="email" aria-describedby="ayudaEmail"
-                                    placeholder="ejemplo@email.com" formControlName="email">
-                                <div class="form-text">Tus datos no serán compartidos.</div>
+                                    placeholder="example@email.com" formControlName="email">
+                                <div class="form-text">Your data will not be shared.</div>
                                 <div id="ayudaCorreo" class="form-text text-danger my-2"
                                     *ngIf="form.controls?.['email']?.errors?.['email'] && form.controls?.['email']?.touched">
-                                    Formato de
-                                    correo no válido
+                                    Invalid email format
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <h5>
-                                    <label for="password" class="form-label text-primary">Contraseña</label>
+                                    <label for="password" class="form-label text-primary">Password</label>
                                 </h5>
-                                <input type="password" class="form-control" id="password"
-                                    placeholder="Introducir contraseña..." aria-describedby="ayudaPass"
-                                    formControlName="password">
-                                <div id="ayudaPass" class="form-text">La contraseña debe tener al menos 8 caracteres
+                                <input type="password" class="form-control" id="password" placeholder="Type password..."
+                                    aria-describedby="ayudaPass" formControlName="password">
+                                <div id="ayudaPass" class="form-text">Password must be at least 8 characters
                                 </div>
                             </div>
                             <div class="row mt-5">
                                 <div class="col-4">
                                     <button type="submit" class="btn btn-primary"
-                                        [disabled]="form.invalid">Siguiente</button>
+                                        [disabled]="form.invalid">Next</button>
                                 </div>
                                 <div class="col d-flex flex-row-reverse text-center">
-                                    <p>¿No tienes cuenta? Registrate <a id="signupLink" routerLink="/signup">aquí</a>
+                                    <p>Don't have an account? Sign up <a id="signupLink" routerLink="/signup">here</a>
                                     </p>
                                 </div>
                             </div>

@@ -13,6 +13,8 @@ import { SearchPageComponent } from './pages/search-module/search-page/search-pa
 import { SearchInterestsPageComponent } from './pages/search-module/search-interests-page/search-interests-page.component';
 import { SearchAuthorsPageComponent } from './pages/search-module/search-authors-page/search-authors-page.component';
 import { SearchAllPageComponent } from './pages/search-module/search-all-page/search-all-page.component';
+import { UserPrivacyPolicyComponent } from './pages/user-privacy-policy/user-privacy-policy.component';
+import { UserTermsAndConditionsComponent } from './pages/user-terms-and-conditions/user-terms-and-conditions.component';
 
 const routes: Routes = [
   { path: 'login', component: LogInComponent },
@@ -30,6 +32,14 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent,
+  },
+  {
+    path: 'userPrivacyPolicy',
+    component: UserPrivacyPolicyComponent,
+  },
+  {
+    path: 'userTermsAndConditions',
+    component: UserTermsAndConditionsComponent,
   },
   {
     path: 'interests',

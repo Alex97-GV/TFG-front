@@ -36,6 +36,8 @@ import { ToMixSearchResponseMapperService } from './mappers/to-mix-search-respon
 import { ToAuthorSearchDataMapperService } from './mappers/to-author-search-data.mapper';
 import { FromProfileDataMapperService } from './mappers/from-profile-data.mapper';
 import { ToInterestsResponseMapperService } from './mappers/to-interests-response.mapper';
+import { UserPrivacyPolicyComponent } from './pages/user-privacy-policy/user-privacy-policy.component';
+import { UserTermsAndConditionsComponent } from './pages/user-terms-and-conditions/user-terms-and-conditions.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { ToInterestsResponseMapperService } from './mappers/to-interests-respons
     SearchAllPageComponent,
     SearchAuthorsPageComponent,
     SearchInterestsPageComponent,
+    UserPrivacyPolicyComponent,
+    UserTermsAndConditionsComponent,
   ],
   imports: [
     BrowserModule,

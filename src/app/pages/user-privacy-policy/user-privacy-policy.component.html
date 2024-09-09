@@ -1,0 +1,10 @@
+<ng-container *ngIf="privacyPolicyHTML | async as res">
+    <div class="main-container">
+        <div class="container">
+            <div class="privacy-card rounded shadow">
+                <p [innerHTML]="res"></p>
+                <button class="btn btn-primary my-2" routerLink="/signup">Go back</button>
+            </div>
+        </div>
+    </div>
+</ng-container>

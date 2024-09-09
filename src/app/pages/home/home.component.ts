@@ -79,7 +79,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const int = sessionStorage.getItem('interests');
-    debugger;
     if (int != null) {
       const interests = JSON.parse(int);
       this.getResults(interests);
